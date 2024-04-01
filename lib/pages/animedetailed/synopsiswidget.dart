@@ -320,7 +320,7 @@ bool _checkShouldShow(ScheduleData scheduleData, [int? totalEpisodes]) {
     }
   }
   if (episode != null && totalEpisodes != null) {
-    if (episode > totalEpisodes) {
+    if (episode > totalEpisodes && totalEpisodes != 0) {
       return false;
     }
   }
