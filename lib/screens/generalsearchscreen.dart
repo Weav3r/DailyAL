@@ -28,6 +28,7 @@ import 'package:dailyanimelist/widgets/user/contentlistwidget.dart';
 import 'package:dal_commons/commons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:line_icons/line_icons.dart';
 
 List<BaseNode> searchBaseNodes(List<BaseNode> base, String text) {
   final filtered = base.where((f) {
@@ -547,16 +548,11 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
           title: buildListHeader(),
           actions: [
             IconButton(
-              onPressed: () {
-                gotoPage(
-                  context: context,
-                  newPage: GeneralSearchScreen(
-                    filterOutputs: filterOutputs,
-                    category: category,
-                    autoFocus: false,
-                  ),
-                );
-              },
+              onPressed: () {},
+              icon: Icon(LineIcons.filter),
+            ),
+            IconButton(
+              onPressed: () => _gotToFullSearch(context),
               icon: Icon(Icons.search),
             ),
           ],
@@ -579,6 +575,17 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
         ),
       ),
       onWillPop: _onWillScope,
+    );
+  }
+
+  void _gotToFullSearch(BuildContext context) {
+    gotoPage(
+      context: context,
+      newPage: GeneralSearchScreen(
+        filterOutputs: filterOutputs,
+        category: category,
+        autoFocus: false,
+      ),
     );
   }
 
