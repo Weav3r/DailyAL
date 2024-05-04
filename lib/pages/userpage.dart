@@ -16,6 +16,7 @@ import 'package:dailyanimelist/widgets/avatarwidget.dart';
 import 'package:dailyanimelist/widgets/custombutton.dart';
 import 'package:dailyanimelist/widgets/home/bookmarks_widget.dart';
 import 'package:dailyanimelist/widgets/homeappbar.dart';
+import 'package:dailyanimelist/widgets/listsortfilter.dart';
 import 'package:dailyanimelist/widgets/loading/expandedwidget.dart';
 import 'package:dailyanimelist/widgets/slivers.dart';
 import 'package:dailyanimelist/widgets/togglebutton.dart';
@@ -182,6 +183,8 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
   String? refKey;
   late StreamListener<Map<String, int?>> animeCountListener;
   late StreamListener<Map<String, int?>> mangaCountListener;
+
+  var pageSize = 300;
 
   void setRefKey() {
     refKey = MalAuth.codeChallenge(10);
@@ -437,32 +440,93 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
   TabBarView _tabBarView() {
     return TabBarView(
       controller: controller,
-      children: allListHeaders.map(
-        (e) => UserContentBuilder(
-            key: PageStorageKey('$category-$e-${username}'),
-            category: category,
-            status: e,
-            username: username,
-            refreshKey: refreshKeyMap[e],
-            listPadding:
-                widget.isSelf ? null : const EdgeInsets.only(top: 60.0),
-            controller: widget.controller,
-            onContentUpdate: () => resetData(profileCache: true),
-            onStatisticsUpdate: () => getUserProfile(fromCache: false),
-            countChange: (count) async {
-              try {
-                final userContentCountMap = _listener.currentValue;
-                if (userContentCountMap != null &&
-                    userContentCountMap.containsKey(e)) {
-                  userContentCountMap[e] = count;
-                  _listener.update(userContentCountMap);
-                }
-              } catch (e) {
-                logDal(e);
-              }
-            },
-          ),
-      ).toList(),
+      children: allListHeaders
+          .map(
+            (e) => UserContentBuilder(
+              key: PageStorageKey('$category-$e-${username}'),
+              category: category,
+              username: username,
+              refreshKey: refreshKeyMap[e],
+              listPadding:
+                  widget.isSelf ? null : const EdgeInsets.only(top: 60.0),
+              controller: widget.controller,
+              customFuture: (input) => _getContentListFuture(input, e),
+              countChange: (count) async => _updateChange(e, count),
+            ),
+          )
+          .toList(),
+    );
+  }
+
+  void _updateChange(String e, int count) {
+    try {
+      final userContentCountMap = _listener.currentValue;
+      if (userContentCountMap != null && userContentCountMap.containsKey(e)) {
+        userContentCountMap[e] = count;
+        _listener.update(userContentCountMap);
+      }
+    } catch (e) {
+      logDal(e);
+    }
+  }
+
+  Future<List<BaseNode>> _getContentListFuture(
+    CustomSearchInput input,
+    String e,
+  ) async {
+    final status = "all".equals(e) ? null : e;
+    final sortFilterDisplay = input.sortFilterDisplay;
+    Future<SearchResult> future;
+    bool _canBeFetchedFromAPI =
+        canBeFetchedFromAPI(category, sortFilterDisplay);
+    if (_canBeFetchedFromAPI) {
+      future = MalUser.getMyContentList(
+        limit: pageSize,
+        fromCache: input.fromCache,
+        category: category,
+        sortType: input.sortFilterDisplay.sort.value,
+        offset: input.offset,
+        username: widget.username,
+        status: status,
+        fields: [],
+      );
+    } else {
+      final orderMap = category.equals('anime')
+          ? animeListDefaultOrderMap
+          : mangaListDefaultOrderMap;
+      var orderMapContains = orderMap.containsKey(sortFilterDisplay.sort.value);
+      List<String> fieldList = getFieldsFromSortFilter(
+          orderMapContains, sortFilterDisplay, category);
+      bool fromCache = shouldGetFromCacheBasedOnPrevInput(input);
+      future = MalUser.getAllUserList(
+        widget.username,
+        category,
+        status: status,
+        sortType: orderMapContains ? sortFilterDisplay.sort.value : null,
+        fromCache: fromCache,
+        fields: fieldList.isEmpty ? null : fieldList.join(','),
+      );
+    }
+    final contentResult = await future;
+    var list = contentResult.data ?? [];
+    bool isSorted = false;
+    final _isAnime = category.equals('anime');
+    final orderMap =
+        _isAnime ? animeListDefaultOrderMap : mangaListDefaultOrderMap;
+    var sortValue = sortFilterDisplay.sort.value;
+    if (orderMap.containsKey(sortValue)) {
+      isSorted = true;
+      var defaultOrder = orderMap[sortValue] == sortFilterDisplay.sort.order;
+      if (!defaultOrder) {
+        list = list.reversed.toList();
+      }
+    } else {}
+    return await getSortedFilteredData(
+      list,
+      _canBeFetchedFromAPI,
+      sortFilterDisplay,
+      category,
+      isSorted: isSorted,
     );
   }
 

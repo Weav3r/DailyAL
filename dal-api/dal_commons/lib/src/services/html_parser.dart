@@ -1178,7 +1178,7 @@ class HtmlParsers {
         int endIndex;
         endIndex = text.indexOf(endPattern ?? '');
         if (endIndex != -1) {
-          startIndex = startPattern != null ? (startIndex + 1) : startIndex;
+          startIndex = startPattern != null ? (startIndex + startPattern.length) : startIndex;
           return text.substring(startIndex, endIndex).trim();
         }
       }
@@ -1259,13 +1259,15 @@ class HtmlParsers {
     final cards = doc.querySelectorAll('.anime-card') ?? [];
     return cards
         .map((e) {
-          final countDownEle = e.querySelector('.episode-countdown');
+          final countDownEle = e.querySelector('.episode-countdown time');
           if (countDownEle != null) {
             final timestamp =
                 int.tryParse(countDownEle.attributes['data-timestamp'] ?? '');
-            final episode = int.tryParse(
-                countDownEle.attributes['data-label']?.replaceAll('EP', '') ??
-                    '');
+            final episode = _getBeforeInt(
+              e.querySelector('.release-schedule-info')?.text.trim() ?? '',
+              startPattern: 'EP',
+              endPattern: '·'
+            );
             if (timestamp != null && episode != null) {
               final relatedLinksMap = {};
               e.querySelectorAll('.related-links a').forEach((rl) {

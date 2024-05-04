@@ -2,6 +2,7 @@ import 'dart:collection';
 
 import 'package:connectivity/connectivity.dart';
 import 'package:dailyanimelist/api/credmal.dart';
+import 'package:dailyanimelist/api/dalapi.dart';
 import 'package:dailyanimelist/api/malconnect.dart';
 import 'package:dailyanimelist/api/maluser.dart';
 import 'package:dailyanimelist/constant.dart';
@@ -393,29 +394,20 @@ class MalApi {
     };
   }
 
-  static Future<bool> isUnderMaintenance() async {
+  static Future<bool> isUnderMaintenance({
+    PlatformType type = PlatformType.myanimelist,
+  }) async {
     if (!await _checkIfDeviceIsConnected()) {
       return false;
     }
-    if (user.status == AuthStatus.AUTHENTICATED) {
-      try {
-        await MalUser.getUserInfo();
-        return false;
-      } catch (e) {
-        return true;
-      }
-    } else {
-      try {
-        final animeDetails =
-            await MalApi.getAnimeDetails(21, fields: ['title']);
-        if (animeDetails.title == null) {
-          return true;
-        }
-        return false;
-      } catch (e) {
-        return true;
-      }
+    final config = await DalApi.i.dalConfigFuture;
+    var maintenances = config?.platformMaintenances ?? [];
+    if (maintenances.isNotEmpty) {
+      final platform = maintenances.firstWhere((e) => e.platform == type,
+          orElse: () => PlatformMaintenances());
+      return platform.maintenance ?? false;
     }
+    return false;
   }
 
   static Future<bool> _checkIfDeviceIsConnected() async {
