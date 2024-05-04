@@ -11,6 +11,8 @@ import 'package:dailyanimelist/screens/generalsearchscreen.dart';
 import 'package:dailyanimelist/widgets/custombutton.dart';
 import 'package:dailyanimelist/widgets/search/filtermodal.dart';
 import 'package:dailyanimelist/widgets/selectbottom.dart';
+import 'package:dailyanimelist/widgets/user/contentbuilder.dart';
+import 'package:dailyanimelist/widgets/user/contentlistwidget.dart';
 import 'package:dal_commons/dal_commons.dart';
 import 'package:dal_commons/src/model/anime/schedule_data.dart';
 import 'package:flutter/material.dart';
@@ -35,28 +37,67 @@ List<FilterOption> getFilterOptions(String category) {
       .toList();
 }
 
+Iterable<String> getAPIFieldsFromFilters(String category) {
+  return getFilterOptions(category)
+      .map((e) => e.modalField)
+      .where((e) => e != null)
+      .map((e) => e!);
+}
+
+SortOption numListUsersOption() {
+  return SortOption(
+    name: S.current.numListUsers,
+    value: 'num_list_users',
+  );
+}
+
+SortOption scoreOption() {
+  return SortOption(
+    name: S.current.Score,
+    value: 'mean',
+  );
+}
+
+List<String> getFieldsFromSortFilter(
+  bool addSortValue,
+  SortFilterDisplay sortFilterDisplay,
+  String category,
+) {
+  return [
+    if (addSortValue) sortFilterDisplay.sort.value,
+    if (sortFilterDisplay.filterOutputs.isNotEmpty)
+      ...getAPIFieldsFromFilters(category),
+  ];
+}
+
+bool shouldGetFromCacheBasedOnPrevInput(CustomSearchInput input) {
+  bool? fromCache;
+  var sortFilterDisplay = input.sortFilterDisplay;
+  var _prevSortFilterDisplay = input.prevSortFilterDisplay;
+  if (_prevSortFilterDisplay != null) {
+    fromCache = _prevSortFilterDisplay.sort.value
+            .equals(sortFilterDisplay.sort.value) &&
+        (_prevSortFilterDisplay.filterOutputs.isNotEmpty &&
+            sortFilterDisplay.filterOutputs.isNotEmpty);
+  }
+  fromCache ??= false;
+  return fromCache;
+}
+
 Future<List<BaseNode>> getSortedFilteredData(
   List<BaseNode>? nodes,
   bool _canBeFetchedFromAPI,
   SortFilterDisplay _sortFilterDisplay,
-  String category,
-) async {
+  String category, {
+  bool isSorted = false,
+}) async {
   var list = nodes ?? [];
   if (!_canBeFetchedFromAPI) {
     if (_sortFilterDisplay.filterOutputs.isNotEmpty) {
       list =
           _filterCustomList(list, _sortFilterDisplay.filterOutputs, category);
     }
-    final _isAnime = category.equals('anime');
-    final orderMap =
-        _isAnime ? animeListDefaultOrderMap : mangaListDefaultOrderMap;
-    var sortValue = _sortFilterDisplay.sort.value;
-    if (orderMap.containsKey(sortValue)) {
-      var defaultOrder = orderMap[sortValue] == _sortFilterDisplay.sort.order;
-      if (!defaultOrder) {
-        list = list.reversed.toList();
-      }
-    } else {
+    if (!isSorted) {
       final scheduleForMalIds = await DalApi.i.scheduleForMalIds;
       list = _sortListCustom(list, _sortFilterDisplay, scheduleForMalIds);
     }
@@ -198,6 +239,25 @@ List<BaseNode> _sortListCustom(
       var n2Value = n2.toJson()[sortOption.value];
       int compare;
       switch (sortOption.value) {
+        case 'anime_title':
+          n1Value = getNodeTitle(n1);
+          n2Value = getNodeTitle(n2);
+          break;
+        case 'list_score':
+          try {
+            n1Value = (n1.myListStatus as dynamic)?.score;
+            n2Value = (n2.myListStatus as dynamic)?.score;
+          } catch (e) {}
+        case 'anime_start_date':
+          try {
+            n1Value = (n1.myListStatus as dynamic)?.startDate;
+            n2Value = (n2.myListStatus as dynamic)?.startDate;
+          } catch (e) {}
+        case 'list_updated_at':
+          try {
+            n1Value = (n1.myListStatus as dynamic)?.updatedAt;
+            n2Value = (n2.myListStatus as dynamic)?.updatedAt;
+          } catch (e) {}
         case 'num_episodes':
           if (n1Value == null || n1Value == 0) {
             n1Value = _getEpisodes(scheduleForMalIds[n1.id]) ?? n1Value;
@@ -346,14 +406,12 @@ class SortFilterOptions {
           name: S.current.Popularity,
           value: 'popularity',
         ),
-        SortOption(
-          name: S.current.numListUsers,
-          value: 'num_list_users',
-        ),
+        numListUsersOption(),
         SortOption(
           name: S.current.numScoringUsers,
           value: 'num_scoring_users',
         ),
+        scoreOption(),
         SortOption(
           name: S.current.numEpisodes,
           value: 'num_episodes',
@@ -381,6 +439,7 @@ class SortFilterOptions {
           name: S.current.numScoringUsers,
           value: 'num_scoring_users',
         ),
+        scoreOption(),
         SortOption(
           name: S.current.numVolumes,
           value: 'num_volumes',

@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -196,15 +197,22 @@ class AnimeGridCard extends StatelessWidget {
         children: [
           Expanded(
             child: ConstrainedBox(
-              constraints: BoxConstraints(maxHeight: 40.0),
+              constraints: BoxConstraints(maxHeight: 45.0),
               child: Padding(
                 padding: const EdgeInsets.fromLTRB(5, 0, 5, 8),
                 child: Text(
                   nodeTitle,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 11,
+                        fontSize: 13,
                         color: Colors.white,
                         overflow: TextOverflow.fade,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black,
+                            offset: Offset(.5, .5),
+                            blurRadius: 2,
+                          )
+                        ]
                       ),
                 ),
               ),
