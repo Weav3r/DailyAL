@@ -35,6 +35,7 @@ class FilterOption {
   final TextInputType? keyboardType;
   final List<TextInputFormatter>? inputFormatters;
   final Map<String, Map<String, String>?>? singleList;
+  bool hideOption = false;
   String? value;
   String? modalField;
   FilterOption({
@@ -54,6 +55,7 @@ class FilterOption {
     this.singleList,
     this.dependent,
     this.modalField,
+    this.hideOption = false,
   });
 
   FilterOption clone() {
@@ -74,10 +76,12 @@ class FilterOption {
       singleList: cloneMap(singleList),
       dependent: dependent,
       modalField: modalField,
+      hideOption: hideOption,
     );
   }
 
-  static Map<String, Map<String, String>?>? cloneMap(Map<String, Map<String, String>?>? input) {
+  static Map<String, Map<String, String>?>? cloneMap(
+      Map<String, Map<String, String>?>? input) {
     if (input == null) return null;
     Map<String, Map<String, String>?> output = {};
     input.forEach((key, value) {
@@ -85,7 +89,6 @@ class FilterOption {
     });
     return output;
   }
-
 }
 
 class FilterModal extends StatelessWidget {
@@ -98,6 +101,7 @@ class FilterModal extends StatelessWidget {
   final String? additional;
   final void Function(Map<String, FilterOption>)? onChange;
   final bool showBottombar;
+  final bool showClearAll;
   const FilterModal({
     Key? key,
     required this.filterOptions,
@@ -109,6 +113,7 @@ class FilterModal extends StatelessWidget {
     this.showText = false,
     this.showBottombar = true,
     this.additional,
+    this.showClearAll = true,
   }) : super(key: key);
 
   @override
@@ -167,10 +172,11 @@ class FilterModal extends StatelessWidget {
                           ),
                         ),
                       const SizedBox(width: 5),
-                      ShadowButton(
-                        child: iconAndText(Icons.clear_all, S.current.Clear),
-                        onPressed: () => _clearAll(),
-                      )
+                      if (showClearAll)
+                        ShadowButton(
+                          child: iconAndText(Icons.clear_all, S.current.Clear),
+                          onPressed: () => _clearAll(),
+                        )
                     ],
                   ),
                 )),
@@ -182,6 +188,7 @@ class FilterModal extends StatelessWidget {
   }
 
   Widget filterTile(FilterOption option, context) {
+    if (option.hideOption) return SB.z;
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 5),
       child: Column(

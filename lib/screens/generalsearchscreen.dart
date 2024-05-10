@@ -544,20 +544,13 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
   Widget build(BuildContext context) {
     if (widget.exclusiveScreen) {
       return Scaffold(
-        appBar: AppBar(
-          title: buildListHeader(),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(LineIcons.filter),
-            ),
-            IconButton(
-              onPressed: () => _gotToFullSearch(context),
-              icon: Icon(Icons.search),
-            ),
+        appBar: _exclusiveAppBar(),
+        body: Stack(
+          children: [
+            _onSearchBuild(context, AsyncSnapshot.nothing()),
+            filterSection(),
           ],
         ),
-        body: _onSearchBuild(context, AsyncSnapshot.nothing()),
       );
     }
     return WillPopScope(
@@ -578,7 +571,23 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
     );
   }
 
-  void _gotToFullSearch(BuildContext context) {
+  AppBar _exclusiveAppBar() {
+    return AppBar(
+      title: buildListHeader(),
+      actions: [
+        IconButton(
+          onPressed: _flipFliter,
+          icon: Icon(LineIcons.filter),
+        ),
+        IconButton(
+          onPressed: () => _gotToFullSearch(),
+          icon: Icon(Icons.search),
+        ),
+      ],
+    );
+  }
+
+  void _gotToFullSearch() {
     gotoPage(
       context: context,
       newPage: GeneralSearchScreen(
@@ -1368,11 +1377,12 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
       child: Container(
         width: double.infinity,
         child: FilterModal(
-          filterOptions: getFilterOptions(),
+          filterOptions: _removeExclusiveFilters(getFilterOptions()),
           filterOutputs: filterOutputs,
           hasApply: !['forum'].contains(category),
           showText: category.equals("featured"),
           additional: S.current.Tags_unApplied,
+          showClearAll: !widget.exclusiveScreen,
           onApply: () {
             showFilter = false;
             resetFilter();
@@ -1472,6 +1482,21 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
       setState(() {
         showFilter = !showFilter;
       });
+  }
+
+  List<FilterOption> _removeExclusiveFilters(List<FilterOption> filters) {
+    if (!widget.exclusiveScreen) return filters;
+    return filters.map((element) {
+      var filterOutputs = (widget.filterOutputs ?? {});
+      if (filterOutputs.length == 1) {
+        if (element.apiFieldName == filterOutputs.values.first.apiFieldName) {
+          final clone = element.clone();
+          clone.hideOption = true;
+          return clone;
+        }
+      }
+      return element;
+    }).toList();
   }
 
   List<FilterOption> getFilterOptions() {
