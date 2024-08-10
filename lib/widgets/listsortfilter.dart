@@ -297,7 +297,6 @@ int? _getEpisodes(ScheduleData? node) {
 void showSortFilterDisplayModal({
   required BuildContext context,
   required SortFilterDisplay sortFilterDisplay,
-  required String category,
   required ValueChanged<SortFilterDisplay> onSortFilterChange,
   SortFilterOptions? sortFilterOptions,
 }) {
@@ -305,10 +304,10 @@ void showSortFilterDisplayModal({
     context: context,
     builder: (BuildContext context) {
       return SortFilterPopup(
-        category: category,
         sortFilterDisplay: sortFilterDisplay,
         onSortFilterChange: onSortFilterChange,
         sortFilterOptions: sortFilterOptions,
+        onClose: () => Navigator.pop(context),
       );
     },
   );
@@ -332,12 +331,28 @@ class SortFilterOptions {
   final List<SortOption> sortOptions;
   final List<FilterOption> filterOptions;
   final List<SelectDisplayOption> displayOptions;
+  final List<String> categories;
 
   SortFilterOptions({
     required this.sortOptions,
     required this.filterOptions,
     required this.displayOptions,
+    required this.categories,
   });
+
+  SortFilterOptions copyWith({
+    List<SortOption>? sortOptions,
+    List<FilterOption>? filterOptions,
+    List<SelectDisplayOption>? displayOptions,
+    List<String>? categories,
+  }) {
+    return SortFilterOptions(
+      sortOptions: sortOptions ?? this.sortOptions,
+      filterOptions: filterOptions ?? this.filterOptions,
+      displayOptions: displayOptions ?? this.displayOptions,
+      categories: categories ?? this.categories,
+    );
+  }
 
   static List<SelectDisplayOption> getDisplayOptions() {
     return [
@@ -464,16 +479,22 @@ class SortFilterOptions {
 class SortFilterPopup extends StatefulWidget {
   const SortFilterPopup({
     super.key,
-    required this.category,
     required this.sortFilterDisplay,
     required this.onSortFilterChange,
     this.sortFilterOptions,
+    required this.onClose,
+    this.additional,
+    this.showText = false,
+    this.independent = true,
   });
 
-  final String category;
   final SortFilterDisplay sortFilterDisplay;
   final ValueChanged<SortFilterDisplay> onSortFilterChange;
   final SortFilterOptions? sortFilterOptions;
+  final VoidCallback onClose;
+  final bool showText;
+  final String? additional;
+  final bool independent;
 
   @override
   State<SortFilterPopup> createState() => _SortFilterPopupState();
@@ -488,11 +509,23 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
   @override
   void initState() {
     super.initState();
+    setupOptions();
+  }
+
+  void setupOptions() {
     _originalSortFilterDisplay = widget.sortFilterDisplay.clone();
     _sortFilterDisplay = widget.sortFilterDisplay.clone();
     _sortFilterOptions =
         widget.sortFilterOptions ?? _getDefaultSortFilterOption();
+    _setTabs();
+  }
+
+  void _setTabs() {
     _tabs = [
+      if (_sortFilterOptions.categories.isNotEmpty)
+        Tab(
+          text: S.current.Category,
+        ),
       if (_sortFilterOptions.sortOptions.isNotEmpty)
         Tab(
           text: S.current.Sort,
@@ -508,14 +541,27 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
     ];
   }
 
-  bool get _isAnime => widget.category.equals('anime');
+  @override
+  void didUpdateWidget(covariant SortFilterPopup oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.sortFilterDisplay
+            .refKey('prefix')
+            .notEquals(widget.sortFilterDisplay.refKey('prefix')) &&
+        mounted) {
+      setupOptions();
+      setState(() {});
+    }
+  }
+
+  bool get _isAnime => _sortFilterDisplay.category.equals('anime');
 
   SortFilterOptions _getDefaultSortFilterOption() {
     return SortFilterOptions(
       sortOptions:
           SortFilterOptions.getSortOptions(_isAnime, _sortFilterDisplay.sort),
-      filterOptions: getFilterOptions(widget.category),
+      filterOptions: getFilterOptions(_sortFilterDisplay.category),
       displayOptions: SortFilterOptions.getDisplayOptions(),
+      categories: [],
     );
   }
 
@@ -526,38 +572,56 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
 
   @override
   Widget build(BuildContext context) {
+    if (_tabs.isEmpty) return SB.z;
+    int initialIndex = _initialIndex();
     return DefaultTabController(
       length: _tabs.length,
-      initialIndex: _sortFilterDisplay.selectedTab,
+      initialIndex: initialIndex,
       child: Builder(builder: (tabContext) {
-        return WillPopScope(
-          onWillPop: () async {
-            _prepareClose(tabContext);
-            return false;
-          },
+        return conditional(
+          on: widget.independent,
+          parent: (child) => WillPopScope(
+            onWillPop: () async {
+              _prepareClose(tabContext);
+              return false;
+            },
+            child: child,
+          ),
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(tabContext).size.height * .8,
+              // maxHeight: MediaQuery.of(tabContext).size.height * .8,
               minHeight: MediaQuery.of(tabContext).size.height * .3,
             ),
-            child: Stack(
-              children: [
-                Material(
-                  child: SizedBox.expand(),
-                ),
-                _tabBarView(),
-                _buildTabs(),
-                Positioned(
-                  bottom: 0,
-                  left: 0,
-                  right: 0,
-                  child: _bottomBar(tabContext),
-                ),
-              ],
-            ),
+            child: _stackView(tabContext),
           ),
         );
       }),
+    );
+  }
+
+  int _initialIndex() {
+    int initialIndex;
+    if (_tabs.length > _sortFilterDisplay.selectedTab) {
+      initialIndex = _sortFilterDisplay.selectedTab;
+    } else {
+      initialIndex = 0;
+    }
+    return initialIndex;
+  }
+
+  Stack _stackView(BuildContext tabContext) {
+    return Stack(
+      children: [
+        Material(child: SizedBox.expand()),
+        _tabBarView(),
+        _buildTabs(),
+        Positioned(
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: _bottomBar(tabContext),
+        ),
+      ],
     );
   }
 
@@ -577,16 +641,21 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
     return Padding(
       padding: const EdgeInsets.only(top: 40.0),
       child: TabBarView(
-        children: _tabs
-            .map((e) => switchCase<String, Widget>(e.text, {
-                  [S.current.Sort]: (_) => _sortView(),
-                  [S.current.Filter]: (_) => _filterView(),
-                  [S.current.Display]: (_) => _displayView(),
-                }))
-            .map((e) => e!)
-            .toList(),
+        children: _viewChildren(),
       ),
     );
+  }
+
+  List<Widget> _viewChildren() {
+    return _tabs
+        .map((e) => switchCase<String, Widget>(e.text, {
+              [S.current.Category]: (_) => _categoryView(),
+              [S.current.Sort]: (_) => _sortView(),
+              [S.current.Filter]: (_) => _filterView(),
+              [S.current.Display]: (_) => _displayView(),
+            }))
+        .map((e) => e!)
+        .toList();
   }
 
   Widget _displayView() {
@@ -718,6 +787,37 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
     }
   }
 
+  Widget _categoryView() {
+    return ListView(
+        children: _sortFilterOptions.categories.map((e) {
+      return RadioListTile<String>(
+        value: e,
+        groupValue: _sortFilterDisplay.category,
+        title: Text(e.capitalize()!),
+        onChanged: (value) {
+          if (value == null || value.equals(_sortFilterDisplay.category))
+            return;
+          _categoryTap(value);
+        },
+      );
+    }).toList());
+  }
+
+  void _categoryTap(String value) {
+    _sortFilterDisplay = _sortFilterDisplay.copyWith(
+      category: value,
+      filterOutputs: {},
+    );
+    _sortFilterOptions = _sortFilterOptions.copyWith(
+      filterOptions: getFilterOptions(value),
+      displayOptions: !contentTypes.contains(value)
+          ? []
+          : SortFilterOptions.getDisplayOptions(),
+    );
+    _setTabs();
+    setState(() {});
+  }
+
   bool _isSortSelected(SortOption sortOption) =>
       sortOption.value.equals(_sortFilterDisplay.sort.value);
 
@@ -743,6 +843,11 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
                 child: Text(S.current.Save),
                 onPressed: () => _prepareClose(controllerContext),
               ),
+              Spacer(),
+              PlainButton(
+                child: Text(S.current.Close),
+                onPressed: widget.onClose,
+              ),
               SB.w10,
             ],
           ),
@@ -760,7 +865,10 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
       },
       [S.current.Filter]: (_) {
         _sortFilterDisplay = _sortFilterDisplay.copyWith(
-          filterOutputs: {},
+          filterOutputs: {
+            for (var entry in _originalSortFilterDisplay.filterOutputs.entries)
+              entry.key: entry.value.clone(),
+          },
         );
       },
       [S.current.Display]: (_) {
@@ -776,7 +884,7 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
   void _prepareClose(BuildContext controllerContext) {
     _setTabIndex(controllerContext);
     widget.onSortFilterChange(_sortFilterDisplay);
-    Navigator.of(context).pop();
+    widget.onClose();
   }
 
   void _setTabIndex(BuildContext controllerContext) {
@@ -790,6 +898,8 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
       filterOptions: _sortFilterOptions.filterOptions,
       filterOutputs: _sortFilterDisplay.filterOutputs,
       showBottombar: false,
+      additional: widget.additional,
+      showText: widget.showText,
       onChange: (fo) {
         if (mounted) {
           _sortFilterDisplay = _sortFilterDisplay.copyWith(
@@ -915,6 +1025,7 @@ class SortFilterDisplay {
     required this.sort,
     required this.displayOption,
     required this.filterOutputs,
+    this.category = '',
     this.selectedTab = 0,
   });
 
@@ -922,12 +1033,14 @@ class SortFilterDisplay {
   final Map<String, FilterOption> filterOutputs;
   final DisplayOption displayOption;
   final int selectedTab;
+  final String category;
 
   String refKey(String prefix) {
     return '''
     $prefix-
     ${sort.value}-
     ${sort.order.name}-
+    ${category}-
     ${filterOutputs.values.map((e) => e.value ?? ((e.includedOptions ?? []).join(',') + (e.excludedOptions ?? []).join(','))).join('.')}-
     ''';
   }
@@ -954,6 +1067,7 @@ class SortFilterDisplay {
       filterOutputs: _cloneFilters(),
       displayOption: displayOption.clone(),
       selectedTab: selectedTab,
+      category: category,
     );
   }
 
@@ -978,12 +1092,14 @@ class SortFilterDisplay {
       DisplayOption? display,
       Map<String, FilterOption>? filterOutputs,
       bool? isCached,
-      int? selectedTab}) {
+      int? selectedTab,
+      String? category}) {
     return SortFilterDisplay(
       sort: sort ?? this.sort,
       displayOption: display ?? this.displayOption,
       filterOutputs: filterOutputs ?? this.filterOutputs,
       selectedTab: selectedTab ?? this.selectedTab,
+      category: category ?? this.category,
     );
   }
 
@@ -1000,22 +1116,10 @@ class SortFilterDisplay {
             ? SortOrder.Ascending
             : SortOrder.Descending,
       ),
-      displayOption: DisplayOption(
-        displayType: json['displayType'] == 'grid'
-            ? DisplayType.grid
-            : DisplayType.list_vert,
-        displaySubType: json['displaySubType'] == 'comfortable'
-            ? DisplaySubType.comfortable
-            : json['displaySubType'] == 'compact'
-                ? DisplaySubType.compact
-                : json['displaySubType'] == 'spacious'
-                    ? DisplaySubType.spacious
-                    : DisplaySubType.cover_only_grid,
-        gridCrossAxisCount: json['gridCrossAxisCount'] ?? 2,
-        gridHeight: json['gridHeight'] ?? 280.0,
-      ),
+      displayOption: DisplayOption.fromJson(json)!,
       filterOutputs: {},
       selectedTab: json['selectedTab'],
+      category: json['category'],
     );
   }
 
@@ -1024,20 +1128,10 @@ class SortFilterDisplay {
       'sortName': sort.name,
       'sortValue': sort.value,
       'sortOrder': sort.order == SortOrder.Ascending ? 'asc' : 'desc',
-      'displayType':
-          displayOption.displayType == DisplayType.grid ? 'grid' : 'list_vert',
-      'displaySubType':
-          displayOption.displaySubType == DisplaySubType.comfortable
-              ? 'comfortable'
-              : displayOption.displaySubType == DisplaySubType.compact
-                  ? 'compact'
-                  : displayOption.displaySubType == DisplaySubType.spacious
-                      ? 'spacious'
-                      : 'cover_only_grid',
-      'gridCrossAxisCount': displayOption.gridCrossAxisCount,
       'filterOutputs': {},
       'selectedTab': selectedTab,
-      'gridHeight': displayOption.gridHeight,
+      ...displayOption.toJson(),
+      'category': category,
     };
   }
 }
@@ -1106,6 +1200,41 @@ class DisplayOption {
       displaySubType: displaySubType,
       gridCrossAxisCount: gridCrossAxisCount,
       gridHeight: gridHeight,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      'displayType': displayType == DisplayType.grid ? 'grid' : 'list_vert',
+      'displaySubType': displaySubType == DisplaySubType.comfortable
+          ? 'comfortable'
+          : displaySubType == DisplaySubType.compact
+              ? 'compact'
+              : displaySubType == DisplaySubType.spacious
+                  ? 'spacious'
+                  : 'cover_only_grid',
+      'gridCrossAxisCount': gridCrossAxisCount,
+      'gridHeight': gridHeight,
+    };
+  }
+
+  static DisplayOption? fromJson(Map<String, dynamic>? json) {
+    if (json == null || json.isEmpty) {
+      return null;
+    }
+    return DisplayOption(
+      displayType: json['displayType'] == 'grid'
+          ? DisplayType.grid
+          : DisplayType.list_vert,
+      displaySubType: json['displaySubType'] == 'comfortable'
+          ? DisplaySubType.comfortable
+          : json['displaySubType'] == 'compact'
+              ? DisplaySubType.compact
+              : json['displaySubType'] == 'spacious'
+                  ? DisplaySubType.spacious
+                  : DisplaySubType.cover_only_grid,
+      gridCrossAxisCount: json['gridCrossAxisCount'] ?? 2,
+      gridHeight: json['gridHeight'] ?? 280.0,
     );
   }
 }

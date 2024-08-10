@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:dailyanimelist/api/dalapi.dart';
 import 'package:dailyanimelist/api/jikahelper.dart';
 import 'package:dailyanimelist/api/malapi.dart';
 import 'package:dailyanimelist/api/malforum.dart';
 import 'package:dailyanimelist/api/maluser.dart';
+import 'package:dailyanimelist/cache/cachemanager.dart';
 import 'package:dailyanimelist/cache/history_data.dart';
 import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/enums.dart';
@@ -19,6 +22,7 @@ import 'package:dailyanimelist/widgets/club/clublistwidget.dart';
 import 'package:dailyanimelist/widgets/custombutton.dart';
 import 'package:dailyanimelist/widgets/customfuture.dart';
 import 'package:dailyanimelist/widgets/forum/forumtopicwidget.dart';
+import 'package:dailyanimelist/widgets/listsortfilter.dart';
 import 'package:dailyanimelist/widgets/loading/expandedwidget.dart';
 import 'package:dailyanimelist/widgets/search/filtermodal.dart';
 import 'package:dailyanimelist/widgets/search/sliderwidget.dart';
@@ -92,7 +96,6 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
   SearchStage research = SearchStage.notstarted;
   SearchResult? searchResult;
   bool isSpecialQuery = false;
-  String category = "all";
   FocusNode focusNode = new FocusNode(canRequestFocus: true);
   double opacity = 0;
   bool autoFocus = true;
@@ -102,17 +105,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
   bool showFilter = false;
   ScrollController scrollController = new ScrollController();
   bool showBackButton = false;
-  DisplayType displayType = DisplayType.list_vert;
   String prevQuery = "";
-  static const nonFilterableTypes = ["all", "character", "person", "club"];
-  static const nonSwitchableTypes = [
-    "forum",
-    "all",
-    "featured",
-    "news",
-    "club",
-    'interest_stack'
-  ];
   List<String> allSectionSearch = [
     "anime",
     "manga",
@@ -125,32 +118,25 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
   ];
   static const jikanTypeConv = {'character': 'characters', 'person': 'people'};
 
-  TextEditingController searchController = new TextEditingController();
-
-  Map<String, FilterOption> filterOutputs = {};
+  TextEditingController _searchController = new TextEditingController();
 
   late TabController tabController;
   late StreamListener<String> _searchTextListener;
   late Future<SearchResult> _seasonResult;
+  SortFilterDisplay _sortFilterDisplay = SortFilterDisplay(
+    sort: SortOption(name: 'default', value: 'default'),
+    displayOption: DisplayOption(
+      displayType: user.pref.defaultDisplayType,
+      displaySubType: DisplaySubType.comfortable,
+    ),
+    filterOutputs: {},
+  );
 
   @override
   void initState() {
     super.initState();
-    category = widget.category ?? "all";
     _searchTextListener = StreamListener('');
-    if (widget.searchQuery != null) {
-      searchController.text = widget.searchQuery!;
-      if (widget.searchQuery!.startsWith("#")) {
-        isSpecialQuery = true;
-      }
-      startInitSearch();
-    }
-
-    if (widget.filterOutputs != null && widget.filterOutputs!.isNotEmpty) {
-      searchController.text = "";
-      filterOutputs = widget.filterOutputs ?? {};
-      startInitSearch();
-    }
+    _setDefaultSortFilterDisplay();
 
     autoFocus = widget.autoFocus ?? false;
     if (autoFocus) {
@@ -167,14 +153,62 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
       fromCache: true,
       limit: 500,
     );
-    searchController.addListener(() {
-      _searchTextListener.update(searchController.text);
+    _searchController.addListener(() {
+      _searchTextListener.update(_searchController.text);
     });
+  }
+
+  DisplayOption get _displayOption => _sortFilterDisplay.displayOption;
+  DisplayType get displayType => _displayOption.displayType;
+
+  Map<String, FilterOption> get _filterOutputs =>
+      _sortFilterDisplay.filterOutputs;
+  set _filterOutputs(Map<String, FilterOption> value) {
+    _sortFilterDisplay = _sortFilterDisplay.copyWith(filterOutputs: value);
+  }
+
+  String get category => _sortFilterDisplay.category;
+  set category(String value) {
+    _sortFilterDisplay = _sortFilterDisplay.copyWith(category: value);
+  }
+
+  _setDefaultSortFilterDisplay() async {
+    _sortFilterDisplay = await SortFilterDisplay.fromCache(
+        'searchService', 'sortFilterDisplay', _defaultSortFilterDisplay());
+    _checkAutoSearch();
+    if (mounted) setState(() {});
+  }
+
+  void _checkAutoSearch() {
+    if (widget.searchQuery != null) {
+      _searchController.text = widget.searchQuery!;
+      if (widget.searchQuery!.startsWith("#")) {
+        isSpecialQuery = true;
+      }
+      startInitSearch();
+    }
+
+    if (_filterOutputs.isNotEmpty) {
+      _searchController.text = "";
+      startInitSearch();
+    }
+  }
+
+  SortFilterDisplay _defaultSortFilterDisplay() {
+    return SortFilterDisplay(
+      sort: SortOption(name: 'name', value: 'value'),
+      displayOption: DisplayOption(
+        displayType: user.pref.defaultDisplayType,
+        displaySubType: DisplaySubType.comfortable,
+      ),
+      category: widget.category ?? "all",
+      filterOutputs: widget.filterOutputs ?? {},
+    );
   }
 
   void startInitSearch() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      startSearch(searchController.text, isSpecialQuery: isSpecialQuery);
+      startSearch(_searchController.text, isSpecialQuery: isSpecialQuery);
     });
   }
 
@@ -317,8 +351,8 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
       HistoryData.setHistory(dataType: HistoryDataType.query, value: query);
     }
 
-    if (filterOutputs.isNotEmpty) {
-      String q = searchController.text;
+    if (_filterOutputs.isNotEmpty) {
+      String q = _searchController.text;
       if (q != null && q.notEquals("")) {
         query = q;
       }
@@ -354,33 +388,33 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
               q: query,
               fromCache: fromCache,
               limit: 31,
-              filters: filterOutputs);
+              filters: _filterOutputs);
         } else if (category.equals("club")) {
           searchResult = await MalApi.searchClubs(query);
         } else if (category.equals("user")) {
           searchResult =
-              await MalUser.searchUser(query, filters: filterOutputs);
+              await MalUser.searchUser(query, filters: _filterOutputs);
           handleUserSearchResult(query, searchResult);
         } else if (["featured", "news"].contains(category)) {
           searchResult = await DalApi.i.searchFeaturedArticles(
             query: query,
             category: category,
-            tag: filterOutputs['tags']?.value,
+            tag: _filterOutputs['tags']?.value,
           );
         } else if (category.equals('interest_stack')) {
           searchResult = await DalApi.i.searchInterestStacks(
             query: query,
-            type: filterOutputs['type']?.apiValues?.elementAt(
-                (filterOutputs['type']
+            type: _filterOutputs['type']?.apiValues?.elementAt(
+                (_filterOutputs['type']
                     ?.values
-                    ?.indexOf(filterOutputs['type']!.value!))!),
+                    ?.indexOf(_filterOutputs['type']!.value!))!),
           );
-        } else if (filterOutputs.isNotEmpty ||
+        } else if (_filterOutputs.isNotEmpty ||
             jikanSearchTypes.contains(category)) {
           searchResult = await JikanHelper.jikanSearch(query,
               category: jikanTypeConv[category] ?? category,
               fromCache: true,
-              filters: filterOutputs);
+              filters: _filterOutputs);
         } else {
           searchResult = await MalApi.searchForContent(query,
               category: category,
@@ -429,7 +463,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
   Future<void> loadMoreResults({bool fromCache = true}) async {
     try {
       var _searchResult;
-      String query = searchController.text;
+      String query = _searchController.text;
       if (query.isNotBlank && genreLogic(query?.replaceFirst("#", ""))) {
         await startGenreSearch(query.replaceFirst("#", "").capitalize(),
             concat: true,
@@ -444,29 +478,29 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
               query, int.tryParse(searchResult!.paging!.next!) ?? 2);
         } else if (category.equals("user")) {
           _searchResult = await MalUser.searchUser(query,
-              filters: filterOutputs,
+              filters: _filterOutputs,
               offset: int.tryParse(searchResult!.paging!.next!) ?? 24);
         } else if (["featured", "news"].contains(category)) {
           _searchResult = await DalApi.i.searchFeaturedArticles(
               query: query,
               category: category,
-              tag: filterOutputs['tags']?.value,
+              tag: _filterOutputs['tags']?.value,
               page: int.tryParse(searchResult!.paging!.next!) ?? 2);
         } else if (category.equals('interest_stack')) {
           _searchResult = await DalApi.i.searchInterestStacks(
             query: query,
             page: int.tryParse(searchResult?.paging?.next ?? '1') ?? 1,
-            type: filterOutputs['type']?.apiValues?.elementAt(
-                (filterOutputs['type']
+            type: _filterOutputs['type']?.apiValues?.elementAt(
+                (_filterOutputs['type']
                     ?.values
-                    ?.indexOf(filterOutputs['type']!.value!))!),
+                    ?.indexOf(_filterOutputs['type']!.value!))!),
           );
         } else if (jikanSearchTypes.contains(category) ||
-            filterOutputs.isNotEmpty) {
+            _filterOutputs.isNotEmpty) {
           _searchResult = await JikanHelper.jikanSearch(query ?? "",
               category: jikanTypeConv[category] ?? category,
               fromCache: fromCache,
-              filters: filterOutputs,
+              filters: _filterOutputs,
               pageNumber: int.tryParse(searchResult!.paging!.next!) ?? 1);
         } else {
           _searchResult = await MalApi.getContentListPage(searchResult!.paging!,
@@ -493,7 +527,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
 
   @override
   void dispose() {
-    searchController.dispose();
+    _searchController.dispose();
     _searchTextListener.dispose();
     super.dispose();
   }
@@ -522,7 +556,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
         research = SearchStage.notstarted;
         searchResult = null;
         results = [];
-        filterOutputs = {};
+        _filterOutputs = {};
       });
   }
 
@@ -540,6 +574,21 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
     gotoPage(context: context, newPage: newPage);
   }
 
+  void _onFilterChange(SortFilterDisplay option) {
+    _sortFilterDisplay = option.clone();
+    if (_filterOutputs.isEmpty) {
+      reset();
+    }
+    showFilter = false;
+    resetFilter();
+    if (_searchController.text.isNotBlank || _filterOutputs.isNotEmpty) {
+      startSearch(_searchController.text);
+    }
+    CacheManager.instance.setValueForService(
+        'searchService', 'sortFilterDisplay', jsonEncode(_sortFilterDisplay));
+    if (mounted) setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     if (widget.exclusiveScreen) {
@@ -548,7 +597,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
         body: Stack(
           children: [
             _onSearchBuild(context, AsyncSnapshot.nothing()),
-            filterSection(),
+            _filterSection(),
           ],
         ),
       );
@@ -562,7 +611,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
               stream: StreamUtils.i.getStream(StreamType.search_page),
               builder: _onSearchBuild,
             ),
-            Padding(padding: EdgeInsets.only(top: 145), child: filterSection()),
+            Padding(padding: EdgeInsets.only(top: 90), child: _filterSection()),
             searchbar()
           ],
         ),
@@ -591,7 +640,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
     gotoPage(
       context: context,
       newPage: GeneralSearchScreen(
-        filterOutputs: filterOutputs,
+        filterOutputs: _filterOutputs,
         category: category,
         autoFocus: false,
       ),
@@ -666,10 +715,6 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
   Widget _showNoResultsFound() {
     return Column(
       children: [
-        if (hasAdditionalWidget && !widget.exclusiveScreen) ...[
-          const SizedBox(height: 90.0),
-          additionalOptionsWidget(),
-        ],
         const SizedBox(height: 90.0),
         if (searchResult is UserResult &&
             ((searchResult as UserResult).isUser ?? false))
@@ -708,12 +753,6 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
         padding: EdgeInsets.only(
             top: widget.exclusiveScreen ? 0.0 : 90.0, bottom: 0),
         children: [
-          if (!widget.exclusiveScreen) ...[
-            if (hasAdditionalWidget) additionalOptionsWidget(),
-            if (showFilter) _searchDivider(),
-            const SizedBox(height: 20),
-            buildListHeader(),
-          ],
           const SizedBox(height: 20),
           displayType == DisplayType.list_vert
               ? showListLayout()
@@ -777,19 +816,19 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
         return listHeading(S.current.Featured_Articles);
       else if (category.equals("news"))
         return listHeading(S.current.News);
-      else if (filterOutputs.length == 1 &&
-          (filterOutputs['genres']?.includedOptions ?? []).length == 1 &&
-          (filterOutputs['genres']?.excludedOptions ?? []).length == 0)
+      else if (_filterOutputs.length == 1 &&
+          (_filterOutputs['genres']?.includedOptions ?? []).length == 1 &&
+          (_filterOutputs['genres']?.excludedOptions ?? []).length == 0)
         return listHeading(
-            '${filterOutputs['genres']!.includedOptions![0].replaceAll('_', ' ')} $category');
-      else if (filterOutputs.length == 1 &&
-          filterOutputs['producer']?.value != null)
+            '${_filterOutputs['genres']!.includedOptions![0].replaceAll('_', ' ')} $category');
+      else if (_filterOutputs.length == 1 &&
+          _filterOutputs['producer']?.value != null)
         return listHeading(
-            '${filterOutputs['producer']!.value!.standardize()} $category');
+            '${_filterOutputs['producer']!.value!.standardize()} $category');
       else
         return listHeading(S.current.Search_Results);
     } else {
-      String query = searchController.text;
+      String query = _searchController.text;
       var ifSeason = seasonalLogic(query.replaceAll("#", "")) ?? false;
       return ifSeason
           ? seasonHeader()
@@ -837,7 +876,6 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
       SliverToBoxAdapter(
         child: Padding(padding: padding),
       ),
-      if (hasAdditionalWidget) SliverWrapper(additionalOptionsWidget()),
       if (showFilter) SliverWrapper(_searchDivider()),
       if (queryHistory.isEmpty &&
           recentManga.isEmpty &&
@@ -996,7 +1034,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
         return ListTile(
           onTap: () {
             focusNode.unfocus();
-            searchController.text = queryHistory[index];
+            _searchController.text = queryHistory[index];
             startSearch(queryHistory[index]);
           },
           minVerticalPadding: 0.0,
@@ -1056,7 +1094,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
   }
 
   Widget seasonHeader() {
-    String query = searchController.text;
+    String query = _searchController.text;
     var yearList = List.generate(64, (index) => (1960 + index).toString());
     var season = "winter", year = "2021";
     var split = query.replaceAll("#", "").split("@");
@@ -1083,12 +1121,12 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
                   fontSize: 16,
                   onIndexChange: (value) {
                     seasonIndex = value;
-                    searchController.text = "#" +
+                    _searchController.text = "#" +
                         seasonList.elementAt(value) +
                         "@" +
                         yearList[yearIndex].toString();
                     isSpecialQuery = true;
-                    startSearch(searchController.text, isSpecialQuery: true);
+                    startSearch(_searchController.text, isSpecialQuery: true);
                   },
                 )),
                 const SizedBox(
@@ -1102,12 +1140,12 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
                   fontSize: 19,
                   onIndexChange: (value) {
                     yearIndex = value;
-                    searchController.text = "#" +
+                    _searchController.text = "#" +
                         seasonList.elementAt(seasonIndex) +
                         "@" +
                         yearList[value].toString();
                     isSpecialQuery = true;
-                    startSearch(searchController.text, isSpecialQuery: true);
+                    startSearch(_searchController.text, isSpecialQuery: true);
                   },
                 )),
               ],
@@ -1131,22 +1169,17 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
     );
   }
 
-  Widget buildListResults(var _results, var _category) {
+  Widget buildListResults(List<BaseNode>? _results, String _category) {
     if (_results == null || _results.isEmpty) return SB.z;
     return CustomScrollWrapper([
-      ContentListWidget(
-        category: _category,
-        contentList: _results,
-        displayType: displayType,
+      ContentListWithDisplayType(
+        category: category,
+        items: results,
+        sortFilterDisplay: _sortFilterDisplay,
         showIndex: contentTypes.contains(_category),
         showEdit: contentTypes.contains(_category),
         updateCacheOnEdit: true,
-        showBackgroundImage: false,
         showStatus: contentTypes.contains(_category),
-        padding: EdgeInsets.only(top: 0),
-        onContentUpdate: () {},
-        aspectRatio: contentTypes.contains(_category) ? 2.35 : 3,
-        imageAspectRatio: contentTypes.contains(_category) ? 0.5 : .6,
       )
     ], shrink: true);
   }
@@ -1227,7 +1260,8 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
                             children: [
                               _buildSearchLeading(),
                               if (isSpecialQuery) _buildSpecialQueryTag(),
-                              _buildSearchFormField()
+                              _buildSearchFormField(),
+                              if (!isSpecialQuery) _buildFilter(),
                             ],
                           ),
                         ),
@@ -1271,9 +1305,27 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
   }
 
   Widget _buildSearchLeading() {
-    return IconButton(
-      onPressed: () => Navigator.pop(context),
-      icon: Icon(Icons.arrow_back),
+    return StreamBuilder<String>(
+      stream: _searchTextListener.stream,
+      builder: (context, snapshot) {
+        return IconButton(
+          onPressed: () {
+            if (snapshot.data != null && snapshot.data!.isNotBlank) {
+              _searchController.clear();
+              if (isSpecialQuery && mounted) {
+                setState(() {
+                  isSpecialQuery = false;
+                });
+              }
+            } else {
+              Navigator.pop(context);
+            }
+          },
+          icon: Icon(snapshot.data != null && snapshot.data!.isNotBlank
+              ? Icons.clear
+              : Icons.arrow_back),
+        );
+      },
     );
   }
 
@@ -1285,7 +1337,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
         child: TextFormField(
           focusNode: focusNode,
           autofocus: false,
-          controller: searchController,
+          controller: _searchController,
           onFieldSubmitted: (value) {
             if (value.isBlank) {
               return;
@@ -1303,7 +1355,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
           ),
           decoration: InputDecoration(
             contentPadding: EdgeInsets.zero,
-            hintText: S.current.SearchBarHintText,
+            hintText: '${S.current.Search} $category',
             disabledBorder: OutlineInputBorder(borderSide: BorderSide.none),
             border: OutlineInputBorder(borderSide: BorderSide.none),
             focusedBorder: OutlineInputBorder(borderSide: BorderSide.none),
@@ -1343,7 +1395,6 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
   void _onCategorySelect(String? value) {
     if (prevQuery.isBlank) {
       category = value ?? 'anime';
-      displayType = DisplayType.list_vert;
       showFilter = false;
       reset();
     } else {
@@ -1371,32 +1422,23 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
     );
   }
 
-  Widget filterSection() {
+  Widget _filterSection() {
     return ExpandedSection(
       expand: showFilter,
       child: Container(
         width: double.infinity,
-        child: FilterModal(
-          filterOptions: _removeExclusiveFilters(getFilterOptions()),
-          filterOutputs: filterOutputs,
-          hasApply: !['forum'].contains(category),
+        child: SortFilterPopup(
+          sortFilterDisplay: _sortFilterDisplay,
+          onSortFilterChange: _onFilterChange,
           showText: category.equals("featured"),
           additional: S.current.Tags_unApplied,
-          showClearAll: !widget.exclusiveScreen,
-          onApply: () {
-            showFilter = false;
-            resetFilter();
-            startSearch(searchController.text ?? "");
-          },
-          onChange: (fo) {
-            if (fo != null && mounted) {
-              filterOutputs = fo;
-              if (fo.isEmpty) {
-                reset();
-              }
-              setState(() {});
-            }
-          },
+          independent: false,
+          sortFilterOptions: SortFilterOptions(
+            sortOptions: [],
+            filterOptions: _removeExclusiveFilters(getFilterOptions()),
+            displayOptions: SortFilterOptions.getDisplayOptions(),
+            categories: widget.exclusiveScreen ? [] : searchTypes,
+          ),
           onClose: () {
             if (mounted)
               setState(() {
@@ -1408,71 +1450,19 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
     );
   }
 
-  bool get hasAdditionalWidget => !isSpecialQuery;
-
-  Widget additionalOptionsWidget() {
-    final extras = [
-      if (!isSpecialQuery && !nonFilterableTypes.contains(category))
-        _buildFilter(),
-    ];
-    return Container(
-      width: double.infinity,
-      height: 50,
-      child: Material(
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 5),
-          child: Row(
-            children: [
-              if (extras.length > 0) SB.w10,
-              ...extras,
-              Expanded(
-                child: SelectBar(
-                  options: searchTypes,
-                  selectedOption: category,
-                  listPadding: EdgeInsets.only(
-                      left: extras.length > 0 ? 5 : 15, right: 60.0),
-                  onChanged: _onCategorySelect,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
-  void _onDisplayTypeChange(value) {
-    if (mounted) {
-      setState(() {
-        displayType = DisplayType.values.firstWhere((e) => e.name == value);
-      });
-    }
-  }
-
   Widget _buildFilter() {
-    final extras = [
-      if (!nonSwitchableTypes.contains(category) &&
-          stage == SearchStage.loaded) ...[
-        VerticalDivider(thickness: 1),
-        buildDisplayTypeSelector(displayType, _onDisplayTypeChange),
-      ]
-    ];
     return SizedBox(
       height: 38.0,
+      width: 55.0,
       child: ShadowButton(
           onPressed: () {
-            if (extras.length == 1) _flipFliter();
+            _flipFliter();
           },
-          padding: EdgeInsets.symmetric(horizontal: 10.0),
-          child: Row(
-            children: [
-              ToolTipButton(
-                onTap: _flipFliter,
-                message: S.current.Filter,
-                child: Icon(getFilterIcon(filterOutputs.keys)),
-              ),
-              ...extras,
-            ],
+          padding: const EdgeInsets.symmetric(horizontal: 5.0),
+          child: ToolTipButton(
+            onTap: _flipFliter,
+            message: S.current.Filter,
+            child: Icon(getFilterIcon(_filterOutputs.keys)),
           )),
     );
   }
@@ -1487,7 +1477,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
   List<FilterOption> _removeExclusiveFilters(List<FilterOption> filters) {
     if (!widget.exclusiveScreen) return filters;
     return filters.map((element) {
-      var filterOutputs = (widget.filterOutputs ?? {});
+      var filterOutputs = _filterOutputs;
       if (filterOutputs.length == 1) {
         if (element.apiFieldName == filterOutputs.values.first.apiFieldName) {
           final clone = element.clone();
@@ -1525,26 +1515,6 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
       showUserPage(context: context, username: _query.trim());
     }
   }
-}
-
-Widget buildDisplayTypeSelector(
-    DisplayType displayType, dynamic Function(String)? onChanged,
-    [SelectType selectType = SelectType.dropdown, double? iconSize]) {
-  final iconMap = {
-    DisplayType.list_vert.name: Icons.list,
-    DisplayType.grid.name: Icons.grid_view
-  };
-  return SelectButton(
-    selectType: selectType,
-    popupText: S.current.Select_One,
-    selectedOption: displayType.name,
-    options:
-        [DisplayType.list_vert, DisplayType.grid].map((e) => e.name).toList(),
-    child: Icon(iconMap[displayType.name], size: iconSize),
-    displayValues: ['List View', 'Grid View'],
-    iconMap: iconMap,
-    onChanged: onChanged,
-  );
 }
 
 class CustomFilters {

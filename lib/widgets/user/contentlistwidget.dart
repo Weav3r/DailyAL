@@ -233,6 +233,8 @@ Widget _baseBaseNode(
   double? gridHeight,
   bool updateCacheOnEdit = false,
   bool showTime = false,
+  bool? showIndex,
+  bool? showStatus,
 }) {
   return ContentAllWidget(
     key: Key(MalAuth.codeChallenge(10)),
@@ -250,6 +252,8 @@ Widget _baseBaseNode(
     gridHeight: gridHeight,
     updateCacheOnEdit: updateCacheOnEdit,
     showTime: showTime,
+    showIndex: showIndex ?? false,
+    showStatus: showStatus ?? true,
   );
 }
 
@@ -265,6 +269,8 @@ Widget buildBaseNodePageItem(
   required double gridHeight,
   bool updateCacheOnEdit = false,
   bool showTime = false,
+  bool? showIndex,
+  bool? showStatus,
 }) {
   Widget fromItem(int index, BaseNode node, [HomePageTileSize? tileSize]) {
     return _baseBaseNode(
@@ -278,6 +284,8 @@ Widget buildBaseNodePageItem(
       gridHeight: gridHeight,
       updateCacheOnEdit: updateCacheOnEdit,
       showTime: showTime,
+      showIndex: showIndex,
+      showStatus: showStatus,
     );
   }
 
@@ -336,6 +344,10 @@ class ContentListWithDisplayType extends StatelessWidget {
   final bool showTime;
   final HomePageTileSize? tileSize;
   final EdgeInsetsGeometry? padding;
+  final bool? showIndex;
+  final bool? showEdit;
+  final bool? updateCacheOnEdit;
+  final bool? showStatus;
   const ContentListWithDisplayType({
     super.key,
     required this.category,
@@ -344,6 +356,10 @@ class ContentListWithDisplayType extends StatelessWidget {
     this.showTime = false,
     this.tileSize,
     this.padding,
+    this.showIndex,
+    this.showEdit,
+    this.updateCacheOnEdit,
+    this.showStatus,
   });
 
   @override
@@ -377,8 +393,11 @@ class ContentListWithDisplayType extends StatelessWidget {
           gridHeight: gridHeight,
           displaySubType: displaySubType,
           homePageTileSize: tileSize ?? _axisTileSizeMap[gridAxisCount],
-          updateCacheOnEdit: true,
+          updateCacheOnEdit: updateCacheOnEdit ?? true,
           showTime: showTime,
+          showEdit: showEdit ?? true,
+          showIndex: showIndex,
+          showStatus: showStatus,
         ),
       );
     }

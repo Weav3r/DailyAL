@@ -61,6 +61,7 @@ class _WeeklySchedulePageState extends State<WeeklySchedulePage>
   void _setSortFilterDisplayFuture() async {
     _sortFilterDisplay = await SortFilterDisplay.fromCache(
         serviceName, serviceKey, _defaultObject());
+    _sortFilterDisplay = _sortFilterDisplay.copyWith(category: 'anime');
     if (mounted) setState(() {});
   }
 
@@ -91,10 +92,10 @@ class _WeeklySchedulePageState extends State<WeeklySchedulePage>
           onPressed: () => showSortFilterDisplayModal(
             context: context,
             sortFilterDisplay: _sortFilterDisplay,
-            category: 'anime',
             sortFilterOptions: SortFilterOptions(
               sortOptions: _sortOptions,
               filterOptions: _filterOptions,
+              categories: [],
               displayOptions: [
                 ...SortFilterOptions.getDisplayOptions(),
                 SelectDisplayOption(

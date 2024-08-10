@@ -902,6 +902,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Score_Distribution":
             MessageLookupByLibrary.simpleMessage("Score Distribution"),
         "Screening": MessageLookupByLibrary.simpleMessage("Screening"),
+        "Search": MessageLookupByLibrary.simpleMessage("Search"),
         "SearchBarHintText":
             MessageLookupByLibrary.simpleMessage("Search anime, manga & more"),
         "Search_Bar_Text":

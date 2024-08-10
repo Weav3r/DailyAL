@@ -936,5 +936,6 @@
     "MAL_API_Licence": "MAL Agreement",
     "Whats_new": "What's new",
     "MAL_API_Licence_Desc": "MyAnimeList API Licence and Developer Agreement",
-    "publishedEndDate": "Published End Date"
+    "publishedEndDate": "Published End Date",
+    "Search": "Search"
 }

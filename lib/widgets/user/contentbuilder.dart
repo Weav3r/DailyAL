@@ -74,6 +74,7 @@ class _UserContentBuilderState extends State<UserContentBuilder>
   bool _enableSearch = false;
   TextEditingController _searchController = TextEditingController();
   final _searchNode = FocusNode();
+  bool _isRefreshing = false;
 
   @override
   void initState() {
@@ -89,6 +90,8 @@ class _UserContentBuilderState extends State<UserContentBuilder>
   void _setSortFilterDisplayFuture() async {
     _sortFilterDisplay =
         await SortFilterDisplay.fromCache(_cacheKey, key, _defaultObject());
+    _sortFilterDisplay =
+        _sortFilterDisplay!.copyWith(category: widget.category);
     if (widget.sortOption != null) {
       _sortFilterDisplay = _sortFilterDisplay!.copyWith(
         sort: widget.sortOption!,
@@ -149,8 +152,14 @@ class _UserContentBuilderState extends State<UserContentBuilder>
   }
 
   Future<void> _refresh() async {
+    if (_isRefreshing) return;
+    logDal('Refreshing');
+    _isRefreshing = true;
     refKey = MalAuth.codeChallenge(10);
     if (mounted) setState(() {});
+
+    await Future.delayed(const Duration(milliseconds: 500));
+    _isRefreshing = false;
   }
 
   bool shouldRefresh(UserContentBuilder oldWidget) {
@@ -343,7 +352,6 @@ class _UserContentBuilderState extends State<UserContentBuilder>
         showSortFilterDisplayModal(
           context: context,
           sortFilterDisplay: _sortFilterDisplay!.clone(),
-          category: widget.category,
           onSortFilterChange: _changeDropDownValue,
         );
       },

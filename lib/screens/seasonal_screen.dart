@@ -3,17 +3,15 @@ import 'package:dailyanimelist/api/malapi.dart';
 import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/enums.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
-import 'package:dailyanimelist/main.dart';
 import 'package:dailyanimelist/screens/generalsearchscreen.dart';
 import 'package:dailyanimelist/widgets/custombutton.dart';
-import 'package:dailyanimelist/widgets/customfuture.dart';
 import 'package:dailyanimelist/widgets/listsortfilter.dart';
-import 'package:dailyanimelist/widgets/selectbottom.dart';
 import 'package:dailyanimelist/widgets/slivers.dart';
 import 'package:dailyanimelist/widgets/user/contentbuilder.dart';
-import 'package:dailyanimelist/widgets/user/contentlistwidget.dart';
 import 'package:dal_commons/dal_commons.dart';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icon.dart';
+import 'package:line_icons/line_icons.dart';
 
 class SeasonalConstants {
   static const totalYears = 64;
@@ -69,6 +67,7 @@ class _SeasonalScreenState extends State<SeasonalScreen>
   late String refKey;
   SortOption? _sortOption;
   int get pageLimit => 500;
+  bool _isRefreshing = false;
 
   @override
   void initState() {
@@ -210,25 +209,19 @@ class _SeasonalScreenState extends State<SeasonalScreen>
       fields: [MalApi.listDetailedFields, MalApi.userAnimeFields, ...list],
       offset: input.offset,
       limit: pageLimit,
-      fromCache: true,
+      fromCache: input.fromCache,
     );
     return seasonalAnime;
   }
 
   Widget _buildStateFullSeason(_Season e) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        refKey = MalAuth.codeChallenge(10);
-        setState(() {});
-      },
-      child: UserContentBuilder(
-        username: '@me',
-        category: 'anime',
-        pageSize: pageLimit,
-        optionsCacheKey: 'Seasonal_Screen',
-        customFuture: (input) => seasonalFuture(e, input),
-        sortOption: _sortOption,
-      ),
+    return UserContentBuilder(
+      username: '@me',
+      category: 'anime',
+      pageSize: pageLimit,
+      optionsCacheKey: 'Seasonal_Screen',
+      customFuture: (input) => seasonalFuture(e, input),
+      sortOption: _sortOption,
     );
   }
 }
