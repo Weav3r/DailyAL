@@ -281,6 +281,25 @@ List<BaseNode> _sortListCustom(
             n2Value = _getEpisodes(scheduleForMalIds[n2.id]) ?? n2Value;
           }
           break;
+        case 'release_date':
+          try {
+            final int? t1 = scheduleForMalIds[n1.id]?.timestamp;
+            final int? t2 = scheduleForMalIds[n2.id]?.timestamp;
+            final now = DateTime.now();
+            if (t1 != null) {
+              var dateTime = DateTime.fromMillisecondsSinceEpoch(t1 * 1000);
+              n1Value = -dateTime.difference(now).inMinutes;
+            } else {
+              n1Value = asc ? 100000 : -100000;
+            }
+            if (t2 != null) {
+              var dateTime = DateTime.fromMillisecondsSinceEpoch(t2 * 1000);
+              n2Value = -dateTime.difference(now).inMinutes;
+            } else {
+              n2Value = asc ? 100000 : -100000;
+            }
+          } catch (e) {}
+          break;
         case 'popularity':
           final temp = n1Value;
           n1Value = n2Value;
@@ -453,6 +472,10 @@ class SortFilterOptions {
         SortOption(
           name: S.current.broadCastEndDate,
           value: 'end_date',
+        ),
+        SortOption(
+          name: S.current.ReleaseStartDate,
+          value: 'release_date',
         ),
       ];
     } else {

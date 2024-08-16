@@ -9460,6 +9460,16 @@ class S {
     );
   }
 
+  /// `Release Date`
+  String get ReleaseStartDate {
+    return Intl.message(
+      'Release Date',
+      name: 'ReleaseStartDate',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Anime Calendar`
   String get AnimeCalendar {
     return Intl.message(

@@ -843,6 +843,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Reincarnation": MessageLookupByLibrary.simpleMessage("Reincarnation"),
         "Related": MessageLookupByLibrary.simpleMessage("Related"),
         "Related_Anime": MessageLookupByLibrary.simpleMessage("Related Anime"),
+        "ReleaseStartDate":
+            MessageLookupByLibrary.simpleMessage("Release Date"),
         "Remove_Image":
             MessageLookupByLibrary.simpleMessage("Remove Image from Home Page"),
         "Remove_Image_desc": MessageLookupByLibrary.simpleMessage(

@@ -273,6 +273,9 @@ Widget buildBaseNodePageItem(
   bool? showStatus,
 }) {
   Widget fromItem(int index, BaseNode node, [HomePageTileSize? tileSize]) {
+    if (node.content == null) {
+      return SB.z;
+    }
     return _baseBaseNode(
       category,
       node,
@@ -293,12 +296,13 @@ Widget buildBaseNodePageItem(
     return fromItem(index, item.rowItems.first);
   } else {
     homePageTileSize = _axisTileSizeMap[gridAxisCount];
+    final list = _padList(item.rowItems, gridAxisCount);
     return SizedBox(
       height: gridHeight,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 7.0),
         child: Row(
-          children: item.rowItems
+          children: list
               .asMap()
               .entries
               .map((e) =>
@@ -308,6 +312,15 @@ Widget buildBaseNodePageItem(
       ),
     );
   }
+}
+
+List<BaseNode> _padList(List<BaseNode> list, int gridAxisCount) {
+  final padCount = gridAxisCount - list.length % gridAxisCount;
+  final newList = List<BaseNode>.from(list);
+  if (padCount != gridAxisCount) {
+    newList.addAll(List.generate(padCount, (_) => BaseNode()));
+  }
+  return newList;
 }
 
 Widget horizontalList({
