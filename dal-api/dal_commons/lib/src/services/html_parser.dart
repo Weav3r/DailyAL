@@ -996,25 +996,33 @@ class HtmlParsers {
   }
 
   static List<dal.Node> _getAdaptedNodes(Document document) {
-    return (document.querySelectorAll('.anime_detail_related_anime tr') ?? [])
-        .expand((e) {
-          var tds = e.querySelectorAll('td') ?? [];
-          var tryAt = tds.tryAt(0);
-          if (tryAt?.text != null &&
-              tryAt!.text.contains('Adaptation') &&
-              tds.tryAt(1) != null) {
-            return tds[1]
-                .querySelectorAll('a')
-                .map((e) => getNodeFromElement(e))
-                .where(_nonNull)
-                .where((e) =>
-                    e.id != null && e.title != null && e.nodeCategory != null)
-                .toList();
-          }
-          return <dal.Node>[];
-        })
-        .where(_nonNull)
-        .toList();
+    try {
+      final Map<int, dal.Node> uniqueNodes = {};
+      (document.querySelectorAll('.related-entries .entries-tile .entry'))
+          .expand((e) {
+            if (e.text.contains('Adaptation')) {
+              return e
+                  .querySelectorAll('a')
+                  .map((e) => getNodeFromElement(e))
+                  .where(_nonNull)
+                  .where((e) =>
+                      e.id != null && e.title != null && e.nodeCategory != null)
+                  .toList();
+            }
+            return <dal.Node>[];
+          })
+          .where(_nonNull)
+          .forEach((node) {
+            var id = node.id;
+            if (id != null && !uniqueNodes.containsKey(id)) {
+              uniqueNodes[id] = node;
+            }
+          });
+      return uniqueNodes.values.toList();
+    } catch (e) {
+      logDal(e);
+    }
+    return [];
   }
 
   static List<InterestStack> interestStackListContentFromHtml(
@@ -1178,7 +1186,9 @@ class HtmlParsers {
         int endIndex;
         endIndex = text.indexOf(endPattern ?? '');
         if (endIndex != -1) {
-          startIndex = startPattern != null ? (startIndex + startPattern.length) : startIndex;
+          startIndex = startPattern != null
+              ? (startIndex + startPattern.length)
+              : startIndex;
           return text.substring(startIndex, endIndex).trim();
         }
       }
@@ -1264,10 +1274,9 @@ class HtmlParsers {
             final timestamp =
                 int.tryParse(countDownEle.attributes['data-timestamp'] ?? '');
             final episode = _getBeforeInt(
-              e.querySelector('.release-schedule-info')?.text.trim() ?? '',
-              startPattern: 'EP',
-              endPattern: '·'
-            );
+                e.querySelector('.release-schedule-info')?.text.trim() ?? '',
+                startPattern: 'EP',
+                endPattern: '·');
             if (timestamp != null && episode != null) {
               final relatedLinksMap = {};
               e.querySelectorAll('.related-links a').forEach((rl) {
