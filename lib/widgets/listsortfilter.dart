@@ -129,9 +129,14 @@ List<BaseNode> _filterCustomList(
           case 'my_list_status':
             if (modalValue is Map) {
               String? status = modalValue[option.apiFieldName];
-              if (status == null) return false;
               final convertValue = _convertValue(selectedValue!, option);
-              if (status.equals(convertValue)) {
+              if (status == null) {
+                if ('not_in_list'.equals(convertValue)) {
+                  continue forLoop;
+                }
+                return false;
+              }
+              if ('not_in_list'.equals(status) || status.equals(convertValue)) {
                 continue forLoop;
               } else {
                 return false;
@@ -180,6 +185,16 @@ List<BaseNode> _filterCustomList(
             if (modalValue is List<AnimeStudio> &&
                 modalValue.map((e) => e.id).contains(id)) {
               continue forLoop;
+            }
+            return false;
+          case 'media_type':
+            if (modalValue is String) {
+              if (modalValue
+                  .getAlphabets()
+                  .toLowerCase()
+                  .equals(selectedValue?.getAlphabets().toLowerCase())) {
+                continue forLoop;
+              }
             }
             return false;
           case 'title':
@@ -803,23 +818,24 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
   }
 
   Widget _categoryView() {
-    return SingleChildScrollView(
-      child: Column(children: [
-        SB.h20,
-        ..._sortFilterOptions.categories.map((e) {
-          return RadioListTile<String>(
-            value: e,
-            groupValue: _sortFilterDisplay.category,
-            title: Text(e.standardize()!),
-            onChanged: (value) {
-              if (value == null || value.equals(_sortFilterDisplay.category))
-                return;
-              _categoryTap(value);
-            },
-          );
-        }).toList(),
-        SB.h60,
-      ]),
+    final categories = _sortFilterOptions.categories;
+    return ScrollablePositionedList.builder(
+      padding: const EdgeInsets.only(top: 40.0, bottom: 80.0),
+      itemCount: categories.length,
+      initialScrollIndex: categories.indexOf(_sortFilterDisplay.category),
+      itemBuilder: (context, index) {
+        final __category = categories[index];
+        return RadioListTile<String>(
+          value: __category,
+          groupValue: _sortFilterDisplay.category,
+          title: Text(__category.standardize()!),
+          onChanged: (value) {
+            if (value == null || value.equals(_sortFilterDisplay.category))
+              return;
+            _categoryTap(value);
+          },
+        );
+      },
     );
   }
 
@@ -909,6 +925,7 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
 
   Widget _filterView() {
     return FilterModal(
+      padding: EdgeInsets.only(top: 40.0, bottom: 80.0),
       filterOptions: _sortFilterOptions.filterOptions,
       filterOutputs: _sortFilterDisplay.filterOutputs,
       showBottombar: false,

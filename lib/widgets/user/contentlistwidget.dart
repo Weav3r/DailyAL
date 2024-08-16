@@ -963,19 +963,14 @@ class _ContentAllWidgetState extends State<ContentAllWidget>
       return null;
     }
     var epsDifference = episodesAired - episodesWatched;
-    final child = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-      decoration: BoxDecoration(
-        color: Colors.red[700],
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Text(
-        '${NumberFormat.compact().format(epsDifference)}',
-        style: TextStyle(
-          fontSize: 10,
-          color: Colors.white,
-        ),
-      ),
+    final child = Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (episodesAired != epsDifference)
+          _episodePill(episodesAired, Colors.blue[700]),
+        _episodePill(epsDifference, Colors.red[700]),
+      ],
     );
     if (widget.displayType == DisplayType.list_vert) {
       return Positioned(
@@ -990,6 +985,23 @@ class _ContentAllWidgetState extends State<ContentAllWidget>
         child: child,
       );
     }
+  }
+
+  Container _episodePill(int epsDifference, Color? color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Text(
+        '${NumberFormat.compact().format(epsDifference)}',
+        style: TextStyle(
+          fontSize: 10,
+          color: Colors.white,
+        ),
+      ),
+    );
   }
 
   Widget get genreWidget {

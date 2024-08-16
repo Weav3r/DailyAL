@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:dailyanimelist/api/credmal.dart';
 import 'package:dailyanimelist/api/malconnect.dart';
 import 'package:dailyanimelist/constant.dart';
+import 'package:dailyanimelist/enums.dart';
 import 'package:dailyanimelist/main.dart';
 import 'package:dailyanimelist/cache/cachemanager.dart';
 import 'package:dailyanimelist/screens/generalsearchscreen.dart';
@@ -155,7 +156,7 @@ class JikanHelper {
     }
     final Node node;
 
-    if (e is Map<String, dynamic>) {
+    if (e is Map<String, dynamic> && contentTypes.contains(category)) {
       final jikanAnime = JikanAnime.fromJson(e);
       node = AnimeDetailed.fromJikanJson(jikanAnime);
     } else {

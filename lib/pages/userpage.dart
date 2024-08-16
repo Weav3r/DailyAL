@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:dailyanimelist/api/auth/auth.dart';
 import 'package:dailyanimelist/api/credmal.dart';
 import 'package:dailyanimelist/api/jikahelper.dart';
 import 'package:dailyanimelist/api/maluser.dart';
+import 'package:dailyanimelist/cache/cachemanager.dart';
 import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/enums.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
@@ -25,6 +28,25 @@ import 'package:dailyanimelist/widgets/user/signinpage.dart';
 import 'package:dailyanimelist/widgets/user/userchart.dart';
 import 'package:dal_commons/dal_commons.dart';
 import 'package:flutter/material.dart';
+
+class _UserPagePref {
+  int? tabIndex;
+  String? category;
+
+  _UserPagePref({
+    this.tabIndex,
+    this.category,
+  });
+
+  _UserPagePref.fromJson(Map<String, dynamic> json)
+      : tabIndex = json['tabIndex'],
+        category = json['category'];
+
+  Map<String, dynamic> toJson() => {
+        'tabIndex': tabIndex,
+        'category': category,
+      };
+}
 
 List<int?> userStatusData(
   String category,
@@ -157,10 +179,10 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
+  _UserPagePref _userPagePref = _UserPagePref(tabIndex: 0, category: "anime");
   bool hasOpened = false;
   bool listUpdated = false;
   UserProf? userProf;
-  late String category = "anime";
   SearchResult? contentResult;
   List<BaseNode>? contentList;
   SearchStage research = SearchStage.notstarted;
@@ -214,8 +236,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
         initalIndex = allListHeaders.indexOf(widget.initialStatus!);
       }
     }
-    controller = TabController(
-        length: tabLength, vsync: this, initialIndex: initalIndex);
+    _initTabController(initalIndex);
 
     previousStatus = user.status;
     startOpeningAnimation();
@@ -233,6 +254,55 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
 
     _initCountMap();
     _initRefreshMap();
+  }
+
+  String get category => _userPagePref.category ?? 'anime';
+
+  set category(String value) {
+    _userPagePref.category = value;
+    _updateUserPrefCache();
+  }
+
+  void _setTabListener() {
+    controller?.addListener(() {
+      _setTabIndexInCache(controller!.index);
+    });
+  }
+
+  void _initTabController(int initalIndex) {
+    _setTabController(initalIndex);
+    _setTabListener();
+    if (initalIndex == 0) {
+      _userPrefFromCache.then((_) {
+        _setTabController(_userPagePref.tabIndex ?? 0);
+        _setTabListener();
+      });
+    }
+  }
+
+  void _setTabController(int initalIndex) {
+    controller = TabController(
+        length: tabLength, vsync: this, initialIndex: initalIndex);
+  }
+
+  Future<void> get _userPrefFromCache async {
+    _userPagePref = _UserPagePref.fromJson(jsonDecode(await CacheManager
+            .instance
+            .getValueForService('userBuilder', 'preference-$username') ??
+        '{}'));
+    if (_userPagePref.tabIndex == null || _userPagePref.category == null) {
+      _userPagePref = _UserPagePref(tabIndex: 0, category: "anime");
+    }
+  }
+
+  void _setTabIndexInCache(int index) {
+    _userPagePref.tabIndex = index;
+    _updateUserPrefCache();
+  }
+
+  void _updateUserPrefCache() {
+    CacheManager.instance.setValueForService(
+        'userBuilder', 'preference-$username', jsonEncode(_userPagePref));
   }
 
   void _initCountMap() {
@@ -310,7 +380,6 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
   void changeCategory(String _category) {
     if (mounted) {
       category = _category;
-      user.pref.userPageCategory = category;
       user.setIntance(updateAuth: false, shouldNotify: false);
       setState(() {});
       Future.delayed(const Duration(milliseconds: 100)).then((_) {

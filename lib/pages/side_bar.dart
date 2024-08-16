@@ -129,8 +129,8 @@ class _AppSideBarState extends State<AppSideBar> with TickerProviderStateMixin {
         (name) => UserHeader().favoritesWidget(name)),
     _UserAction(S.current.History, Icons.history,
         (name) => UserHistoryWidget(username: name)),
-    _UserAction(S.current.Notfications, Icons.notifications,
-        (name) => NotificationScheduleWidget(),
+    _UserAction(S.current.AnimeCalendar, Icons.calendar_today_outlined,
+        (name) => AnimeCalendarWidget(),
         useAppbar: false),
     _UserAction(
         S.current.Bookmarks, Icons.bookmark, (name) => BookMarksWidget(),
@@ -203,7 +203,7 @@ class _AppSideBarState extends State<AppSideBar> with TickerProviderStateMixin {
       titlePadding: EdgeInsets.all(12.0),
       title: S.current.My_Profile,
       child: Builder(builder: (context) {
-        final chunked = _userActions.chunked(4);
+        final chunked = _userActions.chunked(3);
         return Column(
           children: [
             for (var chunk in chunked)

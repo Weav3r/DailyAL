@@ -34,6 +34,14 @@ class _WeeklySchedulePageState extends State<WeeklySchedulePage>
     SortOption(name: S.current.numListUsers, value: 'num_list_users'),
     SortOption(name: S.current.numScoringUsers, value: 'num_scoring_users'),
   ];
+  static const Map<String, String> animeStatusMap = {
+    'not_in_list': 'Not in List',
+    "watching": "Watching",
+    "completed": "Completed",
+    "on_hold": "On Hold",
+    "dropped": "Dropped",
+    "plan_to_watch": "Plan to Watch"
+  };
   final List<FilterOption> _filterOptions = [
     FilterOption(
       fieldName: 'List Status',
@@ -41,8 +49,8 @@ class _WeeklySchedulePageState extends State<WeeklySchedulePage>
       apiFieldName: 'status',
       modalField: 'my_list_status',
       desc: S.current.Filter_type_of_results,
-      values: myAnimeStatusMap.values.toList(),
-      apiValues: myAnimeStatusMap.keys.toList(),
+      values: animeStatusMap.values.toList(),
+      apiValues: animeStatusMap.keys.toList(),
     ),
   ];
   late SortFilterDisplay _sortFilterDisplay;

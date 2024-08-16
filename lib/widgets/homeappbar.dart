@@ -9,7 +9,6 @@ import 'package:flutter/material.dart';
 import '../api/maluser.dart';
 import '../constant.dart';
 import '../main.dart';
-import '../pages/side_bar.dart';
 import '../screens/generalsearchscreen.dart';
 import 'avatarwidget.dart';
 
@@ -98,11 +97,11 @@ class _AppBarHomeState extends State<AppBarHome> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                _notificationButton(),
+                _searchButton(),
                 SB.w10,
                 _bookMarksButton(),
                 SB.w10,
-                _searchButton(),
+                _calendarButton(),
               ],
             ),
           ),
@@ -139,14 +138,14 @@ class _AppBarHomeState extends State<AppBarHome> {
     return _buildTopBar();
   }
 
-  Widget _notificationButton() {
+  Widget _calendarButton() {
     return ToolTipButton(
-      message: S.current.Notfications,
+      message: S.current.AnimeCalendar,
       padding: const EdgeInsets.symmetric(horizontal: 7.0),
       usePadding: true,
       onTap: () =>
-          gotoPage(context: context, newPage: NotificationScheduleWidget()),
-      child: Icon(Icons.notifications_outlined, size: iconSize),
+          gotoPage(context: context, newPage: AnimeCalendarWidget()),
+      child: Icon(Icons.calendar_today_outlined, size: iconSize),
     );
   }
 

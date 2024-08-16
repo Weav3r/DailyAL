@@ -102,6 +102,7 @@ class FilterModal extends StatelessWidget {
   final void Function(Map<String, FilterOption>)? onChange;
   final bool showBottombar;
   final bool showClearAll;
+  final EdgeInsetsGeometry? padding;
   const FilterModal({
     Key? key,
     required this.filterOptions,
@@ -114,6 +115,7 @@ class FilterModal extends StatelessWidget {
     this.showBottombar = true,
     this.additional,
     this.showClearAll = true,
+    this.padding,
   }) : super(key: key);
 
   @override
@@ -123,7 +125,7 @@ class FilterModal extends StatelessWidget {
       children: [
         ListView(
           shrinkWrap: true,
-          padding: EdgeInsets.only(top: 10.0, bottom: 120),
+          padding: padding ?? const EdgeInsets.only(top: 10.0, bottom: 120),
           children: [
             if (!hasApply)
               Padding(
@@ -277,7 +279,7 @@ class FilterModal extends StatelessWidget {
           },
         );
       case FilterType.multiple:
-        return MutiSelectBar(
+        return MultiSelectDropdown(
           options: option.values ?? strList,
           includedOptions:
               filterOutputs[option.apiFieldName]?.includedOptions ?? [],

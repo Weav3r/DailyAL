@@ -1321,32 +1321,50 @@ class HtmlParsers {
     }
   }
 
-  static parseUserFriends(Document? p0) {
+  static Map<String, dynamic> parseUserFriends(Document? p0) {
     final body = p0?.body;
     if (body != null) {
-      final friends = body
-          .querySelectorAll('.friend .boxlist')
-          .map((e) => getUserFromElement(e, true))
-          .where((e) => e['username'] != null)
-          .map((e) {
-        final username = e['username'];
-        final picture = e['mainPicture'] as Picture;
-        final extras = (e['e'] as Element).querySelectorAll('.fn-grey2');
-        final first = extras.tryAt();
-        final second = extras.tryAt(1);
-        return FriendV4(
-          friendsSince: second?.innerHtml.trim(),
-          lastOnline: first?.innerHtml.trim(),
-          user: UserV4(
-            username: username,
-            images: Images(
-              jpg: ImageUrl(imageUrl: picture.large ?? picture.medium),
+      try {
+        final count = int.tryParse(body
+                .querySelector('.user-friends')
+                ?.previousElementSibling
+                ?.querySelector('a')
+                ?.text
+                .replaceAll(RegExp(r'\D'), '') ??
+            '');
+        final friends = body
+            .querySelectorAll('.friend .boxlist')
+            .map((e) => getUserFromElement(e, true))
+            .where((e) => e['username'] != null)
+            .map((e) {
+          final username = e['username'];
+          final picture = e['mainPicture'] as Picture;
+          final extras = (e['e'] as Element).querySelectorAll('.fn-grey2');
+          final first = extras.tryAt();
+          final second = extras.tryAt(1);
+          return FriendV4(
+            friendsSince: second?.innerHtml.trim(),
+            lastOnline: first?.innerHtml.trim(),
+            user: UserV4(
+              username: username,
+              images: Images(
+                jpg: ImageUrl(imageUrl: picture.large ?? picture.medium),
+              ),
             ),
-          ),
-        );
-      }).toList();
-      return friends;
+          );
+        }).toList();
+        return {
+          'count': count,
+          'data': friends,
+        };
+      } catch (e) {
+        logDal(e);
+      }
     }
+    return {
+      'count': 0,
+      'data': [],
+    };
   }
 
   static getUserFromElement(Element? ele, [bool includeElement = false]) {

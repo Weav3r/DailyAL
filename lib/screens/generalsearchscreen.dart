@@ -173,18 +173,17 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
   _setDefaultSortFilterDisplay() async {
     _sortFilterDisplay = await SortFilterDisplay.fromCache(
         'searchService', 'sortFilterDisplay', _defaultSortFilterDisplay());
-    _setSuperCategory();
+    _setWidgetOptions();
     _checkAutoSearch();
     if (mounted) setState(() {});
   }
 
-  void _setSuperCategory() {
+  void _setWidgetOptions() {
     final superCategory = widget.category ?? 'all';
-    if ('all'.equals(superCategory)) {
-      category = "all";
-    } else {
+    if (category.equals('all')) {
       category = superCategory;
     }
+    _filterOutputs = widget.filterOutputs ?? {};
   }
 
   void _checkAutoSearch() {
@@ -629,7 +628,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
               builder: _onSearchBuild,
             ),
             searchbar(),
-            Padding(padding: EdgeInsets.only(top: 90), child: _filterSection()),
+            Padding(padding: EdgeInsets.only(top: 83), child: _filterSection()),
           ],
         ),
       ),
@@ -732,7 +731,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
   Widget _showNoResultsFound() {
     return Column(
       children: [
-        const SizedBox(height: 90.0),
+        const SizedBox(height: 120.0),
         if (searchResult is UserResult &&
             ((searchResult as UserResult).isUser ?? false))
           _showUserFound()
@@ -1304,7 +1303,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
                               _buildSearchLeading(),
                               if (isSpecialQuery) _buildSpecialQueryTag(),
                               _buildSearchFormField(),
-                              if (!isSpecialQuery) _buildFilter(),
+                              _buildFilter(),
                             ],
                           ),
                         ),
@@ -1441,6 +1440,9 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
       category = value;
       reset();
     } else {
+      if (prevQuery.notEquals(_searchController.text)) {
+        return;
+      }
       gotoPage(
         context: context,
         newPage: GeneralSearchScreen(
@@ -1478,9 +1480,12 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
           independent: false,
           sortFilterOptions: SortFilterOptions(
             sortOptions: [],
-            filterOptions: _removeExclusiveFilters(getFilterOptions()),
+            filterOptions: isSpecialQuery
+                ? []
+                : _removeExclusiveFilters(getFilterOptions()),
             displayOptions: _getDisplayOptions(),
-            categories: widget.exclusiveScreen ? [] : searchTypes,
+            categories:
+                (widget.exclusiveScreen || isSpecialQuery) ? [] : searchTypes,
           ),
           onCategoryChange: (value) {
             _onCategorySelect(value);
@@ -1590,7 +1595,7 @@ class CustomFilters {
     apiFieldName: "genres",
     modalField: "genres",
     excludeFieldName: "genres_exclude",
-    desc: S.current.Genre_Include_Exclude_desc,
+    desc: S.current.Genre_Include_Exclude_desc_v2,
     apiValues: Mal.animeGenres.keys.toList(),
     values: Mal.animeGenres.values.toList(),
   );
