@@ -940,5 +940,11 @@
     "Couldnt_find_release": "No se pudo encontrar la versi\u00f3n",
     "MAL_API_Licence": "MAL Agreement",
     "Whats_new": "Qu\u00e9 hay de nuevo",
-    "MAL_API_Licence_Desc": "Licencia de API MyAnimeList y acuerdo de desarrollador"
+    "MAL_API_Licence_Desc": "Licencia de API MyAnimeList y acuerdo de desarrollador",
+    "Genre_Include_Exclude_desc_v2": "Seleccione un g\u00e9nero para incluir y luego toque nuevamente para excluir.",
+    "Search": "Buscar",
+    "NextShow": "Pr\u00f3ximo espect\u00e1culo",
+    "Show": "Espect\u00e1culo",
+    "ReleaseStartDate": "Fecha de lanzamiento",
+    "AnimeCalendar": "Calendario animado"
 }

@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Analysis": MessageLookupByLibrary.simpleMessage("Analiz"),
         "Animals": MessageLookupByLibrary.simpleMessage("Hayvanlar"),
         "Animation": MessageLookupByLibrary.simpleMessage("Animasyon"),
+        "AnimeCalendar": MessageLookupByLibrary.simpleMessage("Anime Takvimi"),
         "AnimeJapan": MessageLookupByLibrary.simpleMessage("AnimeJaponya"),
         "Anime_Archetypes":
             MessageLookupByLibrary.simpleMessage("Anime Arketipleri"),
@@ -428,6 +429,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tür Dahil Et/Hariç Tut"),
         "Genre_Include_Exclude_desc": MessageLookupByLibrary.simpleMessage(
             "Bir türü dahil etmek için bir kez dokunun veya hariç tutmak için iki kez dokunun."),
+        "Genre_Include_Exclude_desc_v2": MessageLookupByLibrary.simpleMessage(
+            "Dahil edilecek bir tür seçin ve ardından hariç tutmak için tekrar dokunun."),
         "Genres": MessageLookupByLibrary.simpleMessage("Türler"),
         "German": MessageLookupByLibrary.simpleMessage("Almanca"),
         "Ghibli": MessageLookupByLibrary.simpleMessage("üçgen çatı"),
@@ -679,6 +682,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "News_Tags_desc": MessageLookupByLibrary.simpleMessage(
             "Örneğin: Öneri etiketi size harika öneriler verecektir."),
         "Next": MessageLookupByLibrary.simpleMessage("Sonraki"),
+        "NextShow": MessageLookupByLibrary.simpleMessage("Sonraki Gösteri"),
         "Nice": MessageLookupByLibrary.simpleMessage("Güzel"),
         "No": MessageLookupByLibrary.simpleMessage("HAYIR"),
         "NoMoreItemsFound":
@@ -851,6 +855,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Reincarnation": MessageLookupByLibrary.simpleMessage("Reenkarnasyon"),
         "Related": MessageLookupByLibrary.simpleMessage("İlgili"),
         "Related_Anime": MessageLookupByLibrary.simpleMessage("İlgili Anime"),
+        "ReleaseStartDate":
+            MessageLookupByLibrary.simpleMessage("Yayın tarihi"),
         "Remove_Image":
             MessageLookupByLibrary.simpleMessage("Resmi Ana Sayfadan Kaldır"),
         "Remove_Image_desc": MessageLookupByLibrary.simpleMessage(
@@ -917,6 +923,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Score_Distribution":
             MessageLookupByLibrary.simpleMessage("Puan Dağılımı"),
         "Screening": MessageLookupByLibrary.simpleMessage("Tarama"),
+        "Search": MessageLookupByLibrary.simpleMessage("Aramak"),
         "SearchBarHintText": MessageLookupByLibrary.simpleMessage(
             "Anime, manga ve daha fazlasını arayın"),
         "Search_Bar_Text":
@@ -982,6 +989,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Share": MessageLookupByLibrary.simpleMessage("Paylaşmak"),
         "Shoujo": MessageLookupByLibrary.simpleMessage("Shoujo"),
         "Shounen": MessageLookupByLibrary.simpleMessage("Shounen"),
+        "Show": MessageLookupByLibrary.simpleMessage("Göstermek"),
         "ShowOnlyLastQuote":
             MessageLookupByLibrary.simpleMessage("Yalnızca Son Teklifi Göster"),
         "ShowOnlyLastQuote_desc": MessageLookupByLibrary.simpleMessage(

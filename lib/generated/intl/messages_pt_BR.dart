@@ -54,6 +54,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Analysis": MessageLookupByLibrary.simpleMessage("Análise"),
         "Animals": MessageLookupByLibrary.simpleMessage("Animais"),
         "Animation": MessageLookupByLibrary.simpleMessage("Animação"),
+        "AnimeCalendar":
+            MessageLookupByLibrary.simpleMessage("Calendário de animes"),
         "AnimeJapan": MessageLookupByLibrary.simpleMessage("Anime Japan."),
         "Anime_Archetypes":
             MessageLookupByLibrary.simpleMessage("Arquétipos de anime."),
@@ -440,6 +442,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Gênero Incluir/Excluir"),
         "Genre_Include_Exclude_desc": MessageLookupByLibrary.simpleMessage(
             "Toque uma vez para incluir ou toque duas vezes para excluir um gênero."),
+        "Genre_Include_Exclude_desc_v2": MessageLookupByLibrary.simpleMessage(
+            "Selecione um gênero para incluir e toque novamente para excluir."),
         "Genres": MessageLookupByLibrary.simpleMessage("Gêneros"),
         "German": MessageLookupByLibrary.simpleMessage("German"),
         "Ghibli": MessageLookupByLibrary.simpleMessage("Ghibli."),
@@ -696,6 +700,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "News_Tags_desc": MessageLookupByLibrary.simpleMessage(
             "Para ex: tag de recomendação lhe dará algumas recomendações incríveis."),
         "Next": MessageLookupByLibrary.simpleMessage("Next"),
+        "NextShow": MessageLookupByLibrary.simpleMessage("Próximo programa"),
         "Nice": MessageLookupByLibrary.simpleMessage("agradável"),
         "No": MessageLookupByLibrary.simpleMessage("Não"),
         "NoMoreItemsFound": MessageLookupByLibrary.simpleMessage(
@@ -873,6 +878,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Related": MessageLookupByLibrary.simpleMessage("Related"),
         "Related_Anime":
             MessageLookupByLibrary.simpleMessage("Anime relacionado"),
+        "ReleaseStartDate":
+            MessageLookupByLibrary.simpleMessage("Data de lançamento"),
         "Remove_Image":
             MessageLookupByLibrary.simpleMessage("Remover imagem da home page"),
         "Remove_Image_desc": MessageLookupByLibrary.simpleMessage(
@@ -938,6 +945,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Score_Distribution":
             MessageLookupByLibrary.simpleMessage("Distribuição de pontuação"),
         "Screening": MessageLookupByLibrary.simpleMessage("Triagem"),
+        "Search": MessageLookupByLibrary.simpleMessage("Procurar"),
         "SearchBarHintText": MessageLookupByLibrary.simpleMessage(
             "Pesquise anime, mangá e muito mais"),
         "Search_Bar_Text":
@@ -1004,6 +1012,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Share": MessageLookupByLibrary.simpleMessage("Compartilhar"),
         "Shoujo": MessageLookupByLibrary.simpleMessage("Shoujo."),
         "Shounen": MessageLookupByLibrary.simpleMessage("Shounen."),
+        "Show": MessageLookupByLibrary.simpleMessage("Mostrar"),
         "ShowOnlyLastQuote": MessageLookupByLibrary.simpleMessage(
             "Mostrar apenas última cotação"),
         "ShowOnlyLastQuote_desc": MessageLookupByLibrary.simpleMessage(

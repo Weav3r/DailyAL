@@ -940,5 +940,11 @@
     "Couldnt_find_release": "N\u00e3o foi poss\u00edvel encontrar a vers\u00e3o",
     "MAL_API_Licence": "Acordo RUIM",
     "Whats_new": "O que h\u00e1 de novo",
-    "MAL_API_Licence_Desc": "Licen\u00e7a da API MyAnimeList e contrato de desenvolvedor"
+    "MAL_API_Licence_Desc": "Licen\u00e7a da API MyAnimeList e contrato de desenvolvedor",
+    "Genre_Include_Exclude_desc_v2": "Selecione um g\u00eanero para incluir e toque novamente para excluir.",
+    "Search": "Procurar",
+    "NextShow": "Pr\u00f3ximo programa",
+    "Show": "Mostrar",
+    "ReleaseStartDate": "Data de lan\u00e7amento",
+    "AnimeCalendar": "Calend\u00e1rio de animes"
 }

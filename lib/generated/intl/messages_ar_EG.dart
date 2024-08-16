@@ -53,6 +53,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Analysis": MessageLookupByLibrary.simpleMessage("التحليلات"),
         "Animals": MessageLookupByLibrary.simpleMessage("الحيوانات"),
         "Animation": MessageLookupByLibrary.simpleMessage("حيوية"),
+        "AnimeCalendar": MessageLookupByLibrary.simpleMessage("تقويم الأنمي"),
         "AnimeJapan": MessageLookupByLibrary.simpleMessage("أنيمي اليابان"),
         "Anime_Archetypes":
             MessageLookupByLibrary.simpleMessage("الأنماطية أنيمي"),
@@ -423,6 +424,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("النوع يشمل / استبعاد"),
         "Genre_Include_Exclude_desc": MessageLookupByLibrary.simpleMessage(
             "نقرة واحدة لتضمين أو انقر نقرًا مزدوجًا لاستبعاد نوع."),
+        "Genre_Include_Exclude_desc_v2": MessageLookupByLibrary.simpleMessage(
+            "حدد النوع المراد تضمينه، ثم انقر مرة أخرى لاستبعاده."),
         "Genres": MessageLookupByLibrary.simpleMessage("الأنواع"),
         "German": MessageLookupByLibrary.simpleMessage("ألمانية"),
         "Ghibli": MessageLookupByLibrary.simpleMessage("غبيلي"),
@@ -676,6 +679,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "News_Tags_desc": MessageLookupByLibrary.simpleMessage(
             "بالنسبة إلى السابقين: وسوف تمنحك علامة التوصية بعض التوصيات الرائعة."),
         "Next": MessageLookupByLibrary.simpleMessage("التالي"),
+        "NextShow": MessageLookupByLibrary.simpleMessage("العرض القادم"),
         "Nice": MessageLookupByLibrary.simpleMessage("لطيف - جيد"),
         "No": MessageLookupByLibrary.simpleMessage("لا"),
         "NoMoreItemsFound": MessageLookupByLibrary.simpleMessage(
@@ -845,6 +849,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Related": MessageLookupByLibrary.simpleMessage("متعلق ب"),
         "Related_Anime":
             MessageLookupByLibrary.simpleMessage("أنيمي ذات الصلة"),
+        "ReleaseStartDate":
+            MessageLookupByLibrary.simpleMessage("تاريخ الافراج عنه"),
         "Remove_Image": MessageLookupByLibrary.simpleMessage(
             "إزالة الصورة من الصفحة الرئيسية"),
         "Remove_Image_desc": MessageLookupByLibrary.simpleMessage(
@@ -909,6 +915,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Score_Distribution":
             MessageLookupByLibrary.simpleMessage("توزيع النتيجة"),
         "Screening": MessageLookupByLibrary.simpleMessage("تحري"),
+        "Search": MessageLookupByLibrary.simpleMessage("يبحث"),
         "SearchBarHintText": MessageLookupByLibrary.simpleMessage(
             "ابحث عن الأنمي والمانجا والمزيد"),
         "Search_Bar_Text": MessageLookupByLibrary.simpleMessage("ابحث هنا..."),
@@ -967,6 +974,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Share": MessageLookupByLibrary.simpleMessage("يشارك"),
         "Shoujo": MessageLookupByLibrary.simpleMessage("شوجو"),
         "Shounen": MessageLookupByLibrary.simpleMessage("شونين"),
+        "Show": MessageLookupByLibrary.simpleMessage("يعرض"),
         "ShowOnlyLastQuote":
             MessageLookupByLibrary.simpleMessage("عرض اقتباس آخر فقط"),
         "ShowOnlyLastQuote_desc": MessageLookupByLibrary.simpleMessage(

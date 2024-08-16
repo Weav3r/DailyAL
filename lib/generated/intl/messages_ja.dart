@@ -52,6 +52,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Analysis": MessageLookupByLibrary.simpleMessage("分析"),
         "Animals": MessageLookupByLibrary.simpleMessage("動物"),
         "Animation": MessageLookupByLibrary.simpleMessage("アニメーション"),
+        "AnimeCalendar": MessageLookupByLibrary.simpleMessage("アニメカレンダー"),
         "AnimeJapan": MessageLookupByLibrary.simpleMessage("アニメジャパン"),
         "Anime_Archetypes": MessageLookupByLibrary.simpleMessage("アニメアーキタイプ"),
         "Anime_Awards": MessageLookupByLibrary.simpleMessage("アニメアワード"),
@@ -385,6 +386,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ジャンル包含/除外"),
         "Genre_Include_Exclude_desc": MessageLookupByLibrary.simpleMessage(
             "シングルタップで含めるか、ダブルタップしてジャンルを除外します。"),
+        "Genre_Include_Exclude_desc_v2": MessageLookupByLibrary.simpleMessage(
+            "含めるジャンルを選択し、もう一度タップすると除外します。"),
         "Genres": MessageLookupByLibrary.simpleMessage("ジャンル"),
         "German": MessageLookupByLibrary.simpleMessage("ドイツ人"),
         "Ghibli": MessageLookupByLibrary.simpleMessage("ジブリ"),
@@ -611,6 +614,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "News_Tags_desc": MessageLookupByLibrary.simpleMessage(
             "EXの場合：推奨タグはあなたにいくつかの素晴らしい推奨事項を与えるでしょう。"),
         "Next": MessageLookupByLibrary.simpleMessage("次"),
+        "NextShow": MessageLookupByLibrary.simpleMessage("次のショー"),
         "Nice": MessageLookupByLibrary.simpleMessage("良い"),
         "No": MessageLookupByLibrary.simpleMessage("番号"),
         "NoMoreItemsFound":
@@ -759,6 +763,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Reincarnation": MessageLookupByLibrary.simpleMessage("生まれ変わり"),
         "Related": MessageLookupByLibrary.simpleMessage("関連している"),
         "Related_Anime": MessageLookupByLibrary.simpleMessage("関連アニメ"),
+        "ReleaseStartDate": MessageLookupByLibrary.simpleMessage("発売日"),
         "Remove_Image":
             MessageLookupByLibrary.simpleMessage("ホームページから画像を削除します"),
         "Remove_Image_desc":
@@ -818,6 +823,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Score": MessageLookupByLibrary.simpleMessage("スコア"),
         "Score_Distribution": MessageLookupByLibrary.simpleMessage("スコア分布"),
         "Screening": MessageLookupByLibrary.simpleMessage("ふるい分け"),
+        "Search": MessageLookupByLibrary.simpleMessage("検索"),
         "SearchBarHintText":
             MessageLookupByLibrary.simpleMessage("アニメ、マンガなどを検索"),
         "Search_Bar_Text": MessageLookupByLibrary.simpleMessage("検索..."),
@@ -875,6 +881,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Share": MessageLookupByLibrary.simpleMessage("シェア"),
         "Shoujo": MessageLookupByLibrary.simpleMessage("千条"),
         "Shounen": MessageLookupByLibrary.simpleMessage("恥ずく"),
+        "Show": MessageLookupByLibrary.simpleMessage("見せる"),
         "ShowOnlyLastQuote":
             MessageLookupByLibrary.simpleMessage("最後の見積もりのみを表示します"),
         "ShowOnlyLastQuote_desc":

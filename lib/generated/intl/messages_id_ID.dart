@@ -54,6 +54,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Analysis": MessageLookupByLibrary.simpleMessage("Analisis"),
         "Animals": MessageLookupByLibrary.simpleMessage("Hewan"),
         "Animation": MessageLookupByLibrary.simpleMessage("Animasi"),
+        "AnimeCalendar": MessageLookupByLibrary.simpleMessage("Kalender Anime"),
         "AnimeJapan": MessageLookupByLibrary.simpleMessage("Anime Jepang"),
         "Anime_Archetypes":
             MessageLookupByLibrary.simpleMessage("Arketipe anime."),
@@ -433,6 +434,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Genre Sertakan/Kecualikan"),
         "Genre_Include_Exclude_desc": MessageLookupByLibrary.simpleMessage(
             "Ketuk sekali untuk memasukkan atau ketuk dua kali untuk mengecualikan genre."),
+        "Genre_Include_Exclude_desc_v2": MessageLookupByLibrary.simpleMessage(
+            "Pilih genre yang ingin disertakan lalu ketuk lagi untuk dikecualikan."),
         "Genres": MessageLookupByLibrary.simpleMessage("Genre."),
         "German": MessageLookupByLibrary.simpleMessage("Jerman"),
         "Ghibli": MessageLookupByLibrary.simpleMessage("Ghibli."),
@@ -686,6 +689,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "News_Tags_desc": MessageLookupByLibrary.simpleMessage(
             "Untuk Mantan: Tag rekomendasi akan memberi Anda beberapa rekomendasi yang luar biasa."),
         "Next": MessageLookupByLibrary.simpleMessage("Lanjut"),
+        "NextShow":
+            MessageLookupByLibrary.simpleMessage("Pertunjukan Berikutnya"),
         "Nice": MessageLookupByLibrary.simpleMessage("Bagus"),
         "No": MessageLookupByLibrary.simpleMessage("Tidak"),
         "NoMoreItemsFound": MessageLookupByLibrary.simpleMessage(
@@ -858,6 +863,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Reincarnation": MessageLookupByLibrary.simpleMessage("Reinkarnasi"),
         "Related": MessageLookupByLibrary.simpleMessage("Terkait"),
         "Related_Anime": MessageLookupByLibrary.simpleMessage("Anime Terkait."),
+        "ReleaseStartDate":
+            MessageLookupByLibrary.simpleMessage("Tanggal Rilis"),
         "Remove_Image":
             MessageLookupByLibrary.simpleMessage("Hapus gambar dari beranda"),
         "Remove_Image_desc": MessageLookupByLibrary.simpleMessage(
@@ -923,6 +930,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Score_Distribution":
             MessageLookupByLibrary.simpleMessage("Distribusi Skor"),
         "Screening": MessageLookupByLibrary.simpleMessage("Penyaringan"),
+        "Search": MessageLookupByLibrary.simpleMessage("Mencari"),
         "SearchBarHintText":
             MessageLookupByLibrary.simpleMessage("Cari anime, manga & lainnya"),
         "Search_Bar_Text":
@@ -986,6 +994,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Share": MessageLookupByLibrary.simpleMessage("Membagikan"),
         "Shoujo": MessageLookupByLibrary.simpleMessage("Shoujo."),
         "Shounen": MessageLookupByLibrary.simpleMessage("Shounen."),
+        "Show": MessageLookupByLibrary.simpleMessage("Menunjukkan"),
         "ShowOnlyLastQuote": MessageLookupByLibrary.simpleMessage(
             "Tampilkan hanya kutipan terakhir"),
         "ShowOnlyLastQuote_desc": MessageLookupByLibrary.simpleMessage(

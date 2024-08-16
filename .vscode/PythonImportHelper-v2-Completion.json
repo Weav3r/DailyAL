@@ -119,7 +119,7 @@
         "kind": 2,
         "importPath": "python.init",
         "description": "python.init",
-        "peekOfCode": "def translate(dest, text):\n    try:\n        return translator.translate(text, dest).text\n    except:\n        return text\nwith open(arb_loc.format(\"en\")) as engFile:\n    eng = json.load(engFile)\n    for i in range(len(langs)):\n        file = files[i]\n        dest = langs[i]",
+        "peekOfCode": "def translate(dest, text):\n    try:\n        return translator.translate(text, dest).text\n    except e:\n        print(e)\n        return text\nwith open(arb_loc.format(\"en\")) as engFile:\n    eng = json.load(engFile)\n    for i in range(len(langs)):\n        file = files[i]",
         "detail": "python.init",
         "documentation": {}
     },
@@ -128,7 +128,7 @@
         "kind": 5,
         "importPath": "python.init",
         "description": "python.init",
-        "peekOfCode": "arb_loc = \"./lib/l10n/intl_{}.arb\"\ntranslator = Translator()\nlangs = [\"de\", \"es\", \"pt\", \"fr\", \"id\", \"ja\", \"ko\", \"ar\", \"ru\", \"tr\"]\nfiles = [\"de_DE\", \"es_ES\", \"pt_BR\", \"fr_FR\", \"id_ID\", \"ja\", \"ko_KR\", \"ar_EG\", \"ru_RU\", \"tr_TR\"];\ndef translate(dest, text):\n    try:\n        return translator.translate(text, dest).text\n    except:\n        return text\nwith open(arb_loc.format(\"en\")) as engFile:",
+        "peekOfCode": "arb_loc = \"./lib/l10n/intl_{}.arb\"\ntranslator = Translator()\nlangs = [\"de\", \"es\", \"pt\", \"fr\", \"id\", \"ja\", \"ko\", \"ar\", \"ru\", \"tr\"]\nfiles = [\"de_DE\", \"es_ES\", \"pt_BR\", \"fr_FR\", \"id_ID\", \"ja\", \"ko_KR\", \"ar_EG\", \"ru_RU\", \"tr_TR\"];\ndef translate(dest, text):\n    try:\n        return translator.translate(text, dest).text\n    except e:\n        print(e)\n        return text",
         "detail": "python.init",
         "documentation": {}
     },
@@ -137,7 +137,7 @@
         "kind": 5,
         "importPath": "python.init",
         "description": "python.init",
-        "peekOfCode": "translator = Translator()\nlangs = [\"de\", \"es\", \"pt\", \"fr\", \"id\", \"ja\", \"ko\", \"ar\", \"ru\", \"tr\"]\nfiles = [\"de_DE\", \"es_ES\", \"pt_BR\", \"fr_FR\", \"id_ID\", \"ja\", \"ko_KR\", \"ar_EG\", \"ru_RU\", \"tr_TR\"];\ndef translate(dest, text):\n    try:\n        return translator.translate(text, dest).text\n    except:\n        return text\nwith open(arb_loc.format(\"en\")) as engFile:\n    eng = json.load(engFile)",
+        "peekOfCode": "translator = Translator()\nlangs = [\"de\", \"es\", \"pt\", \"fr\", \"id\", \"ja\", \"ko\", \"ar\", \"ru\", \"tr\"]\nfiles = [\"de_DE\", \"es_ES\", \"pt_BR\", \"fr_FR\", \"id_ID\", \"ja\", \"ko_KR\", \"ar_EG\", \"ru_RU\", \"tr_TR\"];\ndef translate(dest, text):\n    try:\n        return translator.translate(text, dest).text\n    except e:\n        print(e)\n        return text\nwith open(arb_loc.format(\"en\")) as engFile:",
         "detail": "python.init",
         "documentation": {}
     },
@@ -146,7 +146,7 @@
         "kind": 5,
         "importPath": "python.init",
         "description": "python.init",
-        "peekOfCode": "langs = [\"de\", \"es\", \"pt\", \"fr\", \"id\", \"ja\", \"ko\", \"ar\", \"ru\", \"tr\"]\nfiles = [\"de_DE\", \"es_ES\", \"pt_BR\", \"fr_FR\", \"id_ID\", \"ja\", \"ko_KR\", \"ar_EG\", \"ru_RU\", \"tr_TR\"];\ndef translate(dest, text):\n    try:\n        return translator.translate(text, dest).text\n    except:\n        return text\nwith open(arb_loc.format(\"en\")) as engFile:\n    eng = json.load(engFile)\n    for i in range(len(langs)):",
+        "peekOfCode": "langs = [\"de\", \"es\", \"pt\", \"fr\", \"id\", \"ja\", \"ko\", \"ar\", \"ru\", \"tr\"]\nfiles = [\"de_DE\", \"es_ES\", \"pt_BR\", \"fr_FR\", \"id_ID\", \"ja\", \"ko_KR\", \"ar_EG\", \"ru_RU\", \"tr_TR\"];\ndef translate(dest, text):\n    try:\n        return translator.translate(text, dest).text\n    except e:\n        print(e)\n        return text\nwith open(arb_loc.format(\"en\")) as engFile:\n    eng = json.load(engFile)",
         "detail": "python.init",
         "documentation": {}
     },
@@ -155,7 +155,7 @@
         "kind": 5,
         "importPath": "python.init",
         "description": "python.init",
-        "peekOfCode": "files = [\"de_DE\", \"es_ES\", \"pt_BR\", \"fr_FR\", \"id_ID\", \"ja\", \"ko_KR\", \"ar_EG\", \"ru_RU\", \"tr_TR\"];\ndef translate(dest, text):\n    try:\n        return translator.translate(text, dest).text\n    except:\n        return text\nwith open(arb_loc.format(\"en\")) as engFile:\n    eng = json.load(engFile)\n    for i in range(len(langs)):\n        file = files[i]",
+        "peekOfCode": "files = [\"de_DE\", \"es_ES\", \"pt_BR\", \"fr_FR\", \"id_ID\", \"ja\", \"ko_KR\", \"ar_EG\", \"ru_RU\", \"tr_TR\"];\ndef translate(dest, text):\n    try:\n        return translator.translate(text, dest).text\n    except e:\n        print(e)\n        return text\nwith open(arb_loc.format(\"en\")) as engFile:\n    eng = json.load(engFile)\n    for i in range(len(langs)):",
         "detail": "python.init",
         "documentation": {}
     }

@@ -10,7 +10,8 @@ files = ["de_DE", "es_ES", "pt_BR", "fr_FR", "id_ID", "ja", "ko_KR", "ar_EG", "r
 def translate(dest, text):
     try:
         return translator.translate(text, dest).text
-    except:
+    except e:
+        print(e)
         return text
 
 with open(arb_loc.format("en")) as engFile:
