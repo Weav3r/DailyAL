@@ -1290,6 +1290,16 @@ extension DateTimeExtension on DateTime {
   }
 }
 
+extension MapExtension on Map {
+  bool equals(Map other) {
+    if (this.length != other.length) return false;
+    for (var key in this.keys) {
+      if (this[key] != other[key]) return false;
+    }
+    return true;
+  }
+}
+
 String displayTimeAgo(DateTime date, {bool numericDates = true}) {
   final date2 = DateTime.now();
   final difference = date2.difference(date);

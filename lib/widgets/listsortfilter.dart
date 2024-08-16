@@ -474,6 +474,15 @@ class SortFilterOptions {
       ];
     }
   }
+
+  String refKey() {
+    return '''
+    ${sortOptions.map((e) => e.value).join('.')}- 
+    ${filterOptions.map((e) => e.value).join('.')}- 
+    ${displayOptions.map((e) => e.type!.name).join('.')}- 
+    ${categories.join('.')}- 
+    ''';
+  }
 }
 
 class SortFilterPopup extends StatefulWidget {
@@ -486,6 +495,7 @@ class SortFilterPopup extends StatefulWidget {
     this.additional,
     this.showText = false,
     this.independent = true,
+    this.onCategoryChange,
   });
 
   final SortFilterDisplay sortFilterDisplay;
@@ -495,6 +505,7 @@ class SortFilterPopup extends StatefulWidget {
   final bool showText;
   final String? additional;
   final bool independent;
+  final ValueChanged<String>? onCategoryChange;
 
   @override
   State<SortFilterPopup> createState() => _SortFilterPopupState();
@@ -544,10 +555,14 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
   @override
   void didUpdateWidget(covariant SortFilterPopup oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.sortFilterDisplay
-            .refKey('prefix')
-            .notEquals(widget.sortFilterDisplay.refKey('prefix')) &&
-        mounted) {
+    var hasFilerOptionsChanged = oldWidget.sortFilterOptions
+            ?.refKey()
+            .notEquals(widget.sortFilterOptions?.refKey()) ??
+        false;
+    var hasFilterChanged = oldWidget.sortFilterDisplay
+        .refKey('prefix')
+        .notEquals(widget.sortFilterDisplay.refKey('prefix'));
+    if (hasFilterChanged && hasFilerOptionsChanged && mounted) {
       setupOptions();
       setState(() {});
     }
@@ -788,19 +803,24 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
   }
 
   Widget _categoryView() {
-    return ListView(
-        children: _sortFilterOptions.categories.map((e) {
-      return RadioListTile<String>(
-        value: e,
-        groupValue: _sortFilterDisplay.category,
-        title: Text(e.capitalize()!),
-        onChanged: (value) {
-          if (value == null || value.equals(_sortFilterDisplay.category))
-            return;
-          _categoryTap(value);
-        },
-      );
-    }).toList());
+    return SingleChildScrollView(
+      child: Column(children: [
+        SB.h20,
+        ..._sortFilterOptions.categories.map((e) {
+          return RadioListTile<String>(
+            value: e,
+            groupValue: _sortFilterDisplay.category,
+            title: Text(e.standardize()!),
+            onChanged: (value) {
+              if (value == null || value.equals(_sortFilterDisplay.category))
+                return;
+              _categoryTap(value);
+            },
+          );
+        }).toList(),
+        SB.h60,
+      ]),
+    );
   }
 
   void _categoryTap(String value) {
@@ -808,13 +828,7 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
       category: value,
       filterOutputs: {},
     );
-    _sortFilterOptions = _sortFilterOptions.copyWith(
-      filterOptions: getFilterOptions(value),
-      displayOptions: !contentTypes.contains(value)
-          ? []
-          : SortFilterOptions.getDisplayOptions(),
-    );
-    _setTabs();
+    widget.onCategoryChange?.call(value);
     setState(() {});
   }
 
@@ -1041,8 +1055,24 @@ class SortFilterDisplay {
     ${sort.value}-
     ${sort.order.name}-
     ${category}-
-    ${filterOutputs.values.map((e) => e.value ?? ((e.includedOptions ?? []).join(',') + (e.excludedOptions ?? []).join(','))).join('.')}-
+    ${_filterOutputKey()}-
     ''';
+  }
+
+  String _filterOutputKey() => filterOutputs.values
+      .map((e) =>
+          e.value ??
+          ((e.includedOptions ?? []).join(',') +
+              (e.excludedOptions ?? []).join(',')))
+      .join('.');
+
+  bool hasOnlyDisplayTypeChanged(SortFilterDisplay other) {
+    // check if only display type has changed and nothing else
+    return sort.value.equals(other.sort.value) &&
+        sort.order == other.sort.order &&
+        category.equals(other.category) &&
+        _filterOutputKey().equals(other._filterOutputKey()) &&
+        displayOption.refKey().notEquals(other.displayOption.refKey());
   }
 
   static Future<SortFilterDisplay> fromCache(
@@ -1119,7 +1149,7 @@ class SortFilterDisplay {
       displayOption: DisplayOption.fromJson(json)!,
       filterOutputs: {},
       selectedTab: json['selectedTab'],
-      category: json['category'],
+      category: json['category'] ?? '',
     );
   }
 
@@ -1236,5 +1266,14 @@ class DisplayOption {
       gridCrossAxisCount: json['gridCrossAxisCount'] ?? 2,
       gridHeight: json['gridHeight'] ?? 280.0,
     );
+  }
+
+  String refKey() {
+    return '''
+    ${displayType.name}-
+    ${displaySubType.name}-
+    $gridCrossAxisCount-
+    $gridHeight-
+    ''';
   }
 }

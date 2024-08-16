@@ -152,7 +152,7 @@ class _BarChartWidgetState extends State<BarChartWidget> {
         barTouchData: BarTouchData(
           touchTooltipData: BarTouchTooltipData(
             getTooltipItem: widget.getTooltipItem,
-            tooltipBgColor: Theme.of(context).cardColor,
+            getTooltipColor: (group) => Theme.of(context).cardColor,
             direction: TooltipDirection.auto,
             fitInsideHorizontally: true,
             fitInsideVertically: true,

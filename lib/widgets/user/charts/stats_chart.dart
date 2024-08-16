@@ -164,7 +164,7 @@ class _AnimeMangaPlayingChartState extends State<AnimeMangaPlayingChart> {
       BarChartData(
         barTouchData: BarTouchData(
           touchTooltipData: BarTouchTooltipData(
-            tooltipBgColor: Theme.of(context).cardColor,
+            getTooltipColor: (group) => Theme.of(context).cardColor,
             getTooltipItem: (group, groupIndex, rod, rodIndex) =>
                 BarTooltipItem(
               '${_statusTitle(category, groupIndex)}${percentage(statusData[groupIndex])}',
