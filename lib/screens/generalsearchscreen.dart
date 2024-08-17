@@ -180,7 +180,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
 
   void _setWidgetOptions() {
     final superCategory = widget.category ?? 'all';
-    if (category.equals('all')) {
+    if (superCategory.notEquals('all')) {
       category = superCategory;
     }
     _filterOutputs = widget.filterOutputs ?? {};
