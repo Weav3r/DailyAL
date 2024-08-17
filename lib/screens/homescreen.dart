@@ -1,4 +1,5 @@
 import 'package:dailyanimelist/api/credmal.dart';
+import 'package:dailyanimelist/cache/cachemanager.dart';
 import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/notifservice.dart';
 import 'package:dailyanimelist/pages/explorepage.dart';
@@ -131,14 +132,26 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
       }
       final tag = await getCurrentTag();
       final git = await getLatestRelease();
-      final available = isUpdateAvailable(tag, git.tagName ?? '');
-      if (available) {
+      final latestTag = git.tagName ?? '';
+      final available = isUpdateAvailable(tag, latestTag);
+      final hasAlreadyNotified = await _hasAlreadyNotified(latestTag);
+      if (available && !hasAlreadyNotified) {
         await showDialog(
           context: context,
           builder: (context) => showUpdateAvailablePopup(git, context, tag),
         );
+        CacheManager.instance
+            .setValueForServiceAutoExpireIn('update', latestTag, 'true');
       }
     } catch (e) {}
+  }
+
+  Future<bool> _hasAlreadyNotified(String latestTag) async {
+    return (await CacheManager.instance
+                .getValueForServiceAutoExpire('update', latestTag))
+            ?.toString()
+            .equals('true') ??
+        false;
   }
 
   @override
