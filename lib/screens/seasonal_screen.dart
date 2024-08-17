@@ -3,15 +3,15 @@ import 'package:dailyanimelist/api/malapi.dart';
 import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/enums.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
-import 'package:dailyanimelist/main.dart';
 import 'package:dailyanimelist/screens/generalsearchscreen.dart';
 import 'package:dailyanimelist/widgets/custombutton.dart';
-import 'package:dailyanimelist/widgets/customfuture.dart';
-import 'package:dailyanimelist/widgets/selectbottom.dart';
+import 'package:dailyanimelist/widgets/listsortfilter.dart';
 import 'package:dailyanimelist/widgets/slivers.dart';
-import 'package:dailyanimelist/widgets/user/contentlistwidget.dart';
+import 'package:dailyanimelist/widgets/user/contentbuilder.dart';
 import 'package:dal_commons/dal_commons.dart';
 import 'package:flutter/material.dart';
+import 'package:line_icons/line_icon.dart';
+import 'package:line_icons/line_icons.dart';
 
 class SeasonalConstants {
   static const totalYears = 64;
@@ -63,28 +63,32 @@ class _SeasonalScreenState extends State<SeasonalScreen>
   late int currentYearIndex;
   late int currentSeasonIndex;
   int currPageIndex = 0;
-  SortType? sortType;
   late String imageUrl;
-  DisplayType displayType = DisplayType.list_vert;
-  List<String> sortTypeOptions = [
-    S.current.None,
-    ...SortType.values.asNameMap().keys
-  ];
-  final displayTypeOptions = {
-    DisplayType.list_vert: 'List View',
-    DisplayType.grid: 'Grid View',
-  };
   late String refKey;
-  int get pageLimit => sortType == SortType.AnimeScore ? 500 : 14;
+  SortOption? _sortOption;
+  int get pageLimit => 500;
+  bool _isRefreshing = false;
 
   @override
   void initState() {
     super.initState();
     currentSeasonIndex = widget.seasonType.index;
     currentYearIndex = widget.year;
-    sortType = widget.sortType;
+    _sortOption = _getSortOption();
     refKey = MalAuth.codeChallenge(10);
     setImageUrl();
+  }
+
+  SortOption? _getSortOption() {
+    var sortType = widget.sortType;
+    if (sortType != null) {
+      if (sortType == SortType.AnimeScore) {
+        return scoreOption();
+      } else if (sortType == SortType.AnimeNumListUsers) {
+        return numListUsersOption();
+      }
+    }
+    return null;
   }
 
   @override
@@ -150,38 +154,6 @@ class _SeasonalScreenState extends State<SeasonalScreen>
         child: Icon(Icons.search),
       ),
       SB.w20,
-      SizedBox(
-        child: SelectButton(
-          options: displayTypeOptions.values.toList(),
-          selectedOption: displayTypeOptions[displayType],
-          selectType: SelectType.select_top,
-          popupText: S.current.Select_One,
-          child: Icon(
-            displayType == DisplayType.list_vert
-                ? Icons.view_agenda
-                : Icons.view_column,
-          ),
-          onChanged: (value) async {
-            setState(() {
-              displayType = displayTypeOptions.keys
-                  .elementAt(displayTypeOptions.values.toList().indexOf(value));
-            });
-          },
-        ),
-      ),
-      SB.w20,
-      SelectButton(
-        options: sortTypeOptions,
-        selectedOption: sortType?.name ?? S.current.None,
-        selectType: SelectType.select_top,
-        popupText: S.current.Sort_the_list_based_on,
-        child: Icon(Icons.sort),
-        onChanged: (value) {
-          setState(() {
-            sortType = SortType.values.asNameMap()[value];
-          });
-        },
-      ),
     ];
   }
 
@@ -215,54 +187,41 @@ class _SeasonalScreenState extends State<SeasonalScreen>
     logDal('Date-${DateTime.now().difference(date)}');
   }
 
-  Future<List<BaseNode>> seasonalFuture(_Season e, int offset) async {
+  Future<List<BaseNode>> seasonalFuture(
+    _Season e,
+    CustomSearchInput input,
+  ) async {
+    SearchResult seasonalAnime = await _seasonSearchResult(e, input);
+    return getSortedFilteredData(
+      seasonalAnime.data ?? [],
+      false,
+      input.sortFilterDisplay,
+      'anime',
+    );
+  }
+
+  Future<SearchResult> _seasonSearchResult(
+      _Season e, CustomSearchInput input) async {
+    var list = getFieldsFromSortFilter(true, input.sortFilterDisplay, 'anime');
     final seasonalAnime = await MalApi.getSeasonalAnime(
       e.seasonType,
       e.year,
-      sortType: sortType,
-      fields: [MalApi.listDetailedFields, MalApi.userAnimeFields],
-      offset: offset,
+      fields: [MalApi.listDetailedFields, MalApi.userAnimeFields, ...list],
+      offset: input.offset,
       limit: pageLimit,
+      fromCache: input.fromCache,
     );
-    return sortAnimeNodes(seasonalAnime.data ?? []);
-  }
-
-  List<BaseNode> sortAnimeNodes(List<BaseNode> nodes) {
-    if (sortType == SortType.AnimeScore) {
-      nodes.sort((a, b) {
-        final contentA = a.content;
-        final contentB = b.content;
-        if (contentA is AnimeDetailed && contentB is AnimeDetailed) {
-          return contentB.mean?.compareTo(contentA.mean ?? -1) ?? -1;
-        }
-        return 0;
-      });
-      return nodes;
-    } else {
-      return nodes;
-    }
+    return seasonalAnime;
   }
 
   Widget _buildStateFullSeason(_Season e) {
-    return RefreshIndicator(
-      onRefresh: () async {
-        refKey = MalAuth.codeChallenge(10);
-        setState(() {});
-      },
-      child: InfinitePagination<BaseNode>(
-        refKey: '${e.seasonType}-${e.year}-${sortType}-${displayType}-$refKey',
-        future: (offset) => seasonalFuture(e, offset),
-        pageSize: pageLimit,
-        displayType: displayType,
-        itemBuilder: (_, item, index) => buildBaseNodePageItem(
-          'anime',
-          item,
-          index,
-          displayType,
-          gridAxisCount: 2,
-          gridHeight: 280.0,
-        ),
-      ),
+    return UserContentBuilder(
+      username: '@me',
+      category: 'anime',
+      pageSize: pageLimit,
+      optionsCacheKey: 'Seasonal_Screen',
+      customFuture: (input) => seasonalFuture(e, input),
+      sortOption: _sortOption,
     );
   }
 }

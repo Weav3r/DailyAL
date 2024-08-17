@@ -429,3 +429,110 @@ class MutiSelectBar extends StatelessWidget {
     );
   }
 }
+
+class MultiSelectDropdown extends StatelessWidget {
+  final List<String> options;
+  final List<String>? includedOptions;
+  final List<String>? excludedOptions;
+  final Function(List<String>, List<String>) onChanged;
+  final Function() onClear;
+  const MultiSelectDropdown({
+    super.key,
+    required this.options,
+    this.includedOptions,
+    this.excludedOptions,
+    required this.onChanged,
+    required this.onClear,
+  });
+
+  Widget _selectedOption(String value, bool included) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 5.0, vertical: 5.0),
+      child: ShadowButton(
+        onPressed: () {
+          if (included) {
+            includedOptions?.remove(value);
+            excludedOptions?.add(value);
+          } else {
+            excludedOptions?.remove(value);
+            includedOptions?.add(value);
+          }
+          onChanged(includedOptions ?? [], excludedOptions ?? []);
+        },
+        overlayColor: Colors.transparent,
+        backgroundColor: included ? Colors.green.shade900 : Colors.red.shade900,
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              value.standardize()!,
+              style: TextStyle(color: Colors.white),
+            ),
+            IconButton(
+              icon: Icon(
+                Icons.close,
+                color: Colors.white,
+              ),
+              onPressed: () {
+                if (included) {
+                  includedOptions?.remove(value);
+                } else {
+                  excludedOptions?.remove(value);
+                }
+                onChanged(includedOptions ?? [], excludedOptions ?? []);
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _dropdown() {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: PopupMenuButton<String>(
+        onSelected: (value) {
+          includedOptions?.add(value);
+          onChanged(includedOptions ?? [], excludedOptions ?? []);
+        },
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.grey),
+            borderRadius: BorderRadius.circular(24),
+          ),
+          child: Text(S.current.Select),
+        ),
+        itemBuilder: (context) {
+          final available = [...options];
+          available.sort();
+          return available
+            .map((e) =>
+                PopupMenuItem<String>(value: e, child: Text(e.standardize()!)))
+            .toList();
+        },
+      ),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          child: Wrap(
+            children: [
+              for (var option in includedOptions ?? [])
+                _selectedOption(option, true),
+              for (var option in excludedOptions ?? [])
+                _selectedOption(option, false),
+              _dropdown()
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}

@@ -1,11 +1,13 @@
 import 'dart:collection';
 
+import 'package:collection/collection.dart';
 import 'package:dailyanimelist/api/dalapi.dart';
 import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
 import 'package:dailyanimelist/main.dart';
 import 'package:dailyanimelist/pages/animedetailed/synopsiswidget.dart';
 import 'package:dailyanimelist/screens/contentdetailedscreen.dart';
+import 'package:dailyanimelist/util/streamutils.dart';
 import 'package:dailyanimelist/widgets/avatarwidget.dart';
 import 'package:dailyanimelist/widgets/custombutton.dart';
 import 'package:dailyanimelist/widgets/customfuture.dart';
@@ -19,7 +21,24 @@ class _SchduledNode {
   final int dayofWeek;
   final ScheduleData scheduleData;
   final Node anime;
-  _SchduledNode(this.dayofWeek, this.scheduleData, this.anime);
+  final bool currentDay;
+
+  _SchduledNode(
+    this.dayofWeek,
+    this.scheduleData,
+    this.anime, {
+    this.currentDay = false,
+  });
+
+  static _SchduledNode _currentDayNode() {
+    final now = DateTime.now();
+    return _SchduledNode(
+      now.weekday,
+      ScheduleData(timestamp: now.millisecondsSinceEpoch ~/ 1000),
+      Node(),
+      currentDay: true,
+    );
+  }
 }
 
 class _Filter {
@@ -30,16 +49,14 @@ class _Filter {
   _Filter({required this.displayText, required this.value});
 }
 
-class NotificationScheduleWidget extends StatefulWidget {
-  const NotificationScheduleWidget({Key? key}) : super(key: key);
+class AnimeCalendarWidget extends StatefulWidget {
+  const AnimeCalendarWidget({Key? key}) : super(key: key);
 
   @override
-  State<NotificationScheduleWidget> createState() =>
-      _NotificationScheduleWidgetState();
+  State<AnimeCalendarWidget> createState() => _AnimeCalendarWidgetState();
 }
 
-class _NotificationScheduleWidgetState
-    extends State<NotificationScheduleWidget> {
+class _AnimeCalendarWidgetState extends State<AnimeCalendarWidget> {
   late Future<SearchResult> _seasonResult;
   void onClose() => Navigator.pop(context);
 
@@ -83,7 +100,7 @@ class _NotificationScheduleWidgetState
     );
   }
 
-  _buildScheduleTree(SearchResult? result, Map<int, ScheduleData>? map) {
+  Widget _buildScheduleTree(SearchResult? result, Map<int, ScheduleData>? map) {
     Map<int, Node> nodes = HashMap.fromEntries(result?.data
             ?.where(_onlyWithStatus)
             .map((e) => e.content)
@@ -94,6 +111,9 @@ class _NotificationScheduleWidgetState
             .map((e) => _mapToScheduledNode(e, nodes))
             .toList() ??
         [];
+    if (schedulesList.isNotEmpty) {
+      schedulesList.add(_SchduledNode._currentDayNode());
+    }
     schedulesList
         .sort((a, b) => a.scheduleData.timestamp! - b.scheduleData.timestamp!);
     final dayMap = <int, List<_SchduledNode>>{};
@@ -167,7 +187,7 @@ class _NotificationScheduleWidgetState
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(S.current.Notfications),
+        title: Text(S.current.AnimeCalendar),
         actions: _actions(
           onClose: onClose,
           onRefesh: onRefesh,
@@ -235,38 +255,107 @@ class __ScheduleCustomListState extends State<_ScheduleCustomList> {
     6: 'saturday',
     7: 'sunday'
   };
+  StreamListener<int> _streamListener = StreamListener<int>();
+
+  List<_SchduledNode> _currentDayNodes(int weekIndex) {
+    return _mapAtIndex(weekIndex).value.where(_filterScheduleNode).toList();
+  }
+
+  MapEntry<int, List<_SchduledNode>> _mapAtIndex(int weekIndex) {
+    return widget.scheduleNodeData.entries.elementAt(weekIndex);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _setupCurrentDayUpdater();
+  }
+
+  void _setupCurrentDayUpdater() {
+    Future.doWhile(() => Future.delayed(Duration(seconds: 1), () {
+          if (mounted) {
+            _streamListener.controller
+                .add(DateTime.now().millisecondsSinceEpoch ~/ 1000);
+            return true;
+          }
+          return false;
+        }));
+  }
 
   @override
   Widget build(BuildContext context) {
     final map = widget.scheduleNodeData;
-    final entries = (index) => map.entries.elementAt(index);
     return CustomScrollWrapper([
       if (widget.header != null) ...[
         SB.lh30,
         widget.header!(),
       ],
       _buildFilterHeader,
-      for (int index = 0; index < map.length; ++index) ...[
-        SliverWrapper(
-          Padding(
-            padding:
-                const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
-            child: title(_weekdaysMap[entries(index).key]!.capitalize()),
-          ),
-        ),
-        SliverListWrapper(
-          entries(index)
-              .value
-              .where((e) => _selectedFilters
-                  .contains((e.anime.myListStatus as MyAnimeListStatus).status))
-              .map((e) => _buildAnimeListTile(e))
-              .toList(),
-        )
-      ]
+      for (int index = 0; index < map.length; ++index) ..._weekChildren(index)
     ]);
   }
 
-  Widget _buildAnimeListTile(_SchduledNode node) {
+  List<Widget> _weekChildren(int weekIndex) {
+    final mapEntry = _mapAtIndex(weekIndex);
+    final hasCurrentNode = mapEntry.value.any((e) => e.currentDay);
+    return [
+      SliverWrapper(
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 20.0),
+          child: title(_weekdaysMap[mapEntry.key]!.capitalize()),
+        ),
+      ),
+      if (hasCurrentNode)
+        StreamBuilder<int>(
+          stream: _streamListener.stream,
+          builder: (context, snapshot) {
+            _setLatestTimestamp(mapEntry, snapshot);
+            return _listTiles(mapEntry, weekIndex);
+          },
+        )
+      else
+        _listTiles(mapEntry, weekIndex)
+    ];
+  }
+
+  void _setLatestTimestamp(MapEntry<int, List<_SchduledNode>> mapEntry,
+      AsyncSnapshot<int> snapshot) {
+    mapEntry.value.where((e) => e.currentDay).forEach((e) {
+      if (snapshot.hasData) e.scheduleData.timestamp = snapshot.data!;
+    });
+  }
+
+  SliverListWrapper _listTiles(
+      MapEntry<int, List<_SchduledNode>> mapEntry, int weekIndex) {
+    return SliverListWrapper(
+      mapEntry.value
+          .where(_filterScheduleNode)
+          .mapIndexed((i, n) => _buildAnimeListTile(i, n, weekIndex))
+          .toList(),
+    );
+  }
+
+  bool _filterScheduleNode(_SchduledNode e) {
+    if (e.currentDay) return true;
+    return _selectedFilters
+        .contains((e.anime.myListStatus as MyAnimeListStatus).status);
+  }
+
+  Widget _buildAnimeListTile(int index, _SchduledNode node, int dayIndex) {
+    if (node.currentDay) {
+      final nextNode = _currentDayNodes(dayIndex).tryAt(index + 1);
+      return _buildCurrentDayTile(node, index, nextNode);
+    }
+    final timestamp = node.scheduleData.timestamp!;
+    final epsWidget = Text('Ep ${node.scheduleData.episode ?? '?'} in');
+    final dateTime = ShadowButton(
+      onPressed: () => _showShowSnack(S.current.Show, node),
+      padding: EdgeInsets.zero,
+      child: Padding(
+        padding: const EdgeInsets.all(3.0),
+        child: Text(_hourMinText(timestamp)),
+      ),
+    );
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: InkWell(
@@ -290,25 +379,29 @@ class __ScheduleCustomListState extends State<_ScheduleCustomList> {
                     url: node.anime.mainPicture!.large,
                   ),
                   SB.h10,
-                  title('Ep ${node.scheduleData.episode ?? '?'}')
+                  dateTime
                 ],
               ),
               Expanded(
-                child: Column(
-                  children: [
-                    title(
-                      node.anime.title,
-                      fontSize: 16.0,
-                      align: TextAlign.center,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: CountDownWidget(
-                        timestamp: node.scheduleData.timestamp!,
-                        elevation: 0,
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                  child: Column(
+                    children: [
+                      title(
+                        node.anime.title,
+                        fontSize: 16.0,
+                        align: TextAlign.center,
                       ),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: CountDownWidget(
+                          timestamp: timestamp,
+                          elevation: 0,
+                          prefix: epsWidget,
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               )
             ],
@@ -353,5 +446,84 @@ class __ScheduleCustomListState extends State<_ScheduleCustomList> {
         shape: btnBorder(context),
       ),
     );
+  }
+
+  Widget _buildCurrentDayTile(
+      _SchduledNode node, int index, _SchduledNode? nextNode) {
+    return StreamBuilder<int>(
+        stream: _streamListener.stream,
+        builder: (context, snapshot) {
+          node.scheduleData.timestamp =
+              snapshot.data ?? node.scheduleData.timestamp;
+          return Container(
+            height: 50.0,
+            padding: const EdgeInsets.symmetric(horizontal: 25.0),
+            child: Stack(
+              children: [
+                Center(
+                  child: Divider(thickness: 2),
+                ),
+                Center(
+                  child: ToolTipButton(
+                    message: '',
+                    onTap: () {
+                      if (nextNode != null) {
+                        _showShowSnack(S.current.NextShow, nextNode);
+                      }
+                    },
+                    padding: EdgeInsets.zero,
+                    child: _currentTime(node),
+                  ),
+                ),
+              ],
+            ),
+          );
+        });
+  }
+
+  void _showShowSnack(String message, _SchduledNode nextNode) {
+    final timestamp = _timeStampText(nextNode.scheduleData.timestamp!);
+    String nextShowMsg =
+        '$message: ${nextNode.anime.title} at ${timestamp.join(' ')}';
+    showSnackBar(Text(nextShowMsg));
+  }
+
+  Widget _currentTime(_SchduledNode node) {
+    final texts = _timeStampText(node.scheduleData.timestamp!);
+    return Card(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 5.0),
+        child: RichText(
+            text: TextSpan(children: [
+          TextSpan(
+            text: texts[0],
+            style: TextStyle(
+              fontSize: 16.0,
+            ),
+          ),
+          TextSpan(
+            text: ' (${texts[1]})',
+            style: TextStyle(
+              fontSize: 10.0,
+              color:
+                  Theme.of(context).textTheme.bodyLarge?.color?.withOpacity(.7),
+            ),
+          ),
+        ])),
+      ),
+    );
+  }
+
+  List<String> _timeStampText(int stamp) {
+    final timestamp = DateTime.fromMillisecondsSinceEpoch(stamp * 1000);
+    String hourMinText = _hourMinText(stamp);
+    String timezoneText =
+        '${timestamp.timeZoneName} ${timestamp.timeZoneOffset.isNegative ? '-' : '+'}${timestamp.timeZoneOffset.inHours}:${timestamp.timeZoneOffset.inMinutes.remainder(60).toString().padLeft(2, '0')}';
+    return [hourMinText, timezoneText];
+  }
+
+  String _hourMinText(int stamp) {
+    final timestamp = DateTime.fromMillisecondsSinceEpoch(stamp * 1000);
+    return '${timestamp.hour.toString().padLeft(2, '0')}:${timestamp.minute.toString().padLeft(2, '0')}';
   }
 }

@@ -31,6 +31,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:intl/intl.dart';
+import 'package:line_icons/line_icons.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -413,7 +414,7 @@ List<String> enumList(List<Object> os) =>
     os.map((e) => enumToString(e)).toList();
 
 IconData getFilterIcon(Iterable? list) {
-  if (list == null || list.isEmpty) return Icons.filter_alt;
+  if (list == null || list.isEmpty) return LineIcons.filter;
   return filterLengthIcon(list.length);
 }
 
@@ -1286,6 +1287,16 @@ extension DateTimeExtension on DateTime {
   DateTime nextDate(int day) {
     return DateFormat("yyyy-MM-dd")
         .parse(DateFormat("yyyy-MM-dd").format(this.nextDateTime(day)));
+  }
+}
+
+extension MapExtension on Map {
+  bool equals(Map other) {
+    if (this.length != other.length) return false;
+    for (var key in this.keys) {
+      if (this[key] != other[key]) return false;
+    }
+    return true;
   }
 }
 

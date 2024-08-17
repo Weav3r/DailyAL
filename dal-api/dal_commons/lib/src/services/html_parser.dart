@@ -996,25 +996,33 @@ class HtmlParsers {
   }
 
   static List<dal.Node> _getAdaptedNodes(Document document) {
-    return (document.querySelectorAll('.anime_detail_related_anime tr') ?? [])
-        .expand((e) {
-          var tds = e.querySelectorAll('td') ?? [];
-          var tryAt = tds.tryAt(0);
-          if (tryAt?.text != null &&
-              tryAt!.text.contains('Adaptation') &&
-              tds.tryAt(1) != null) {
-            return tds[1]
-                .querySelectorAll('a')
-                .map((e) => getNodeFromElement(e))
-                .where(_nonNull)
-                .where((e) =>
-                    e.id != null && e.title != null && e.nodeCategory != null)
-                .toList();
-          }
-          return <dal.Node>[];
-        })
-        .where(_nonNull)
-        .toList();
+    try {
+      final Map<int, dal.Node> uniqueNodes = {};
+      (document.querySelectorAll('.related-entries .entries-tile .entry'))
+          .expand((e) {
+            if (e.text.contains('Adaptation')) {
+              return e
+                  .querySelectorAll('a')
+                  .map((e) => getNodeFromElement(e))
+                  .where(_nonNull)
+                  .where((e) =>
+                      e.id != null && e.title != null && e.nodeCategory != null)
+                  .toList();
+            }
+            return <dal.Node>[];
+          })
+          .where(_nonNull)
+          .forEach((node) {
+            var id = node.id;
+            if (id != null && !uniqueNodes.containsKey(id)) {
+              uniqueNodes[id] = node;
+            }
+          });
+      return uniqueNodes.values.toList();
+    } catch (e) {
+      logDal(e);
+    }
+    return [];
   }
 
   static List<InterestStack> interestStackListContentFromHtml(
@@ -1178,7 +1186,9 @@ class HtmlParsers {
         int endIndex;
         endIndex = text.indexOf(endPattern ?? '');
         if (endIndex != -1) {
-          startIndex = startPattern != null ? (startIndex + 1) : startIndex;
+          startIndex = startPattern != null
+              ? (startIndex + startPattern.length)
+              : startIndex;
           return text.substring(startIndex, endIndex).trim();
         }
       }
@@ -1259,13 +1269,14 @@ class HtmlParsers {
     final cards = doc.querySelectorAll('.anime-card') ?? [];
     return cards
         .map((e) {
-          final countDownEle = e.querySelector('.episode-countdown');
+          final countDownEle = e.querySelector('.episode-countdown time');
           if (countDownEle != null) {
             final timestamp =
                 int.tryParse(countDownEle.attributes['data-timestamp'] ?? '');
-            final episode = int.tryParse(
-                countDownEle.attributes['data-label']?.replaceAll('EP', '') ??
-                    '');
+            final episode = _getBeforeInt(
+                e.querySelector('.release-schedule-info')?.text.trim() ?? '',
+                startPattern: 'EP',
+                endPattern: '·');
             if (timestamp != null && episode != null) {
               final relatedLinksMap = {};
               e.querySelectorAll('.related-links a').forEach((rl) {
@@ -1310,32 +1321,50 @@ class HtmlParsers {
     }
   }
 
-  static parseUserFriends(Document? p0) {
+  static Map<String, dynamic> parseUserFriends(Document? p0) {
     final body = p0?.body;
     if (body != null) {
-      final friends = body
-          .querySelectorAll('.friend .boxlist')
-          .map((e) => getUserFromElement(e, true))
-          .where((e) => e['username'] != null)
-          .map((e) {
-        final username = e['username'];
-        final picture = e['mainPicture'] as Picture;
-        final extras = (e['e'] as Element).querySelectorAll('.fn-grey2');
-        final first = extras.tryAt();
-        final second = extras.tryAt(1);
-        return FriendV4(
-          friendsSince: second?.innerHtml.trim(),
-          lastOnline: first?.innerHtml.trim(),
-          user: UserV4(
-            username: username,
-            images: Images(
-              jpg: ImageUrl(imageUrl: picture.large ?? picture.medium),
+      try {
+        final count = int.tryParse(body
+                .querySelector('.user-friends')
+                ?.previousElementSibling
+                ?.querySelector('a')
+                ?.text
+                .replaceAll(RegExp(r'\D'), '') ??
+            '');
+        final friends = body
+            .querySelectorAll('.friend .boxlist')
+            .map((e) => getUserFromElement(e, true))
+            .where((e) => e['username'] != null)
+            .map((e) {
+          final username = e['username'];
+          final picture = e['mainPicture'] as Picture;
+          final extras = (e['e'] as Element).querySelectorAll('.fn-grey2');
+          final first = extras.tryAt();
+          final second = extras.tryAt(1);
+          return FriendV4(
+            friendsSince: second?.innerHtml.trim(),
+            lastOnline: first?.innerHtml.trim(),
+            user: UserV4(
+              username: username,
+              images: Images(
+                jpg: ImageUrl(imageUrl: picture.large ?? picture.medium),
+              ),
             ),
-          ),
-        );
-      }).toList();
-      return friends;
+          );
+        }).toList();
+        return {
+          'count': count,
+          'data': friends,
+        };
+      } catch (e) {
+        logDal(e);
+      }
     }
+    return {
+      'count': 0,
+      'data': [],
+    };
   }
 
   static getUserFromElement(Element? ele, [bool includeElement = false]) {

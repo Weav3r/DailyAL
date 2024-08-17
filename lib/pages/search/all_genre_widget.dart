@@ -222,16 +222,3 @@ class AllGenreWidget extends StatelessWidget {
         ));
   }
 }
-
-class GenreSearchScreen extends StatelessWidget {
-  final MalGenre genre;
-  const GenreSearchScreen({
-    super.key,
-    required this.genre,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
-  }
-}

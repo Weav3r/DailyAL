@@ -55,6 +55,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Analysis": MessageLookupByLibrary.simpleMessage("Анализ"),
         "Animals": MessageLookupByLibrary.simpleMessage("Животные"),
         "Animation": MessageLookupByLibrary.simpleMessage("Анимация"),
+        "AnimeCalendar":
+            MessageLookupByLibrary.simpleMessage("Аниме-календарь"),
         "AnimeJapan": MessageLookupByLibrary.simpleMessage("АнимеЯпония"),
         "Anime_Archetypes":
             MessageLookupByLibrary.simpleMessage("Аниме Архетипы"),
@@ -432,6 +434,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Жанр Включить/Исключить"),
         "Genre_Include_Exclude_desc": MessageLookupByLibrary.simpleMessage(
             "Нажмите один раз, чтобы включить жанр, или дважды нажмите, чтобы исключить его."),
+        "Genre_Include_Exclude_desc_v2": MessageLookupByLibrary.simpleMessage(
+            "Выберите жанр, который нужно включить, а затем нажмите еще раз, чтобы исключить."),
         "Genres": MessageLookupByLibrary.simpleMessage("Жанры"),
         "German": MessageLookupByLibrary.simpleMessage("Немецкий"),
         "Ghibli": MessageLookupByLibrary.simpleMessage("Гейбл"),
@@ -692,6 +696,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "News_Tags_desc": MessageLookupByLibrary.simpleMessage(
             "Например, тег «Рекомендации» даст вам несколько замечательных рекомендаций."),
         "Next": MessageLookupByLibrary.simpleMessage("Следующий"),
+        "NextShow": MessageLookupByLibrary.simpleMessage("Следующее шоу"),
         "Nice": MessageLookupByLibrary.simpleMessage("Хороший"),
         "No": MessageLookupByLibrary.simpleMessage("Нет"),
         "NoMoreItemsFound":
@@ -866,6 +871,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Reincarnation": MessageLookupByLibrary.simpleMessage("Реинкарнация"),
         "Related": MessageLookupByLibrary.simpleMessage("Связанный"),
         "Related_Anime": MessageLookupByLibrary.simpleMessage("Похожие аниме"),
+        "ReleaseStartDate":
+            MessageLookupByLibrary.simpleMessage("Дата выпуска"),
         "Remove_Image": MessageLookupByLibrary.simpleMessage(
             "Удалить изображение с домашней страницы"),
         "Remove_Image_desc": MessageLookupByLibrary.simpleMessage(
@@ -932,6 +939,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Score_Distribution":
             MessageLookupByLibrary.simpleMessage("Распределение очков"),
         "Screening": MessageLookupByLibrary.simpleMessage("Скрининг"),
+        "Search": MessageLookupByLibrary.simpleMessage("Поиск"),
         "SearchBarHintText": MessageLookupByLibrary.simpleMessage(
             "Ищите аниме, мангу и многое другое"),
         "Search_Bar_Text":
@@ -997,6 +1005,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Share": MessageLookupByLibrary.simpleMessage("Делиться"),
         "Shoujo": MessageLookupByLibrary.simpleMessage("Сёдзё"),
         "Shounen": MessageLookupByLibrary.simpleMessage("Сёнен"),
+        "Show": MessageLookupByLibrary.simpleMessage("Показывать"),
         "ShowOnlyLastQuote": MessageLookupByLibrary.simpleMessage(
             "Показать только последнюю цитату"),
         "ShowOnlyLastQuote_desc": MessageLookupByLibrary.simpleMessage(

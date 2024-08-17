@@ -15,7 +15,7 @@ mixin ToJson {
 
 mixin DataUnion {
   Map<String, dynamic> toJson();
-  static DataUnion? fromJson(DataUnionType type, dynamic json) {
+  static DataUnion? fromJson(DataUnionType type, dynamic json, dynamic data) {
     switch (type) {
       case DataUnionType.character:
         return CharacterV4Data.fromJson(json);
@@ -26,7 +26,7 @@ mixin DataUnion {
       case DataUnionType.about:
         return About.fromJson(json);
       case DataUnionType.friend:
-        return FriendV4List.fromList(json as List);
+        return FriendV4List.fromList(json as List, data);
       case DataUnionType.club:
         return ClubV4List.fromList(json as List);
       case DataUnionType.favorites:
@@ -67,7 +67,7 @@ class JikanV4Result<T extends DataUnion> {
 
   JikanV4Result.fromJson(DataUnionType type, Map<String, dynamic>? json) {
     if (json == null) return;
-    data = json['data'] != null ? DataUnion.fromJson(type, json['data']) as T? : null;
+    data = json['data'] != null ? DataUnion.fromJson(type, json['data'], json) as T? : null;
     pagination = json['pagination'] != null
         ? Pagination.fromJson(json['pagination'])
         : null;

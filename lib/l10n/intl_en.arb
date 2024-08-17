@@ -638,6 +638,7 @@
     "Theme_setting_desc_v2": "Choose from light, dark or custom themes.",
     "Genre_Include_Exclude": "Genre Include/Exclude",
     "Genre_Include_Exclude_desc": "Single tap to include or double tap to exclude a genre.",
+    "Genre_Include_Exclude_desc_v2": "Select a genre to include and then tap again to exclude.",
     "Avant_Garde": "Avant_Garde",
     "Award_Winning": "Award_Winning",
     "Boys_Love": "Boys_Love",
@@ -936,5 +937,10 @@
     "MAL_API_Licence": "MAL Agreement",
     "Whats_new": "What's new",
     "MAL_API_Licence_Desc": "MyAnimeList API Licence and Developer Agreement",
-    "publishedEndDate": "Published End Date"
+    "publishedEndDate": "Published End Date",
+    "Search": "Search",
+    "NextShow": "Next Show",
+    "Show": "Show",
+    "ReleaseStartDate": "Release Date",
+    "AnimeCalendar": "Anime Calendar"
 }

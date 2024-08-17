@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:dailyanimelist/api/auth/auth.dart';
 import 'package:dailyanimelist/api/credmal.dart';
 import 'package:dailyanimelist/api/jikahelper.dart';
 import 'package:dailyanimelist/api/maluser.dart';
+import 'package:dailyanimelist/cache/cachemanager.dart';
 import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/enums.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
@@ -16,6 +19,7 @@ import 'package:dailyanimelist/widgets/avatarwidget.dart';
 import 'package:dailyanimelist/widgets/custombutton.dart';
 import 'package:dailyanimelist/widgets/home/bookmarks_widget.dart';
 import 'package:dailyanimelist/widgets/homeappbar.dart';
+import 'package:dailyanimelist/widgets/listsortfilter.dart';
 import 'package:dailyanimelist/widgets/loading/expandedwidget.dart';
 import 'package:dailyanimelist/widgets/slivers.dart';
 import 'package:dailyanimelist/widgets/togglebutton.dart';
@@ -24,6 +28,25 @@ import 'package:dailyanimelist/widgets/user/signinpage.dart';
 import 'package:dailyanimelist/widgets/user/userchart.dart';
 import 'package:dal_commons/dal_commons.dart';
 import 'package:flutter/material.dart';
+
+class _UserPagePref {
+  int? tabIndex;
+  String? category;
+
+  _UserPagePref({
+    this.tabIndex,
+    this.category,
+  });
+
+  _UserPagePref.fromJson(Map<String, dynamic> json)
+      : tabIndex = json['tabIndex'],
+        category = json['category'];
+
+  Map<String, dynamic> toJson() => {
+        'tabIndex': tabIndex,
+        'category': category,
+      };
+}
 
 List<int?> userStatusData(
   String category,
@@ -156,10 +179,10 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
+  _UserPagePref _userPagePref = _UserPagePref(tabIndex: 0, category: "anime");
   bool hasOpened = false;
   bool listUpdated = false;
   UserProf? userProf;
-  late String category = "anime";
   SearchResult? contentResult;
   List<BaseNode>? contentList;
   SearchStage research = SearchStage.notstarted;
@@ -182,6 +205,8 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
   String? refKey;
   late StreamListener<Map<String, int?>> animeCountListener;
   late StreamListener<Map<String, int?>> mangaCountListener;
+
+  var pageSize = 300;
 
   void setRefKey() {
     refKey = MalAuth.codeChallenge(10);
@@ -211,8 +236,7 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
         initalIndex = allListHeaders.indexOf(widget.initialStatus!);
       }
     }
-    controller = TabController(
-        length: tabLength, vsync: this, initialIndex: initalIndex);
+    _initTabController(initalIndex);
 
     previousStatus = user.status;
     startOpeningAnimation();
@@ -230,6 +254,55 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
 
     _initCountMap();
     _initRefreshMap();
+  }
+
+  String get category => _userPagePref.category ?? 'anime';
+
+  set category(String value) {
+    _userPagePref.category = value;
+    _updateUserPrefCache();
+  }
+
+  void _setTabListener() {
+    controller?.addListener(() {
+      _setTabIndexInCache(controller!.index);
+    });
+  }
+
+  void _initTabController(int initalIndex) {
+    _setTabController(initalIndex);
+    _setTabListener();
+    if (initalIndex == 0) {
+      _userPrefFromCache.then((_) {
+        _setTabController(_userPagePref.tabIndex ?? 0);
+        _setTabListener();
+      });
+    }
+  }
+
+  void _setTabController(int initalIndex) {
+    controller = TabController(
+        length: tabLength, vsync: this, initialIndex: initalIndex);
+  }
+
+  Future<void> get _userPrefFromCache async {
+    _userPagePref = _UserPagePref.fromJson(jsonDecode(await CacheManager
+            .instance
+            .getValueForService('userBuilder', 'preference-$username') ??
+        '{}'));
+    if (_userPagePref.tabIndex == null || _userPagePref.category == null) {
+      _userPagePref = _UserPagePref(tabIndex: 0, category: "anime");
+    }
+  }
+
+  void _setTabIndexInCache(int index) {
+    _userPagePref.tabIndex = index;
+    _updateUserPrefCache();
+  }
+
+  void _updateUserPrefCache() {
+    CacheManager.instance.setValueForService(
+        'userBuilder', 'preference-$username', jsonEncode(_userPagePref));
   }
 
   void _initCountMap() {
@@ -307,7 +380,6 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
   void changeCategory(String _category) {
     if (mounted) {
       category = _category;
-      user.pref.userPageCategory = category;
       user.setIntance(updateAuth: false, shouldNotify: false);
       setState(() {});
       Future.delayed(const Duration(milliseconds: 100)).then((_) {
@@ -437,32 +509,93 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
   TabBarView _tabBarView() {
     return TabBarView(
       controller: controller,
-      children: allListHeaders.map(
-        (e) => UserContentBuilder(
-            key: PageStorageKey('$category-$e-${username}'),
-            category: category,
-            status: e,
-            username: username,
-            refreshKey: refreshKeyMap[e],
-            listPadding:
-                widget.isSelf ? null : const EdgeInsets.only(top: 60.0),
-            controller: widget.controller,
-            onContentUpdate: () => resetData(profileCache: true),
-            onStatisticsUpdate: () => getUserProfile(fromCache: false),
-            countChange: (count) async {
-              try {
-                final userContentCountMap = _listener.currentValue;
-                if (userContentCountMap != null &&
-                    userContentCountMap.containsKey(e)) {
-                  userContentCountMap[e] = count;
-                  _listener.update(userContentCountMap);
-                }
-              } catch (e) {
-                logDal(e);
-              }
-            },
-          ),
-      ).toList(),
+      children: allListHeaders
+          .map(
+            (e) => UserContentBuilder(
+              key: PageStorageKey('$category-$e-${username}'),
+              category: category,
+              username: username,
+              refreshKey: refreshKeyMap[e],
+              listPadding:
+                  widget.isSelf ? null : const EdgeInsets.only(top: 60.0),
+              controller: widget.controller,
+              customFuture: (input) => _getContentListFuture(input, e),
+              countChange: (count) async => _updateChange(e, count),
+            ),
+          )
+          .toList(),
+    );
+  }
+
+  void _updateChange(String e, int count) {
+    try {
+      final userContentCountMap = _listener.currentValue;
+      if (userContentCountMap != null && userContentCountMap.containsKey(e)) {
+        userContentCountMap[e] = count;
+        _listener.update(userContentCountMap);
+      }
+    } catch (e) {
+      logDal(e);
+    }
+  }
+
+  Future<List<BaseNode>> _getContentListFuture(
+    CustomSearchInput input,
+    String e,
+  ) async {
+    final status = "all".equals(e) ? null : e;
+    final sortFilterDisplay = input.sortFilterDisplay;
+    Future<SearchResult> future;
+    bool _canBeFetchedFromAPI =
+        canBeFetchedFromAPI(category, sortFilterDisplay);
+    if (_canBeFetchedFromAPI) {
+      future = MalUser.getMyContentList(
+        limit: pageSize,
+        fromCache: input.fromCache,
+        category: category,
+        sortType: input.sortFilterDisplay.sort.value,
+        offset: input.offset,
+        username: widget.username,
+        status: status,
+        fields: [],
+      );
+    } else {
+      final orderMap = category.equals('anime')
+          ? animeListDefaultOrderMap
+          : mangaListDefaultOrderMap;
+      var orderMapContains = orderMap.containsKey(sortFilterDisplay.sort.value);
+      List<String> fieldList = getFieldsFromSortFilter(
+          orderMapContains, sortFilterDisplay, category);
+      bool fromCache = shouldGetFromCacheBasedOnPrevInput(input);
+      future = MalUser.getAllUserList(
+        widget.username,
+        category,
+        status: status,
+        sortType: orderMapContains ? sortFilterDisplay.sort.value : null,
+        fromCache: fromCache,
+        fields: fieldList.isEmpty ? null : fieldList.join(','),
+      );
+    }
+    final contentResult = await future;
+    var list = contentResult.data ?? [];
+    bool isSorted = false;
+    final _isAnime = category.equals('anime');
+    final orderMap =
+        _isAnime ? animeListDefaultOrderMap : mangaListDefaultOrderMap;
+    var sortValue = sortFilterDisplay.sort.value;
+    if (orderMap.containsKey(sortValue)) {
+      isSorted = true;
+      var defaultOrder = orderMap[sortValue] == sortFilterDisplay.sort.order;
+      if (!defaultOrder) {
+        list = list.reversed.toList();
+      }
+    } else {}
+    return await getSortedFilteredData(
+      list,
+      _canBeFetchedFromAPI,
+      sortFilterDisplay,
+      category,
+      isSorted: isSorted,
     );
   }
 

@@ -87,7 +87,14 @@ class UserHeader {
       future: DalApi.i.getUserFriends(username),
       builder: (_, snapshot) {
         if (snapshot.hasData) {
-          final friends = snapshot.data?.friends ?? [];
+          final data = snapshot.data;
+          final friends = data?.friends ?? [];
+          int count;
+          if (friends.length == 100) {
+            count = data?.count ?? friends.length;
+          } else {
+            count = friends.length;
+          }
           if (friends.isNotEmpty) {
             return ListView(
               padding: EdgeInsets.zero,
@@ -97,7 +104,7 @@ class UserHeader {
                 ),
                 Padding(
                     padding: EdgeInsets.only(left: 20),
-                    child: title("(${friends.length} ${S.current.friends})",
+                    child: title("($count ${S.current.friends})",
                         fontStyle: FontStyle.italic)),
                 ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),

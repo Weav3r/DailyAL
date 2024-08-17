@@ -428,7 +428,7 @@ Map<AnimeListSortType, String> animeListSortTypeMapText = {
 
 Map<String, String> animeListSortMap = {
   "anime_title": "Title",
-  "list_score": "Score",
+  "list_score": "List Score",
   "anime_start_date": "Start Date",
   "list_updated_at": "Updated At",
 };
@@ -470,7 +470,7 @@ Map<MangaListSortType, String> mangaListSortTypMapText = {
 
 Map<String, String> mangaListSortMap = {
   "manga_title": "Title",
-  "list_score": "Score",
+  "list_score": "List Score",
   "manga_start_date": "Start Date",
   "list_updated_at": "Updated At",
 };

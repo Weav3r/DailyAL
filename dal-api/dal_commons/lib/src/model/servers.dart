@@ -9,6 +9,7 @@ class Servers {
   String? dalAPIUrl;
   String? telegramLink;
   String? storeUrl;
+  List<PlatformMaintenances>? platformMaintenances;
 
   Servers({
     this.bmacLink,
@@ -18,6 +19,10 @@ class Servers {
     this.includeSilent,
     this.dalAPIUrl,
     this.telegramLink,
+    this.storeUrl,
+    this.errorLogging,
+    this.maxLoad,
+    this.platformMaintenances,
   });
 
   Servers.fromJson(Map<String, dynamic>? json) {
@@ -31,6 +36,12 @@ class Servers {
     dalAPIUrl = json['dalAPIUrl'];
     telegramLink = json['telegramLink'];
     storeUrl = json['storeUrl'];
+    if (json['platformMaintenances'] != null) {
+      platformMaintenances = [];
+      json['platformMaintenances'].forEach((v) {
+        platformMaintenances?.add(PlatformMaintenances.fromJson(v));
+      });
+    }
     if (json['preferredServers'] != null) {
       preferredServers = [];
       json['preferredServers'].forEach((v) {
@@ -52,6 +63,8 @@ class Servers {
     data['dalAPIUrl'] = dalAPIUrl;
     data['telegramLink'] = telegramLink;
     data['storeUrl'] = storeUrl;
+    data['platformMaintenances'] =
+        platformMaintenances?.map((v) => v.toJson()).toList();
     return data;
   }
 }
@@ -72,6 +85,32 @@ class PreferredServers {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['url'] = url;
     data['load'] = load;
+    return data;
+  }
+}
+
+enum PlatformType {
+  myanimelist,
+}
+
+class PlatformMaintenances {
+  PlatformType? platform;
+  bool? maintenance;
+
+  PlatformMaintenances({this.platform, this.maintenance});
+
+  PlatformMaintenances.fromJson(Map<String, dynamic>? json) {
+    if (json == null) return;
+    platform = PlatformType.values.firstWhere(
+        (e) => e.toString().split('.').last == json['platform'],
+        orElse: () => PlatformType.myanimelist);
+    maintenance = json['maintenance'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['platform'] = platform.toString().split('.').last;
+    data['maintenance'] = maintenance;
     return data;
   }
 }

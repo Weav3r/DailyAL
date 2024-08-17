@@ -2,8 +2,10 @@ import 'commonV4.dart';
 
 class FriendV4List implements DataUnion {
   List<FriendV4>? friends;
-  FriendV4List.fromList(List<dynamic>? list) {
+  int? count;
+  FriendV4List.fromList(List<dynamic>? list, data) {
     friends = list?.map<FriendV4>((e) => FriendV4.fromJson(e)).toList() ?? [];
+    count = data['count'];
   }
   FriendV4List.fromJson(Map<String, dynamic>? json) {
     if (json == null) return;
@@ -11,10 +13,11 @@ class FriendV4List implements DataUnion {
             .map<FriendV4>((e) => FriendV4.fromJson(e))
             .toList() ??
         [];
+    count = json['count'];
   }
   @override
   Map<String, dynamic> toJson() {
-    return {'friends': friends};
+    return {'friends': friends, 'count': count};
   }
 }
 
@@ -25,7 +28,7 @@ class FriendV4 {
 
   FriendV4({this.user, this.lastOnline, this.friendsSince});
 
-  FriendV4.fromJson(Map<String, dynamic> ?json) {
+  FriendV4.fromJson(Map<String, dynamic>? json) {
     if (json == null) return;
     user = json['user'] != null ? UserV4.fromJson(json['user']) : null;
     lastOnline = json['last_online'];

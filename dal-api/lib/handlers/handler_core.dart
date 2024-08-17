@@ -415,12 +415,11 @@ class HandlerCore {
   Future<Map<String, dynamic>> _handleUserFriends(
       PathMatcher p1, Request p2) async {
     final username = queryParams(p2, 'username', '');
-    return {
-      'data': await HttpConnect.htmlPage(
-        '${Constants.htmlEnd}profile/$username/friends',
-        (p0) => HtmlParsers.parseUserFriends(p0),
-      )
-    };
+    
+    return await HttpConnect.htmlPage(
+      '${Constants.htmlEnd}profile/$username/friends',
+      (p0) => HtmlParsers.parseUserFriends(p0),
+    );
   }
 
   Future<Map<String, dynamic>> _handleUserHistory(

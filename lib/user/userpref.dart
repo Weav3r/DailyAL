@@ -30,7 +30,6 @@ class UserPreferences {
   bool showAnimeMangaBg;
   DisplayType defaultDisplayType;
   FirstTimePref firstTimePref;
-  String userPageCategory;
   String userPageAnimeSortType;
   String userPageMangaSortType;
   HomePageTileSize homePageTileSize;
@@ -63,7 +62,6 @@ class UserPreferences {
     required this.autoAddStartEndDate,
     required this.defaultDisplayType,
     required this.notifPref,
-    required this.userPageCategory,
     required this.userPageAnimeSortType,
     required this.userPageMangaSortType,
     required this.firstTimePref,
@@ -198,7 +196,6 @@ class UserPreferences {
             notifPref: _notifPref,
             showAiringInfo: _showAiringInfo,
             showAnimeMangaBg: showAnimeMangaBg,
-            userPageCategory: json['userPageCategory'] ?? 'anime',
             userPageAnimeSortType:
                 json['userPageAnimeSortType'] ?? 'list_updated_at',
             userPageMangaSortType:
@@ -243,7 +240,6 @@ class UserPreferences {
             showAiringInfo: _showAiringInfo,
             defaultDisplayType: DisplayType.list_vert,
             showAnimeMangaBg: showAnimeMangaBg,
-            userPageCategory: 'anime',
             userPageAnimeSortType: 'list_updated_at',
             userPageMangaSortType: 'list_updated_at',
             firstTimePref: FirstTimePref(),
@@ -261,7 +257,6 @@ class UserPreferences {
     return {
       'showCountDownInDetailed': showCountDownInDetailed,
       'userPageMangaSortType': userPageMangaSortType,
-      'userPageCategory': userPageCategory,
       'userPageAnimeSortType': userPageAnimeSortType,
       "homePageItemsPerCategory": homePageItemsPerCategory,
       "userChart": userchart,

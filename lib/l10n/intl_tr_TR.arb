@@ -937,5 +937,11 @@
     "Couldnt_find_release": "Yay\u0131n bulunamad\u0131",
     "MAL_API_Licence": "MAL Anla\u015fmas\u0131",
     "Whats_new": "Ne var ne yok",
-    "MAL_API_Licence_Desc": "MyAnimeList API Lisans\u0131 ve Geli\u015ftirici S\u00f6zle\u015fmesi"
+    "MAL_API_Licence_Desc": "MyAnimeList API Lisans\u0131 ve Geli\u015ftirici S\u00f6zle\u015fmesi",
+    "Genre_Include_Exclude_desc_v2": "Dahil edilecek bir t\u00fcr se\u00e7in ve ard\u0131ndan hari\u00e7 tutmak i\u00e7in tekrar dokunun.",
+    "Search": "Aramak",
+    "NextShow": "Sonraki G\u00f6steri",
+    "Show": "G\u00f6stermek",
+    "ReleaseStartDate": "Yay\u0131n tarihi",
+    "AnimeCalendar": "Anime Takvimi"
 }

@@ -6430,6 +6430,16 @@ class S {
     );
   }
 
+  /// `Select a genre to include and then tap again to exclude.`
+  String get Genre_Include_Exclude_desc_v2 {
+    return Intl.message(
+      'Select a genre to include and then tap again to exclude.',
+      name: 'Genre_Include_Exclude_desc_v2',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Avant_Garde`
   String get Avant_Garde {
     return Intl.message(
@@ -9415,6 +9425,56 @@ class S {
     return Intl.message(
       'Published End Date',
       name: 'publishedEndDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search`
+  String get Search {
+    return Intl.message(
+      'Search',
+      name: 'Search',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next Show`
+  String get NextShow {
+    return Intl.message(
+      'Next Show',
+      name: 'NextShow',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Show`
+  String get Show {
+    return Intl.message(
+      'Show',
+      name: 'Show',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Release Date`
+  String get ReleaseStartDate {
+    return Intl.message(
+      'Release Date',
+      name: 'ReleaseStartDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Anime Calendar`
+  String get AnimeCalendar {
+    return Intl.message(
+      'Anime Calendar',
+      name: 'AnimeCalendar',
       desc: '',
       args: [],
     );

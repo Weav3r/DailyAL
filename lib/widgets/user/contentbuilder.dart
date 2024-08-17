@@ -18,29 +18,45 @@ import 'package:dal_commons/dal_commons.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
 
+class CustomSearchInput {
+  final int offset;
+  final bool fromCache;
+  final SortFilterDisplay sortFilterDisplay;
+  final SortFilterDisplay? prevSortFilterDisplay;
+
+  CustomSearchInput({
+    required this.offset,
+    required this.sortFilterDisplay,
+    required this.fromCache,
+    this.prevSortFilterDisplay,
+  });
+}
+
 class UserContentBuilder extends StatefulWidget {
   static const String serviceName = 'UserContentBuilder';
   final String category;
-  final String? status;
   final String username;
   final String? refreshKey;
-  final VoidCallback? onContentUpdate;
-  final VoidCallback? onStatisticsUpdate;
+  final String? optionsCacheKey;
   final ValueChanged<int>? countChange;
   final EdgeInsets? listPadding;
   final ScrollController? controller;
+  final SortOption? sortOption;
+  final Future<List<BaseNode>> Function(CustomSearchInput) customFuture;
+  final int pageSize;
 
   const UserContentBuilder({
     this.category = "anime",
-    this.status,
     required this.username,
     Key? key,
-    this.onContentUpdate,
     this.refreshKey,
-    this.onStatisticsUpdate,
     this.countChange,
     this.listPadding,
     this.controller,
+    required this.customFuture,
+    this.pageSize = 300,
+    this.optionsCacheKey,
+    this.sortOption,
   }) : super(key: key);
 
   @override
@@ -52,13 +68,13 @@ class _UserContentBuilderState extends State<UserContentBuilder>
   late String key;
   List<BaseNode>? contentList;
   SearchStage research = SearchStage.notstarted;
-  static const pageSize = 300;
   late String refKey;
   SortFilterDisplay? _sortFilterDisplay;
   SortFilterDisplay? _prevSortFilterDisplay;
   bool _enableSearch = false;
   TextEditingController _searchController = TextEditingController();
   final _searchNode = FocusNode();
+  bool _isRefreshing = false;
 
   @override
   void initState() {
@@ -72,10 +88,20 @@ class _UserContentBuilderState extends State<UserContentBuilder>
   }
 
   void _setSortFilterDisplayFuture() async {
-    _sortFilterDisplay = await SortFilterDisplay.fromCache(
-        UserContentBuilder.serviceName, key, _defaultObject());
+    _sortFilterDisplay =
+        await SortFilterDisplay.fromCache(_cacheKey, key, _defaultObject());
+    _sortFilterDisplay =
+        _sortFilterDisplay!.copyWith(category: widget.category);
+    if (widget.sortOption != null) {
+      _sortFilterDisplay = _sortFilterDisplay!.copyWith(
+        sort: widget.sortOption!,
+      );
+    }
     if (mounted) setState(() {});
   }
+
+  String get _cacheKey =>
+      UserContentBuilder.serviceName + (widget.optionsCacheKey ?? '');
 
   SortFilterDisplay _defaultObject() {
     return SortFilterDisplay(
@@ -93,60 +119,8 @@ class _UserContentBuilderState extends State<UserContentBuilder>
     bool fromCache = false,
   }) async {
     try {
-      final Future<SearchResult> future;
-      final status = widget.status!.equals("all") ? null : widget.status;
       final sortFilterDisplay = _sortFilterDisplay!.clone();
-      final _canBeFetchedFromAPI =
-          canBeFetchedFromAPI(widget.category, sortFilterDisplay);
-      final List<String> additionalFields = [];
-      if (_canBeFetchedFromAPI) {
-        future = MalUser.getMyContentList(
-          limit: pageSize,
-          fromCache: fromCache,
-          category: widget.category,
-          sortType: sortFilterDisplay.sort.value,
-          offset: offset,
-          username: widget.username,
-          status: status,
-          fields: additionalFields,
-        );
-      } else {
-        if (offset != 0) return [];
-        final orderMap = widget.category.equals('anime')
-            ? animeListDefaultOrderMap
-            : mangaListDefaultOrderMap;
-        var orderMapContains =
-            orderMap.containsKey(sortFilterDisplay.sort.value);
-        List<String> fieldList = [
-          ...additionalFields,
-          if (!orderMapContains) sortFilterDisplay.sort.value,
-          if (sortFilterDisplay.filterOutputs.isNotEmpty)
-            ..._getAPIFieldsFromFilters(),
-        ];
-        bool? fromCache;
-        if (_prevSortFilterDisplay != null) {
-          fromCache = _prevSortFilterDisplay!.sort.value
-                  .equals(sortFilterDisplay.sort.value) &&
-              (_prevSortFilterDisplay!.filterOutputs.isNotEmpty &&
-                  sortFilterDisplay.filterOutputs.isNotEmpty);
-        }
-        fromCache ??= false;
-        future = MalUser.getAllUserList(
-          widget.username,
-          widget.category,
-          status: status,
-          sortType: orderMapContains ? sortFilterDisplay.sort.value : null,
-          fromCache: fromCache,
-          fields: fieldList.isEmpty ? null : fieldList.join(','),
-        );
-      }
-      final contentResult = await future;
-      return await getSortedFilteredData(
-        contentResult.data,
-        _canBeFetchedFromAPI,
-        sortFilterDisplay,
-        widget.category,
-      );
+      return _getFuture(fromCache, sortFilterDisplay, offset);
     } catch (e) {
       logDal(e);
       showToast(S.current.Couldnt_connect_network);
@@ -154,11 +128,19 @@ class _UserContentBuilderState extends State<UserContentBuilder>
     }
   }
 
-  Iterable<String> _getAPIFieldsFromFilters() {
-    return getFilterOptions(widget.category)
-        .map((e) => e.modalField)
-        .where((e) => e != null)
-        .map((e) => e!);
+  Future<List<BaseNode>> _getFuture(
+    bool fromCache,
+    SortFilterDisplay sortFilterDisplay,
+    int offset,
+  ) {
+    return widget.customFuture(
+      CustomSearchInput(
+        offset: offset,
+        sortFilterDisplay: sortFilterDisplay,
+        fromCache: fromCache,
+        prevSortFilterDisplay: _prevSortFilterDisplay,
+      ),
+    );
   }
 
   @override
@@ -170,8 +152,14 @@ class _UserContentBuilderState extends State<UserContentBuilder>
   }
 
   Future<void> _refresh() async {
+    if (_isRefreshing) return;
+    logDal('Refreshing');
+    _isRefreshing = true;
     refKey = MalAuth.codeChallenge(10);
     if (mounted) setState(() {});
+
+    await Future.delayed(const Duration(milliseconds: 500));
+    _isRefreshing = false;
   }
 
   bool shouldRefresh(UserContentBuilder oldWidget) {
@@ -192,7 +180,7 @@ class _UserContentBuilderState extends State<UserContentBuilder>
               scrollController: widget.controller,
               refKey: _sortFilterDisplay?.refKey(refKey),
               future: (offset) => getContentList(offset: offset),
-              pageSize: pageSize,
+              pageSize: widget.pageSize,
               displayType: _sortFilterDisplay!.displayOption.displayType,
               countChange: widget.countChange,
               customFilterKey: '${_sortFilterDisplay!.filterOutputs.isEmpty}',
@@ -364,7 +352,6 @@ class _UserContentBuilderState extends State<UserContentBuilder>
         showSortFilterDisplayModal(
           context: context,
           sortFilterDisplay: _sortFilterDisplay!.clone(),
-          category: widget.category,
           onSortFilterChange: _changeDropDownValue,
         );
       },

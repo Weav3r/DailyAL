@@ -51,6 +51,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Analysis": MessageLookupByLibrary.simpleMessage("분석"),
         "Animals": MessageLookupByLibrary.simpleMessage("동물"),
         "Animation": MessageLookupByLibrary.simpleMessage("생기"),
+        "AnimeCalendar": MessageLookupByLibrary.simpleMessage("애니메이션 달력"),
         "AnimeJapan": MessageLookupByLibrary.simpleMessage("애니메이션 일본"),
         "Anime_Archetypes":
             MessageLookupByLibrary.simpleMessage("Anime Archetypes."),
@@ -386,6 +387,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("장르 포함/제외"),
         "Genre_Include_Exclude_desc": MessageLookupByLibrary.simpleMessage(
             "장르를 포함하려면 한 번 탭하고 장르를 제외하려면 두 번 탭하십시오."),
+        "Genre_Include_Exclude_desc_v2":
+            MessageLookupByLibrary.simpleMessage("포함할 장르를 선택한 후 다시 탭하여 제외하세요."),
         "Genres": MessageLookupByLibrary.simpleMessage("장르의"),
         "German": MessageLookupByLibrary.simpleMessage("독일 사람"),
         "Ghibli": MessageLookupByLibrary.simpleMessage("Ghibli."),
@@ -612,6 +615,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "News_Tags_desc": MessageLookupByLibrary.simpleMessage(
             "예 : 권장 사항 태그는 멋진 권장 사항을 제공합니다."),
         "Next": MessageLookupByLibrary.simpleMessage("다음"),
+        "NextShow": MessageLookupByLibrary.simpleMessage("다음 쇼"),
         "Nice": MessageLookupByLibrary.simpleMessage("멋진"),
         "No": MessageLookupByLibrary.simpleMessage("아니요"),
         "NoMoreItemsFound":
@@ -763,6 +767,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Reincarnation": MessageLookupByLibrary.simpleMessage("재생"),
         "Related": MessageLookupByLibrary.simpleMessage("관련된"),
         "Related_Anime": MessageLookupByLibrary.simpleMessage("관련 애니메이션"),
+        "ReleaseStartDate": MessageLookupByLibrary.simpleMessage("출시일"),
         "Remove_Image":
             MessageLookupByLibrary.simpleMessage("홈 페이지에서 이미지를 제거하십시오"),
         "Remove_Image_desc":
@@ -821,6 +826,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Score": MessageLookupByLibrary.simpleMessage("점수"),
         "Score_Distribution": MessageLookupByLibrary.simpleMessage("점수 분포"),
         "Screening": MessageLookupByLibrary.simpleMessage("상영"),
+        "Search": MessageLookupByLibrary.simpleMessage("찾다"),
         "SearchBarHintText":
             MessageLookupByLibrary.simpleMessage("애니메이션, 만화 등 검색"),
         "Search_Bar_Text": MessageLookupByLibrary.simpleMessage("여기 검색 ..."),
@@ -878,6 +884,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Share": MessageLookupByLibrary.simpleMessage("공유하다"),
         "Shoujo": MessageLookupByLibrary.simpleMessage("쇼 조"),
         "Shounen": MessageLookupByLibrary.simpleMessage("쇼겐스"),
+        "Show": MessageLookupByLibrary.simpleMessage("보여주다"),
         "ShowOnlyLastQuote":
             MessageLookupByLibrary.simpleMessage("마지막 따옴표만 보여줍니다"),
         "ShowOnlyLastQuote_desc":

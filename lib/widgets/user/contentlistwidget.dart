@@ -233,6 +233,8 @@ Widget _baseBaseNode(
   double? gridHeight,
   bool updateCacheOnEdit = false,
   bool showTime = false,
+  bool? showIndex,
+  bool? showStatus,
 }) {
   return ContentAllWidget(
     key: Key(MalAuth.codeChallenge(10)),
@@ -250,6 +252,8 @@ Widget _baseBaseNode(
     gridHeight: gridHeight,
     updateCacheOnEdit: updateCacheOnEdit,
     showTime: showTime,
+    showIndex: showIndex ?? false,
+    showStatus: showStatus ?? true,
   );
 }
 
@@ -265,8 +269,13 @@ Widget buildBaseNodePageItem(
   required double gridHeight,
   bool updateCacheOnEdit = false,
   bool showTime = false,
+  bool? showIndex,
+  bool? showStatus,
 }) {
   Widget fromItem(int index, BaseNode node, [HomePageTileSize? tileSize]) {
+    if (node.content == null) {
+      return SB.z;
+    }
     return _baseBaseNode(
       category,
       node,
@@ -278,6 +287,8 @@ Widget buildBaseNodePageItem(
       gridHeight: gridHeight,
       updateCacheOnEdit: updateCacheOnEdit,
       showTime: showTime,
+      showIndex: showIndex,
+      showStatus: showStatus,
     );
   }
 
@@ -285,12 +296,13 @@ Widget buildBaseNodePageItem(
     return fromItem(index, item.rowItems.first);
   } else {
     homePageTileSize = _axisTileSizeMap[gridAxisCount];
+    final list = _padList(item.rowItems, gridAxisCount);
     return SizedBox(
       height: gridHeight,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 7.0),
         child: Row(
-          children: item.rowItems
+          children: list
               .asMap()
               .entries
               .map((e) =>
@@ -300,6 +312,15 @@ Widget buildBaseNodePageItem(
       ),
     );
   }
+}
+
+List<BaseNode> _padList(List<BaseNode> list, int gridAxisCount) {
+  final padCount = gridAxisCount - list.length % gridAxisCount;
+  final newList = List<BaseNode>.from(list);
+  if (padCount != gridAxisCount) {
+    newList.addAll(List.generate(padCount, (_) => BaseNode()));
+  }
+  return newList;
 }
 
 Widget horizontalList({
@@ -336,6 +357,10 @@ class ContentListWithDisplayType extends StatelessWidget {
   final bool showTime;
   final HomePageTileSize? tileSize;
   final EdgeInsetsGeometry? padding;
+  final bool? showIndex;
+  final bool? showEdit;
+  final bool? updateCacheOnEdit;
+  final bool? showStatus;
   const ContentListWithDisplayType({
     super.key,
     required this.category,
@@ -344,6 +369,10 @@ class ContentListWithDisplayType extends StatelessWidget {
     this.showTime = false,
     this.tileSize,
     this.padding,
+    this.showIndex,
+    this.showEdit,
+    this.updateCacheOnEdit,
+    this.showStatus,
   });
 
   @override
@@ -377,8 +406,11 @@ class ContentListWithDisplayType extends StatelessWidget {
           gridHeight: gridHeight,
           displaySubType: displaySubType,
           homePageTileSize: tileSize ?? _axisTileSizeMap[gridAxisCount],
-          updateCacheOnEdit: true,
+          updateCacheOnEdit: updateCacheOnEdit ?? true,
           showTime: showTime,
+          showEdit: showEdit ?? true,
+          showIndex: showIndex,
+          showStatus: showStatus,
         ),
       );
     }
@@ -944,19 +976,14 @@ class _ContentAllWidgetState extends State<ContentAllWidget>
       return null;
     }
     var epsDifference = episodesAired - episodesWatched;
-    final child = Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
-      decoration: BoxDecoration(
-        color: Colors.red[700],
-        borderRadius: BorderRadius.circular(4),
-      ),
-      child: Text(
-        '${NumberFormat.compact().format(epsDifference)}',
-        style: TextStyle(
-          fontSize: 10,
-          color: Colors.white,
-        ),
-      ),
+    final child = Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        if (episodesAired != epsDifference)
+          _episodePill(episodesAired, Colors.blue[700]),
+        _episodePill(epsDifference, Colors.red[700]),
+      ],
     );
     if (widget.displayType == DisplayType.list_vert) {
       return Positioned(
@@ -971,6 +998,23 @@ class _ContentAllWidgetState extends State<ContentAllWidget>
         child: child,
       );
     }
+  }
+
+  Container _episodePill(int epsDifference, Color? color) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+      decoration: BoxDecoration(
+        color: color,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      child: Text(
+        '${NumberFormat.compact().format(epsDifference)}',
+        style: TextStyle(
+          fontSize: 10,
+          color: Colors.white,
+        ),
+      ),
+    );
   }
 
   Widget get genreWidget {

@@ -9,8 +9,7 @@
 		"editor.fontLigatures": true,
 		"editor.fontWeight": "100",
 		"editor.insertSpaces": true,
-		"editor.fontSize": 16,
-		"dart.flutterSdkPath": "~/src/flutter/flutter_linux_3.16.9-stable/flutter"
+		"editor.fontSize": 16
 	},
 	"launch": {
 		"version": "0.2.0",
