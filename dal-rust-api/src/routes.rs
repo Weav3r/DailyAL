@@ -35,6 +35,9 @@ pub async fn setup_app(config: Config) -> Router {
             config: config.clone(),
             mal_api,
             cache_service,
+            ai_service: crate::gemini_api::GeminiAPI {
+                config: config.clone(),
+            },
         },
     });
     Router::new()
@@ -50,6 +53,10 @@ pub async fn setup_app(config: Config) -> Router {
         .route(
             "/types/:image_type/images/:image_id",
             delete(handlers::delete_image),
+        )
+        .route(
+            "/reviews",
+            post(handlers::get_review_summary),
         )
         .route_layer(middleware::from_fn_with_state(state.clone(), auth::auth))
         .with_state(state)

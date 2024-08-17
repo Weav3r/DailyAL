@@ -13,6 +13,7 @@ mod model_dto;
 mod cache_service;
 mod file_storage_service;
 mod image_service;
+mod gemini_api;
 
 pub struct AppState {
     pub config: Config,

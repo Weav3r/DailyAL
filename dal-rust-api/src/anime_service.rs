@@ -2,7 +2,7 @@ use std::collections::HashSet;
 use std::error::Error;
 use std::sync::{Arc, Mutex};
 
-use crate::model::{Anime, Edge, RelatedAnime, RelationType};
+use crate::model::{Anime, Edge, RelatedAnime, RelationType, ReviewResponse};
 
 use crate::config::Config;
 use crate::model_dto::{ContentGraphDTO, ContentNodeDTO};
@@ -14,6 +14,7 @@ pub struct AnimeService {
     pub config: Config,
     pub mal_api: crate::mal_api::MalAPI,
     pub cache_service: crate::cache_service::CacheService,
+    pub ai_service: crate::gemini_api::GeminiAPI,
 }
 
 impl AnimeService {
@@ -83,14 +84,21 @@ impl AnimeService {
         (anime, self.get_unvisited_edges(id, vec, false))
     }
 
-    fn get_unvisited_edges(&self, id: i64, related_anime: Option<Vec<RelatedAnime>>, include_others: bool) -> Vec<Edge> {
+    fn get_unvisited_edges(
+        &self,
+        id: i64,
+        related_anime: Option<Vec<RelatedAnime>>,
+        include_others: bool,
+    ) -> Vec<Edge> {
         let mut unvisited_edges: Vec<Edge> = Vec::new();
         if related_anime.is_some() {
             unvisited_edges.extend(
                 related_anime
                     .unwrap()
                     .iter()
-                    .filter(|related_anime| self.valid_relation(&related_anime.relation_type, include_others))
+                    .filter(|related_anime| {
+                        self.valid_relation(&related_anime.relation_type, include_others)
+                    })
                     .map(|related_anime| Edge {
                         source: id,
                         target: related_anime.node.id,
@@ -148,7 +156,9 @@ impl AnimeService {
             let anime = self.mal_api.get_anime_details(id).await?;
 
             // Store the anime in the cache for future use
-            self.cache_service.set_by_id("anime", id.to_string(), &anime, None).await;
+            self.cache_service
+                .set_by_id("anime", id.to_string(), &anime, None)
+                .await;
             let then = chrono::Utc::now();
             self.log_anime(&anime, "Saved".to_string(), then, now);
             Ok(anime)
@@ -175,5 +185,10 @@ impl AnimeService {
             anime.title,
             then.timestamp_millis() - now.timestamp_millis()
         );
+    }
+
+    pub async fn summarize_review(&self, reviews: &str) -> Result<ReviewResponse, reqwest::Error> {
+        println!("Summarizing review {}", reviews.len());
+        self.ai_service.talk(reviews).await
     }
 }
