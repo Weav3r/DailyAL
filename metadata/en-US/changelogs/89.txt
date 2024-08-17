@@ -1,0 +1,14 @@
+- User page now opens the previously opened status page
+- Revamp Search page (Add close button/Simplified filters...)
+- Add friends count in friends section
+- Revamp seasonal screen to use the consistent filters/display options
+- Update `Anime Calendar` now supports Current Day Position as well as Time of the episode
+- Add `hasNotifiedCheck` for updates
+- Rename Notification to `Anime Calendar`
+- Add Select button for genre selection
+- Add separate pill for episodes aired
+- Add `Not in List` for `Weekly Anime` page
+- Fix Adaptations not coming up in anime page
+- Fix Broken Characters/People Search
+- Fix Countdown timer issue by @Titoot 
+- Fix Odd numbered Anime Card expands to all the column
