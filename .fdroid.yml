@@ -10,18 +10,18 @@ IssueTracker: https://github.com/JICA98/DailyAL/issues
 AutoName: DailyAL 
 RepoType: git
 Repo: https://github.com/JICA98/DailyAL
-Changelog: https://github.com/JICA98/DailyAL/blob/psycho/metadata/en-US/changelogs/88.txt
+Changelog: https://github.com/JICA98/DailyAL/blob/psycho/metadata/en-US/changelogs/89.txt
 
-CurrentVersion: 2024.2.1
-CurrentVersionCode: 88
+CurrentVersion: 2024.2.2
+CurrentVersionCode: 89
 AutoUpdateMode: Version
 UpdateCheckMode: Tags
 UpdateCheckData: pubspec.yaml|version:\s.+\+(\d+)|.|version:\s(.+)\+
 
 Builds:
-    -   versionName: 2024.2.1
-        versionCode: 88
-        commit: 20fba6c389237563bfd1140583da868fa8b65a41
+    -   versionName: 2024.2.2
+        versionCode: 89
+        commit: 5a6ad7ba8247ae429a6f12a21f57a2c4fcfdd849
         output: build/app/outputs/flutter-apk/app-release.apk
         srclibs:
             - flutter@3.16.9
