@@ -222,6 +222,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ConfirmNotifPermDesc": MessageLookupByLibrary.simpleMessage(
             "¿Desea permitir notificaciones para esta aplicación? Esto incluye notificaciones cuando se transmite un episodio desde su PTW (Plan para mirar) y su lista de observación."),
         "Confusing": MessageLookupByLibrary.simpleMessage("Confuso"),
+        "Cons": MessageLookupByLibrary.simpleMessage("Contras"),
         "Content_type":
             MessageLookupByLibrary.simpleMessage("Tipo de contenido"),
         "Continue": MessageLookupByLibrary.simpleMessage("¿Seguir?"),
@@ -437,6 +438,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("No importa por defecto"),
         "Generate_Other_charts":
             MessageLookupByLibrary.simpleMessage("Generar otros gráficos"),
+        "Generating_Review_Summary": MessageLookupByLibrary.simpleMessage(
+            "Generando resumen de revisión"),
         "Genre": MessageLookupByLibrary.simpleMessage("Género"),
         "Genre_Distribution":
             MessageLookupByLibrary.simpleMessage("Distribución de género"),
@@ -856,6 +859,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Promo_Videos":
             MessageLookupByLibrary.simpleMessage("Videos de promoción"),
         "Promotional": MessageLookupByLibrary.simpleMessage("Promocional"),
+        "Pros": MessageLookupByLibrary.simpleMessage("Ventajas"),
         "Psychological": MessageLookupByLibrary.simpleMessage("Psychological"),
         "Published": MessageLookupByLibrary.simpleMessage("Published"),
         "Published_Manga":
@@ -936,6 +940,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review": MessageLookupByLibrary.simpleMessage("Revisar"),
         "Review_By": MessageLookupByLibrary.simpleMessage("Revisado por"),
         "Review_On": MessageLookupByLibrary.simpleMessage("Revisar en"),
+        "Review_Summary":
+            MessageLookupByLibrary.simpleMessage("Resumen de revisión"),
+        "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
+            "El veredicto de revisión lo genera AI utilizando las siguientes revisiones y puede no ser exacto. Lea las reseñas para obtener más información."),
         "Reviews": MessageLookupByLibrary.simpleMessage("Comentarios"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("Revestidor"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("Revestimiento"),
@@ -1124,6 +1132,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Studios": MessageLookupByLibrary.simpleMessage("Estudios"),
         "Sub_Category": MessageLookupByLibrary.simpleMessage("Subcategoría"),
         "Suggestions": MessageLookupByLibrary.simpleMessage("Sugerencias"),
+        "Summary": MessageLookupByLibrary.simpleMessage("Resumen"),
         "Summer_2007":
             MessageLookupByLibrary.simpleMessage("2007 de verano de 2007"),
         "Summer_2008": MessageLookupByLibrary.simpleMessage("Verano 2008"),
@@ -1264,6 +1273,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Users": MessageLookupByLibrary.simpleMessage("users"),
         "Value": MessageLookupByLibrary.simpleMessage("Valor"),
         "Vampire": MessageLookupByLibrary.simpleMessage("Vampire"),
+        "Verdict": MessageLookupByLibrary.simpleMessage("Veredicto"),
         "Version": MessageLookupByLibrary.simpleMessage("Versión"),
         "Very_Bad": MessageLookupByLibrary.simpleMessage("Muy mal"),
         "Very_Good": MessageLookupByLibrary.simpleMessage("Muy bien"),

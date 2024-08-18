@@ -403,13 +403,19 @@ class DalApi {
 
   Future<dynamic> _apiGET(String endpoint) async {
     final apiURL = await _getAPIBaseUrl();
-    return MalConnect.getContent('$apiURL/$endpoint',
-        retryOnFail: false,
-        withNoHeaders: true,
-        includeNsfw: false,
-        headers: {
-          'Authorization': 'Bearer ${CredMal.apiSecret}',
-        });
+    return MalConnect.getContent(
+      '$apiURL/$endpoint',
+      retryOnFail: false,
+      withNoHeaders: true,
+      includeNsfw: false,
+      headers: _headers,
+    );
+  }
+
+  Map<String, String> get _headers {
+    return {
+      'Authorization': 'Bearer ${CredMal.apiSecret}',
+    };
   }
 
   Future<AnimeGraph> getAnimeGraph(int id) async {
@@ -418,6 +424,23 @@ class DalApi {
         'anime/$id/related',
       ),
     );
+  }
+
+  Future<ContentReviewSummary?> getReviewsSummary(List<String> reviews) async {
+    try {
+      final apiURL = '${await _getAPIBaseUrl()}/reviews';
+      logDal('Sending reviews to $apiURL');
+      final response = await http.post(
+        Uri.parse(apiURL),
+        headers: _headers,
+        body: jsonEncode(reviews),
+      );
+      final body = response.body;
+      return ContentReviewSummary.fromJson(jsonDecode(body));
+    } catch (e) {
+      logDal(e);
+      return null;
+    }
   }
 
   Future<String> getSignedImageUrl(String type, String id) async {

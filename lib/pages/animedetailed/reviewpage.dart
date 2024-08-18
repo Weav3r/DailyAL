@@ -1,5 +1,8 @@
+// ignore_for_file: unused_import
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
+import 'package:dailyanimelist/api/dalapi.dart';
 import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
 import 'package:dailyanimelist/screens/contentdetailedscreen.dart';
@@ -7,13 +10,19 @@ import 'package:dailyanimelist/screens/plainscreen.dart';
 import 'package:dailyanimelist/util/pathutils.dart';
 import 'package:dailyanimelist/widgets/avatarwidget.dart';
 import 'package:dailyanimelist/widgets/common/share_builder.dart';
+import 'package:dailyanimelist/widgets/customanimations.dart';
 import 'package:dailyanimelist/widgets/customappbar.dart';
 import 'package:dailyanimelist/widgets/custombutton.dart';
+import 'package:dailyanimelist/widgets/customfuture.dart';
+import 'package:dailyanimelist/widgets/fadingeffect.dart';
+import 'package:dailyanimelist/widgets/home/accordion.dart';
+import 'package:dailyanimelist/widgets/loading/shimmerwidget.dart';
 import 'package:dailyanimelist/widgets/selectbottom.dart';
 import 'package:dailyanimelist/widgets/slivers.dart';
 import 'package:dailyanimelist/widgets/translator.dart';
 import 'package:dal_commons/dal_commons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
@@ -62,6 +71,11 @@ class _ContentReviewPageState extends State<ContentReviewPage> {
   AutoScrollController? listController;
   late List<String> _sortByOptions;
   late String selectSortBy;
+  late Future<ContentReviewSummary?> reviewSummaryFuture;
+  bool _hasReviewSummaryExpanded = false;
+
+  List<String> get reviewsText =>
+      reviews?.map((e) => e.reviewText ?? '').toList() ?? [];
 
   @override
   void initState() {
@@ -81,6 +95,7 @@ class _ContentReviewPageState extends State<ContentReviewPage> {
       ];
     }
     reviews = widget.reviews;
+    reviewSummaryFuture = DalApi.i.getReviewsSummary(reviewsText);
     tags = reduceFilters(
         widget.reviews.map((e) => Set<String>.from(e.tags ?? [])));
     _availableScores = widget.reviews
@@ -181,16 +196,20 @@ class _ContentReviewPageState extends State<ContentReviewPage> {
   @override
   Widget build(BuildContext context) {
     if (widget.axis == Axis.horizontal) {
-      return _buildHorizontalReviews();
+      return _buildReviewSummary();
     } else {
       return _buildVericalReviews();
     }
   }
 
-  Widget _buildHorizontalReviews() {
+  Widget _buildHorizontalReviews(ContentReviewSummary? data) {
     if (tags.length <= 1) return _buildHorizontalList();
     return Column(
       children: [
+        if (data != null) ...[
+          _buildSummary(data),
+          SB.h20,
+        ],
         _buildFilters(),
         SB.h20,
         _buildHorizontalList(),
@@ -444,6 +463,154 @@ class _ContentReviewPageState extends State<ContentReviewPage> {
       ),
     );
   }
+
+  Widget _buildReviewSummary() {
+    final animation = _reviewAnimation();
+    return StateFullFutureWidget(
+      done: (sp) => _buildHorizontalReviews(sp.data),
+      loadingChild: animation,
+      future: () => reviewSummaryFuture,
+    );
+  }
+
+  Widget _reviewAnimation() {
+    return SizedBox(
+      height: 350,
+      child: Stack(
+        children: [
+          InterlaceAnimation(colorScheme: Theme.of(context).colorScheme),
+          Center(
+            child: Text(
+              S.current.Generating_Review_Summary,
+              style: Theme.of(context).textTheme.titleLarge,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSummary(ContentReviewSummary? data) {
+    if (data == null) return SB.z;
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: widget.horizPadding),
+      child: Card(
+        child: Stack(
+          children: [
+            ClipRRect(
+              borderRadius: BorderRadius.circular(14),
+              child: CustomPaint(
+                foregroundPainter: FadingEffect(
+                  extend: 5,
+                  color: Theme.of(context).scaffoldBackgroundColor,
+                  start: _hasReviewSummaryExpanded ? 50 : 0,
+                  end: _hasReviewSummaryExpanded ? 50 : 255,
+                ),
+                child: Container(
+                  height: _hasReviewSummaryExpanded ? null : 145,
+                  padding: EdgeInsets.fromLTRB(
+                    widget.horizPadding,
+                    0,
+                    widget.horizPadding,
+                    0,
+                  ),
+                  child: _summaryContent(data),
+                ),
+              ),
+            ),
+            if (!_hasReviewSummaryExpanded)
+              Positioned(
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  height: 40,
+                  child: IconButton(
+                    onPressed: () {
+                      if (mounted)
+                        setState(() {
+                          _hasReviewSummaryExpanded = true;
+                        });
+                    },
+                    padding: EdgeInsets.zero,
+                    icon: Icon(
+                      Icons.keyboard_arrow_down,
+                      size: 24,
+                    ),
+                  ),
+                ),
+              )
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _summaryContent(ContentReviewSummary data) {
+    final verdictWidget = _reviewItem(
+      ReviewItem(title: S.current.Verdict, description: data.verdict),
+      ToolTipButton(child: Icon(Icons.info_outline), message: S.current.Review_Summary_Desc),
+      true,
+    );
+    if (!_hasReviewSummaryExpanded) {
+      return SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.symmetric(vertical: 10),
+        child: verdictWidget,
+      );
+    }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SB.h10,
+        verdictWidget,
+        if (_hasReviewSummaryExpanded) ...[
+          ...data.pros.map(
+              (item) => _reviewItem(item, _additionalText(S.current.Pros))),
+          ...data.cons.map(
+              (item) => _reviewItem(item, _additionalText(S.current.Cons))),
+        ],
+        SB.h10,
+      ],
+    );
+  }
+}
+
+Widget _reviewItem(
+  ReviewItem item,
+  Widget additional, [
+  bool defaultExpanded = false,
+]) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 5.0),
+    child: Accordion(
+      title: item.title,
+      atStartExpanded: defaultExpanded,
+      isOpen: defaultExpanded,
+      additional: [additional],
+      child: TranslaterWidget(
+        content: item.description,
+        done: (data) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Text(data ?? item.description, style: TextStyle(fontSize: 13)),
+        ),
+      ),
+    ),
+  );
+}
+
+SizedBox _additionalText(String additional) {
+  return SizedBox(
+    height: 30.0,
+    child: PlainButton(
+      padding: EdgeInsets.zero,
+      onPressed: () {},
+      child: Text(additional),
+    ),
+  );
 }
 
 class ReactionBox {

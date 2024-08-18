@@ -946,5 +946,12 @@
     "NextShow": "N\u00e4chste Show",
     "Show": "Zeigen",
     "ReleaseStartDate": "Ver\u00f6ffentlichungsdatum",
-    "AnimeCalendar": "Anime-Kalender"
+    "AnimeCalendar": "Anime-Kalender",
+    "Review_Summary": "Zusammenfassung der Rezension",
+    "Summary": "Zusammenfassung",
+    "Pros": "Vorteile",
+    "Cons": "Nachteile",
+    "Verdict": "Urteil",
+    "Review_Summary_Desc": "Das Bewertungsurteil wird von KI anhand der folgenden Bewertungen erstellt und ist m\u00f6glicherweise nicht korrekt. F\u00fcr weitere Informationen lesen Sie bitte die Bewertungen.",
+    "Generating_Review_Summary": "Zusammenfassung der Rezension erstellen"
 }

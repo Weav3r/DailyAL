@@ -215,6 +215,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ConfirmNotifPermDesc": MessageLookupByLibrary.simpleMessage(
             "Хотите ли вы разрешить уведомления для этого приложения? Сюда входят уведомления о выходе эпизода из вашего PTW (план к просмотру) и списка просмотра."),
         "Confusing": MessageLookupByLibrary.simpleMessage("запутанный"),
+        "Cons": MessageLookupByLibrary.simpleMessage("Минусы"),
         "Content_type": MessageLookupByLibrary.simpleMessage("Тип содержимого"),
         "Continue": MessageLookupByLibrary.simpleMessage("продолжать?"),
         "ContinueW": MessageLookupByLibrary.simpleMessage("Продолжать"),
@@ -425,6 +426,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Плевать по умолчанию"),
         "Generate_Other_charts":
             MessageLookupByLibrary.simpleMessage("Создать другие диаграммы"),
+        "Generating_Review_Summary":
+            MessageLookupByLibrary.simpleMessage("Создание сводки обзора"),
         "Genre": MessageLookupByLibrary.simpleMessage("Жанр"),
         "Genre_Distribution":
             MessageLookupByLibrary.simpleMessage("Жанровое распространение"),
@@ -839,6 +842,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Фон профиля успешно установлен"),
         "Promo_Videos": MessageLookupByLibrary.simpleMessage("Промо-видео"),
         "Promotional": MessageLookupByLibrary.simpleMessage("Рекламный"),
+        "Pros": MessageLookupByLibrary.simpleMessage("Плюсы"),
         "Psychological":
             MessageLookupByLibrary.simpleMessage("Психологический"),
         "Published": MessageLookupByLibrary.simpleMessage("Опубликовано"),
@@ -918,6 +922,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review": MessageLookupByLibrary.simpleMessage("Обзор"),
         "Review_By": MessageLookupByLibrary.simpleMessage("Отзыв от"),
         "Review_On": MessageLookupByLibrary.simpleMessage("Обзор на"),
+        "Review_Summary": MessageLookupByLibrary.simpleMessage("Обзор обзора"),
+        "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
+            "Вердикт обзора генерируется искусственным интеллектом на основе следующих обзоров и может быть неточным. Пожалуйста, прочитайте отзывы для получения дополнительной информации."),
         "Reviews": MessageLookupByLibrary.simpleMessage("Отзывы"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("Пересмотреть"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("Пересматриваю"),
@@ -1095,6 +1102,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Studios": MessageLookupByLibrary.simpleMessage("Студии"),
         "Sub_Category": MessageLookupByLibrary.simpleMessage("Подкатегория"),
         "Suggestions": MessageLookupByLibrary.simpleMessage("Предложения"),
+        "Summary": MessageLookupByLibrary.simpleMessage("Краткое содержание"),
         "Summer_2007": MessageLookupByLibrary.simpleMessage("Лето 2007 г."),
         "Summer_2008": MessageLookupByLibrary.simpleMessage("Лето 2008 г."),
         "Summer_2009": MessageLookupByLibrary.simpleMessage("Лето 2009 г."),
@@ -1235,6 +1243,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Users": MessageLookupByLibrary.simpleMessage("пользователи"),
         "Value": MessageLookupByLibrary.simpleMessage("Ценить"),
         "Vampire": MessageLookupByLibrary.simpleMessage("Вампир"),
+        "Verdict": MessageLookupByLibrary.simpleMessage("Вердикт"),
         "Version": MessageLookupByLibrary.simpleMessage("Версия"),
         "Very_Bad": MessageLookupByLibrary.simpleMessage("Очень плохо"),
         "Very_Good": MessageLookupByLibrary.simpleMessage("Очень хороший"),

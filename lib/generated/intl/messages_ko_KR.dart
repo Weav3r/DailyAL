@@ -188,6 +188,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ConfirmNotifPermDesc": MessageLookupByLibrary.simpleMessage(
             "이 앱에 대한 알림을 허용하시겠습니까? 여기에는 PTW(시청 계획) 및 시청 목록에서 에피소드가 방송될 때의 알림이 포함됩니다."),
         "Confusing": MessageLookupByLibrary.simpleMessage("혼란스러운"),
+        "Cons": MessageLookupByLibrary.simpleMessage("단점"),
         "Content_type": MessageLookupByLibrary.simpleMessage("Content type"),
         "Continue": MessageLookupByLibrary.simpleMessage("계속하다?"),
         "ContinueW": MessageLookupByLibrary.simpleMessage("계속하다"),
@@ -379,6 +380,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Gender_desc": MessageLookupByLibrary.simpleMessage("기본적으로 상관 없어"),
         "Generate_Other_charts":
             MessageLookupByLibrary.simpleMessage("다른 차트 생성"),
+        "Generating_Review_Summary":
+            MessageLookupByLibrary.simpleMessage("리뷰 요약 생성 중"),
         "Genre": MessageLookupByLibrary.simpleMessage("장르"),
         "Genre_Distribution": MessageLookupByLibrary.simpleMessage("장르 분포"),
         "Genre_Exclude": MessageLookupByLibrary.simpleMessage("장르 제외"),
@@ -739,6 +742,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("프로필 배경이 설정되었습니다."),
         "Promo_Videos": MessageLookupByLibrary.simpleMessage("프로모션 비디오"),
         "Promotional": MessageLookupByLibrary.simpleMessage("판촉"),
+        "Pros": MessageLookupByLibrary.simpleMessage("장점"),
         "Psychological": MessageLookupByLibrary.simpleMessage("심리학"),
         "Published": MessageLookupByLibrary.simpleMessage("게시"),
         "Published_Manga": MessageLookupByLibrary.simpleMessage("게시 된 만화"),
@@ -807,6 +811,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review": MessageLookupByLibrary.simpleMessage("검토"),
         "Review_By": MessageLookupByLibrary.simpleMessage("리뷰 작성자"),
         "Review_On": MessageLookupByLibrary.simpleMessage("검토 날짜"),
+        "Review_Summary": MessageLookupByLibrary.simpleMessage("검토 요약"),
+        "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
+            "리뷰 평결은 다음 리뷰를 사용하여 AI에 의해 생성되므로 정확하지 않을 수 있습니다. 자세한 내용은 리뷰를 읽어보시기 바랍니다."),
         "Reviews": MessageLookupByLibrary.simpleMessage("리뷰"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("다시 늘어납니다"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("재구성"),
@@ -966,6 +973,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Studios": MessageLookupByLibrary.simpleMessage("스튜디오"),
         "Sub_Category": MessageLookupByLibrary.simpleMessage("하위 카테고리"),
         "Suggestions": MessageLookupByLibrary.simpleMessage("제안"),
+        "Summary": MessageLookupByLibrary.simpleMessage("요약"),
         "Summer_2007": MessageLookupByLibrary.simpleMessage("2007 년 여름"),
         "Summer_2008": MessageLookupByLibrary.simpleMessage("2008 년 여름"),
         "Summer_2009": MessageLookupByLibrary.simpleMessage("2009 년 여름"),
@@ -1083,6 +1091,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Users": MessageLookupByLibrary.simpleMessage("사용자"),
         "Value": MessageLookupByLibrary.simpleMessage("값"),
         "Vampire": MessageLookupByLibrary.simpleMessage("흡혈귀"),
+        "Verdict": MessageLookupByLibrary.simpleMessage("평결"),
         "Version": MessageLookupByLibrary.simpleMessage("버전"),
         "Very_Bad": MessageLookupByLibrary.simpleMessage("아주 나쁜"),
         "Very_Good": MessageLookupByLibrary.simpleMessage("매우 좋은"),

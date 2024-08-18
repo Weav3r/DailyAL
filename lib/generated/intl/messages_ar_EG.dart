@@ -210,6 +210,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ConfirmNotifPermDesc": MessageLookupByLibrary.simpleMessage(
             "هل ترغب في السماح بالإشعارات لهذا التطبيق. يتضمن ذلك إشعارات عند بث حلقة من PTW (خطة المشاهدة) وقائمة المشاهدة."),
         "Confusing": MessageLookupByLibrary.simpleMessage("مربك"),
+        "Cons": MessageLookupByLibrary.simpleMessage("سلبيات"),
         "Content_type": MessageLookupByLibrary.simpleMessage("نوع المحتوى"),
         "Continue": MessageLookupByLibrary.simpleMessage("استمر؟"),
         "ContinueW": MessageLookupByLibrary.simpleMessage("يكمل"),
@@ -414,6 +415,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Gender_desc": MessageLookupByLibrary.simpleMessage("لا تهتم افتراضيا"),
         "Generate_Other_charts":
             MessageLookupByLibrary.simpleMessage("إنشاء مخططات أخرى"),
+        "Generating_Review_Summary":
+            MessageLookupByLibrary.simpleMessage("إنشاء ملخص المراجعة"),
         "Genre": MessageLookupByLibrary.simpleMessage("النوع"),
         "Genre_Distribution":
             MessageLookupByLibrary.simpleMessage("توزيع النوع"),
@@ -818,6 +821,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Promo_Videos":
             MessageLookupByLibrary.simpleMessage("أشرطة الفيديو الترويجي"),
         "Promotional": MessageLookupByLibrary.simpleMessage("الترويجية"),
+        "Pros": MessageLookupByLibrary.simpleMessage("الايجابيات"),
         "Psychological": MessageLookupByLibrary.simpleMessage("نفسي"),
         "Published": MessageLookupByLibrary.simpleMessage("نشرت"),
         "Published_Manga":
@@ -895,6 +899,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review": MessageLookupByLibrary.simpleMessage("إعادة النظر"),
         "Review_By": MessageLookupByLibrary.simpleMessage("روجع من قبل"),
         "Review_On": MessageLookupByLibrary.simpleMessage("مراجعة على"),
+        "Review_Summary": MessageLookupByLibrary.simpleMessage("ملخص المراجعة"),
+        "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
+            "يتم إنشاء حكم المراجعة بواسطة الذكاء الاصطناعي باستخدام المراجعات التالية وقد لا يكون دقيقًا. يرجى قراءة التقييمات لمزيد من المعلومات."),
         "Reviews": MessageLookupByLibrary.simpleMessage("تقييم"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("إعادف"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("إخراج"),
@@ -1063,6 +1070,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Studios": MessageLookupByLibrary.simpleMessage("استوديوهات"),
         "Sub_Category": MessageLookupByLibrary.simpleMessage("تصنيف فرعي"),
         "Suggestions": MessageLookupByLibrary.simpleMessage("اقتراحات"),
+        "Summary": MessageLookupByLibrary.simpleMessage("ملخص"),
         "Summer_2007": MessageLookupByLibrary.simpleMessage("صيف 2007."),
         "Summer_2008": MessageLookupByLibrary.simpleMessage("صيف 2008."),
         "Summer_2009": MessageLookupByLibrary.simpleMessage("صيف 2009."),
@@ -1198,6 +1206,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Users": MessageLookupByLibrary.simpleMessage("المستخدمين"),
         "Value": MessageLookupByLibrary.simpleMessage("قيمة"),
         "Vampire": MessageLookupByLibrary.simpleMessage("مصاص دماء"),
+        "Verdict": MessageLookupByLibrary.simpleMessage("الحكم"),
         "Version": MessageLookupByLibrary.simpleMessage("إصدار"),
         "Very_Bad": MessageLookupByLibrary.simpleMessage("سيئ جدا"),
         "Very_Good": MessageLookupByLibrary.simpleMessage("جيد جدًا"),

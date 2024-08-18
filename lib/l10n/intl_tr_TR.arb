@@ -943,5 +943,12 @@
     "NextShow": "Sonraki G\u00f6steri",
     "Show": "G\u00f6stermek",
     "ReleaseStartDate": "Yay\u0131n tarihi",
-    "AnimeCalendar": "Anime Takvimi"
+    "AnimeCalendar": "Anime Takvimi",
+    "Review_Summary": "\u0130nceleme \u00d6zeti",
+    "Summary": "\u00d6zet",
+    "Pros": "Art\u0131lar\u0131",
+    "Cons": "Eksileri",
+    "Verdict": "Karar",
+    "Review_Summary_Desc": "\u0130nceleme Karar\u0131 yapay zeka taraf\u0131ndan a\u015fa\u011f\u0131daki incelemeler kullan\u0131larak olu\u015fturulur ve do\u011fru olmayabilir. Daha fazla bilgi i\u00e7in l\u00fctfen yorumlar\u0131 okuyun.",
+    "Generating_Review_Summary": "\u0130nceleme \u00d6zeti Olu\u015fturuluyor"
 }

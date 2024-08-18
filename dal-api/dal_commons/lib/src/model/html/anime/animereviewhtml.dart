@@ -11,16 +11,65 @@ final reactionBoxes = [
   "Creative"
 ];
 
+class ContentReviewSummary with ToJson {
+  final List<ReviewItem> pros;
+  final List<ReviewItem> cons;
+  final String verdict;
+  ContentReviewSummary(this.pros, this.cons, this.verdict);
+
+  factory ContentReviewSummary.fromJson(Map<String, dynamic>? json) {
+    return json != null
+        ? ContentReviewSummary(
+            (json['pros'] as List)
+                .map((e) => ReviewItem.fromJson(e))
+                .toList(),
+            (json['cons'] as List)
+                .map((e) => ReviewItem.fromJson(e))
+                .toList(),
+            json['verdict'])
+        : ContentReviewSummary([], [], '');
+  }
+  
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      "pros": pros.map((e) => e.toJson()).toList(),
+      "cons": cons.map((e) => e.toJson()).toList(),
+      "verdict": verdict
+    };
+  }
+}
+
+class ReviewItem with ToJson {
+  final String title;
+  final String description;
+  ReviewItem({required this.title, required this.description});
+  
+  @override
+  Map<String, dynamic> toJson() {
+    return {
+      "title": title,
+      "description": description
+    };
+  }
+
+  factory ReviewItem.fromJson(Map<String, dynamic>? json) {
+    return json != null
+        ? ReviewItem(title: json['title'], description: json['description'])
+        : ReviewItem(title: '', description: '');
+  }
+}
+
 class AnimeReviewHtml with ToJson {
-  final String ?userName;
-  final String ?timeAdded;
-  final String ?userPicture;
-  final String ?overallRating;
-  final String ?reviewText;
-  final List<String> ?tags;
-  final List<String> ?reactionBox;
-  bool ?fromCache;
-  final dal_node.Node ?relatedNode;
+  final String? userName;
+  final String? timeAdded;
+  final String? userPicture;
+  final String? overallRating;
+  final String? reviewText;
+  final List<String>? tags;
+  final List<String>? reactionBox;
+  bool? fromCache;
+  final dal_node.Node? relatedNode;
 
   AnimeReviewHtml({
     this.userName,
