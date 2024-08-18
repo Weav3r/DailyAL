@@ -4,6 +4,8 @@ WORKDIR /builder
 
 COPY . .
 
+RUN cargo update -p jsonwebtoken --precise 9.2.0
+
 RUN cargo build -p dal-rust-api --release
 
 FROM gcr.io/distroless/cc
