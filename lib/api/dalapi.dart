@@ -39,6 +39,10 @@ class DalApi {
     _scheduleForMalIds = _getScheduleForMalIds();
   }
 
+  void resetScheduleForMalIds() {
+    _scheduleForMalIds = _getScheduleForMalIds(fromCache: false);
+  }
+
   Future<Servers> _getDalConfigFuture() async {
     final refUrl =
         '${CredMal.appConfigUrl}/${CredMal.buildVariant}/serverConfigV3${_debugMode ? 'Dev' : ''}.json';
@@ -213,13 +217,14 @@ class DalApi {
     String type = 'all',
     SeasonType? season,
     int? year,
+    bool fromCache = true,
   }) async {
     return ListData<ScheduleData>.fromJson(
             await httpGet('schedules?${buildQueryParams({
                   'type': type,
                   'season': season?.name,
                   'year': year
-                })}'),
+                })}', fromCache),
             (p0) => ScheduleData.fromJson(p0))?.data ??
         [];
   }
@@ -228,9 +233,10 @@ class DalApi {
     String type = 'all',
     SeasonType? season,
     int? year,
+    bool fromCache = true,
   }) async {
     return HashMap.fromEntries(
-        (await getSchedules(season: season, type: type, year: year))
+        (await getSchedules(season: season, type: type, year: year, fromCache: fromCache))
             .map((e) => MapEntry(PathUtils.getIdUrl(e.relatedLinks?.mal), e))
             .where((e) => e.key != null)
             .map((e) => MapEntry(e.key!, e.value)));
