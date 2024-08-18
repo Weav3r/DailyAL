@@ -2,7 +2,7 @@ use serde_json::json;
 
 use crate::{
     config::Config,
-    model::{GeminiReponse, ReviewResponse},
+    model::GeminiReponse,
 };
 
 const GEMINI_API_URL: &str =
