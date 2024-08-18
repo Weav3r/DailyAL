@@ -1,5 +1,7 @@
+use seahash::SeaHasher;
 use std::collections::HashSet;
 use std::error::Error;
+use std::hash::Hasher;
 use std::sync::{Arc, Mutex};
 
 use crate::model::{Anime, Edge, RelatedAnime, RelationType, ReviewResponse};
@@ -9,6 +11,8 @@ use crate::model_dto::{ContentGraphDTO, ContentNodeDTO};
 use async_recursion::async_recursion;
 use chrono::{DateTime, Utc};
 use futures::{stream, StreamExt};
+
+const REVIEW_SYSTEM: &str = "You are an anime review critic, you are given the task to go through all the anime reviews and provide a review under 500 words. Split it into 3-4 Pros and Cons and a final Verdict. No need for any intro. Each pros/cons should be descriptive along with a concise title for it. Output should be in the format { pros: [ { title, description }, cons: [ { title, description }  ], verdict }";
 
 pub struct AnimeService {
     pub config: Config,
@@ -187,8 +191,37 @@ impl AnimeService {
         );
     }
 
+    pub fn hash_str(&self, s: &str) -> String {
+        let mut hasher = SeaHasher::new();
+        hasher.write(s.as_bytes());
+        let finish = hasher.finish();
+        format!("{:x}", finish)
+    }
+
     pub async fn summarize_review(&self, reviews: &str) -> Result<ReviewResponse, reqwest::Error> {
         println!("Summarizing review {}", reviews.len());
-        self.ai_service.talk(reviews).await
+
+        let hash_str = self.hash_str(reviews);
+
+        println!("Using hash_key: {}", hash_str);
+
+        let cached_review: Option<ReviewResponse> =
+            self.cache_service.get_by_id("reviews", hash_str.clone()).await;
+
+        if cached_review.is_some() {
+            return Ok(cached_review.unwrap());
+        } else {
+            println!("Cache miss for {}", hash_str);
+            let review_response: ReviewResponse = self
+                .ai_service
+                .talk(REVIEW_SYSTEM, reviews)
+                .await
+                .map(|text| serde_json::from_str(&text).unwrap()).unwrap();
+
+            self.cache_service
+                .set_by_id("reviews", hash_str, &review_response, Some(3600 * 24 * 30))
+                .await;
+            return Ok(review_response);
+        }
     }
 }

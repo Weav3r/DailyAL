@@ -14,11 +14,11 @@ pub struct GeminiAPI {
 }
 
 impl GeminiAPI {
-    fn review_request(&self, text: &str) -> serde_json::Value {
+    fn review_request(&self, system: &str, text: &str) -> serde_json::Value {
         json!({
             "system_instruction": {
                 "parts": {
-                    "text": "You are an anime review critic, you are given the task to go through all the anime reviews and provide a review under 500 words. Split it into 3-4 Pros and Cons and a final Verdict. No need for any intro. Each pros/cons should be descriptive along with a concise title for it. Output should be in the format { pros: [ { title, description }, cons: [ { title, description }  ], verdict }"
+                    "text": system
                 }
             },
             "contents": [
@@ -54,14 +54,12 @@ impl GeminiAPI {
         })
     }
 
-    pub async fn talk(&self, prompt: &str) -> Result<ReviewResponse, reqwest::Error> {
+    pub async fn talk(&self, system: &str, prompt: &str) -> Result<String, reqwest::Error> {
         let gemini_api_key = self.config.secrets.gemini_api_key.as_str();
         let gemini_api_url = format!("{}{}", GEMINI_API_URL, gemini_api_key);
         println!("Calling Gemini API with url");
 
-        let value = self.review_request(&prompt);
-
-        println!("Final prompt: {:?}", value);
+        let value = self.review_request(&system, &prompt);
 
         let text = reqwest::Client::new()
             .post(gemini_api_url)
@@ -71,9 +69,10 @@ impl GeminiAPI {
             .await?
             .text()
             .await?;
-        println!("Response from Gemini API: {:?}", text);
+
+        println!("Response from Gemini API");
+
         let response: GeminiReponse = serde_json::from_str(&text).unwrap();
-        println!("Response from Gemini API: {:?}", response);
 
         let text = response
             .candidates
@@ -86,7 +85,6 @@ impl GeminiAPI {
             .text
             .clone();
 
-        let review_response: ReviewResponse = serde_json::from_str(&text).unwrap();
-        Ok(review_response)
+        Ok(text)
     }
 }

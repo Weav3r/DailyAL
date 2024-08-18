@@ -23,6 +23,7 @@ futures = "0.3"
 tokio = { version = "1.35.1", features = ["full"] }
 tower-http = { version = "0.5.0", features = ["cors"] }
 uuid = { version = "1.6.1", features = ["serde", "v4"] }
+seahash = "4.1.0"
 
 [profile.release]
 overflow-checks = true

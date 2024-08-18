@@ -73,14 +73,14 @@ pub struct File {
     pub file_name: String,
 }
 
-#[derive(Deserialize, Serialize, Debug)]
+#[derive(Clone, Deserialize, Serialize, Debug)]
 pub struct ReviewResponse {
     pros: Vec<ReviewItem>,
     cons: Vec<ReviewItem>,
     verdict: String,
 }
 
-#[derive(Deserialize, Serialize, Debug)]
+#[derive(Clone, Deserialize, Serialize, Debug)]
 pub struct ReviewItem {
     title: String,
     description: String,
