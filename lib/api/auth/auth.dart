@@ -11,8 +11,6 @@ import 'package:dailyanimelist/widgets/web/c_webview.dart';
 import 'package:dal_commons/dal_commons.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-import 'package:uni_links/uni_links.dart';
-// import 'package:uni_links/uni_links.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../constant.dart';

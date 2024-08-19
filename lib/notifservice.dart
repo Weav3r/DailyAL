@@ -15,8 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
-import 'package:notification_permissions/notification_permissions.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:timezone/data/latest.dart' as tz;
 import 'package:timezone/timezone.dart' as tz;
 
@@ -374,9 +374,8 @@ class NotificationService {
   Future<void> askForPermission() async {
     if (user.pref.notifPref.onPTWGoesToWatching ||
         user.pref.notifPref.onWatchingListUpdated) {
-      final currStatus =
-          await NotificationPermissions.getNotificationPermissionStatus();
-      if (currStatus == PermissionStatus.denied) {
+      var status = await Permission.notification.status;
+      if (status == PermissionStatus.denied) {
         bool allowed = await showConfirmationDialog(
           alertTitle: S.current.ConfirmNotifPerm,
           desc: S.current.ConfirmNotifPermDesc,

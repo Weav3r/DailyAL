@@ -2,7 +2,7 @@ import 'dart:ui' as ui;
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dailyanimelist/api/auth/auth.dart';
 import 'package:dailyanimelist/api/credmal.dart';
 import 'package:dailyanimelist/enums.dart';
