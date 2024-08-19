@@ -60,7 +60,7 @@ class _ThemeSettingsState extends State<ThemeSettings> {
       user.pref.firstTimePref = FirstTimePref(bg: false, news: false);
     }
     await user.setIntance();
-    restartApp();
+    restartApp(context);
   }
 
   void reset() {

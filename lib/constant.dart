@@ -631,7 +631,7 @@ void launchLogOutConfirmation({required BuildContext context}) async {
   if (result) {
     try {
       await MalAuth.signOut();
-      restartApp();
+      restartApp(context);
     } catch (e) {
       logDal(e);
       showToast(S.current.Couldnt_sign_out_now);

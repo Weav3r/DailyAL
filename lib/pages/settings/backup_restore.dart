@@ -55,7 +55,7 @@ class _BackUpAndRestorePageState extends State<BackUpAndRestorePage> {
             await user.refreshAuthStatus();
             await StreamUtils.i.init();
             await showToast(S.current.Restore_Sucess);
-            restartApp();
+            restartApp(context);
           } else {
             showToast(S.current.Restore_fail);
           }
