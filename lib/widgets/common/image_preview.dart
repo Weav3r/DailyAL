@@ -11,7 +11,7 @@ import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:path/path.dart' as p;
 
 void zoomInImage(BuildContext context, String url, [bool showButtons = true]) {
@@ -93,7 +93,8 @@ void saveImage(String url) async {
 /// download image from url and share it
 void shareImage(String url) async {
   var path = await downloadImage(url);
-  Share.shareFiles([path], text: 'Image from DailyAnimeList');
+  XFile file = XFile(path);
+  Share.shareXFiles([file], text: 'Image from DailyAnimeList');
 }
 
 Future<String> downloadImage(String url) async {

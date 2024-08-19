@@ -5,7 +5,7 @@ import 'package:dal_commons/commons.dart';
 import 'package:flutter/material.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
 import 'package:flutter/services.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 
 class ShareOutputProps {
   final bool includeTitle;

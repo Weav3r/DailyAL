@@ -42,7 +42,7 @@ dependencies:
   fl_chart: ^0.68.0
   flutter_html: ^3.0.0-beta.2
   scroll_to_index: ^3.0.1
-  share: ^2.0.1
+  share_plus: ^10.0.2
   built_collection: ^5.1.0
   flutter_local_notifications: ^17.2.2
   timezone: ^0.9.4
