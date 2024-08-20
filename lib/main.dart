@@ -55,7 +55,7 @@ void main() async {
     } catch (e) {}
   }
 
-  runApp(_buildProvider(node));
+  runApp(Phoenix(child: _buildProvider(node)));
 }
 
 void restartApp(BuildContext context) {
