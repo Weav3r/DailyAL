@@ -17,6 +17,8 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/src/media_type.dart';
 
+enum FeatureFlag { aireviews }
+
 class DalApi {
   static DalApi _internal = DalApi._();
   static DalApi i = _internal;
@@ -220,11 +222,13 @@ class DalApi {
     bool fromCache = true,
   }) async {
     return ListData<ScheduleData>.fromJson(
-            await httpGet('schedules?${buildQueryParams({
-                  'type': type,
-                  'season': season?.name,
-                  'year': year
-                })}', fromCache),
+            await httpGet(
+                'schedules?${buildQueryParams({
+                      'type': type,
+                      'season': season?.name,
+                      'year': year
+                    })}',
+                fromCache),
             (p0) => ScheduleData.fromJson(p0))?.data ??
         [];
   }
@@ -235,11 +239,11 @@ class DalApi {
     int? year,
     bool fromCache = true,
   }) async {
-    return HashMap.fromEntries(
-        (await getSchedules(season: season, type: type, year: year, fromCache: fromCache))
-            .map((e) => MapEntry(PathUtils.getIdUrl(e.relatedLinks?.mal), e))
-            .where((e) => e.key != null)
-            .map((e) => MapEntry(e.key!, e.value)));
+    return HashMap.fromEntries((await getSchedules(
+            season: season, type: type, year: year, fromCache: fromCache))
+        .map((e) => MapEntry(PathUtils.getIdUrl(e.relatedLinks?.mal), e))
+        .where((e) => e.key != null)
+        .map((e) => MapEntry(e.key!, e.value)));
   }
 
   Future<SearchResult> searchInterestStacks({
@@ -430,6 +434,12 @@ class DalApi {
         'anime/$id/related',
       ),
     );
+  }
+
+  Future<bool> isFeatureEnabled(FeatureFlag flag) {
+    return _dalConfigFuture.then((value) {
+      return value?.featureFlags?[flag.name] ?? false;
+    });
   }
 
   Future<ContentReviewSummary?> getReviewsSummary(List<String> reviews) async {

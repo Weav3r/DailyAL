@@ -2,6 +2,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
+import 'package:dailyanimelist/api/auth/auth.dart';
 import 'package:dailyanimelist/api/dalapi.dart';
 import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
@@ -73,6 +74,7 @@ class _ContentReviewPageState extends State<ContentReviewPage> {
   late String selectSortBy;
   late Future<ContentReviewSummary?> reviewSummaryFuture;
   bool _hasReviewSummaryExpanded = false;
+  String _refKey = MalAuth.codeChallenge(10); 
 
   List<String> get reviewsText =>
       reviews?.map((e) => e.reviewText ?? '').toList() ?? [];
@@ -95,7 +97,7 @@ class _ContentReviewPageState extends State<ContentReviewPage> {
       ];
     }
     reviews = widget.reviews;
-    reviewSummaryFuture = DalApi.i.getReviewsSummary(reviewsText);
+    reviewSummaryFuture = Future.value(ContentReviewSummary([], [], ''));
     tags = reduceFilters(
         widget.reviews.map((e) => Set<String>.from(e.tags ?? [])));
     _availableScores = widget.reviews
@@ -112,6 +114,20 @@ class _ContentReviewPageState extends State<ContentReviewPage> {
       viewportBoundaryGetter: () =>
           Rect.fromLTRB(30, 0, 0, MediaQuery.of(context).padding.right),
     );
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _handlePostFrameCallback());
+  }
+
+  void _handlePostFrameCallback() {
+    DalApi.i.isFeatureEnabled(FeatureFlag.aireviews).then((value) {
+      if (value) {
+        _refKey = MalAuth.codeChallenge(10);
+        reviewSummaryFuture = DalApi.i.getReviewsSummary(reviewsText);
+      }
+      if (mounted) {
+        setState(() {});
+      }
+    });
   }
 
   List<AnimeReviewHtml> _sortReviews(List<AnimeReviewHtml>? reviews) {
@@ -467,6 +483,7 @@ class _ContentReviewPageState extends State<ContentReviewPage> {
   Widget _buildReviewSummary() {
     final animation = _reviewAnimation();
     return StateFullFutureWidget(
+      refKey: _refKey,
       done: (sp) => _buildHorizontalReviews(sp.data),
       loadingChild: animation,
       future: () => reviewSummaryFuture,
@@ -492,7 +509,7 @@ class _ContentReviewPageState extends State<ContentReviewPage> {
   }
 
   Widget _buildSummary(ContentReviewSummary? data) {
-    if (data == null) return SB.z;
+    if (data == null || data.verdict.isEmpty) return SB.z;
     return Container(
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: widget.horizPadding),
@@ -551,7 +568,9 @@ class _ContentReviewPageState extends State<ContentReviewPage> {
   Widget _summaryContent(ContentReviewSummary data) {
     final verdictWidget = _reviewItem(
       ReviewItem(title: S.current.Verdict, description: data.verdict),
-      ToolTipButton(child: Icon(Icons.info_outline), message: S.current.Review_Summary_Desc),
+      ToolTipButton(
+          child: Icon(Icons.info_outline),
+          message: S.current.Review_Summary_Desc),
       true,
     );
     if (!_hasReviewSummaryExpanded) {

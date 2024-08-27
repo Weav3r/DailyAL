@@ -9,6 +9,7 @@ class Servers {
   String? dalAPIUrl;
   String? telegramLink;
   String? storeUrl;
+  Map<String, bool>? featureFlags;
   List<PlatformMaintenances>? platformMaintenances;
 
   Servers({
@@ -23,6 +24,7 @@ class Servers {
     this.errorLogging,
     this.maxLoad,
     this.platformMaintenances,
+    this.featureFlags,
   });
 
   Servers.fromJson(Map<String, dynamic>? json) {
@@ -40,6 +42,12 @@ class Servers {
       platformMaintenances = [];
       json['platformMaintenances'].forEach((v) {
         platformMaintenances?.add(PlatformMaintenances.fromJson(v));
+      });
+    }
+    if (json['featureFlags'] != null) {
+      featureFlags = {};
+      json['featureFlags'].forEach((k, v) {
+        featureFlags![k] = v;
       });
     }
     if (json['preferredServers'] != null) {
@@ -63,6 +71,7 @@ class Servers {
     data['dalAPIUrl'] = dalAPIUrl;
     data['telegramLink'] = telegramLink;
     data['storeUrl'] = storeUrl;
+    data['featureFlags'] = featureFlags;
     data['platformMaintenances'] =
         platformMaintenances?.map((v) => v.toJson()).toList();
     return data;

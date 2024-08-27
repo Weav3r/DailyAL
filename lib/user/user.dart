@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dailyanimelist/api/auth/auth.dart';
 import 'package:dailyanimelist/api/auth/authresp.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
 import 'package:dailyanimelist/theme/theme.dart';

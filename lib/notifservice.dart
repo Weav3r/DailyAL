@@ -321,31 +321,35 @@ class NotificationService {
       }
     }
 
-    await flutterLocalNotificationsPlugin.zonedSchedule(
-      serviceId * 100 + node.id!,
-      _replaceTags(title) ?? "DailyAnimeList - ${S.current.Episode_Reminder}",
-      _replaceTags(body) ??
-          "${node.title} - Episode $episode ${S.current.just_got_aired}!!",
-      exactDate != null
-          ? tz.TZDateTime.from(exactDate, tz.local)
-          : tz.TZDateTime.now(tz.local).add(addTime),
-      NotificationDetails(
-        android: AndroidNotificationDetails(
-          channel.channelId,
-          channel.channelName,
-          channelDescription: channel.channelDescription,
-          priority: Priority.high,
-          styleInformation: styleInfo,
-          icon: 'ic_stat_name',
-          largeIcon: largeIconBitmap,
-          category: AndroidNotificationCategory.reminder,
+    try {
+      await flutterLocalNotificationsPlugin.zonedSchedule(
+        serviceId * 100 + node.id!,
+        _replaceTags(title) ?? "DailyAnimeList - ${S.current.Episode_Reminder}",
+        _replaceTags(body) ??
+            "${node.title} - Episode $episode ${S.current.just_got_aired}!!",
+        exactDate != null
+            ? tz.TZDateTime.from(exactDate, tz.local)
+            : tz.TZDateTime.now(tz.local).add(addTime),
+        NotificationDetails(
+          android: AndroidNotificationDetails(
+            channel.channelId,
+            channel.channelName,
+            channelDescription: channel.channelDescription,
+            priority: Priority.high,
+            styleInformation: styleInfo,
+            icon: 'ic_stat_name',
+            largeIcon: largeIconBitmap,
+            category: AndroidNotificationCategory.reminder,
+          ),
         ),
-      ),
-      androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
-      payload: jsonEncode(node.toJson()),
-      uiLocalNotificationDateInterpretation:
-          UILocalNotificationDateInterpretation.absoluteTime,
-    );
+        androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
+        payload: jsonEncode(node.toJson()),
+        uiLocalNotificationDateInterpretation:
+            UILocalNotificationDateInterpretation.absoluteTime,
+      );
+    } catch (e) {
+      logDal(e);
+    }
   }
 
   String? _replaceTags(String? body) {
@@ -396,11 +400,25 @@ class NotificationService {
   Future<bool> _askNotifPermissionUsingLocal() async {
     FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
         FlutterLocalNotificationsPlugin();
-    return (await flutterLocalNotificationsPlugin
-            .resolvePlatformSpecificImplementation<
-                AndroidFlutterLocalNotificationsPlugin>()
-            ?.requestNotificationsPermission()) ??
-        false;
+    return ((await _getAlarmPerm(flutterLocalNotificationsPlugin)) ?? false) &&
+        ((await _getNotificationPerm(flutterLocalNotificationsPlugin)) ??
+            false);
+  }
+
+  Future<bool?> _getAlarmPerm(
+      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
+    return await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestExactAlarmsPermission();
+  }
+
+  Future<bool?> _getNotificationPerm(
+      FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
+    return await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin>()
+        ?.requestNotificationsPermission();
   }
 
   static void onDidReceiveBackgroundNotificationResponse(

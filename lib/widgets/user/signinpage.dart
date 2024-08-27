@@ -5,6 +5,7 @@ import 'package:dailyanimelist/user/user.dart';
 import 'package:dailyanimelist/widgets/avatarwidget.dart';
 import 'package:dailyanimelist/widgets/custombutton.dart';
 import 'package:dal_commons/dal_commons.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../../constant.dart';
@@ -118,35 +119,12 @@ class _SigninWidgetState extends State<SigninWidget> {
         const SizedBox(
           height: 30,
         ),
-        // user.status == AuthStatus.INPROGRESS
-        //     ? Container(
-        //         child: Center(
-        //           child: loadingCenter(),
-        //         ),
-        //       )
-        //     : user.status == AuthStatus.UNAUTHENTICATED
-        //         ?
         Container(
           padding: EdgeInsets.symmetric(horizontal: 20),
           width: double.infinity,
           height: 45,
           child: PlainButton(
-            onPressed: () async {
-              MalAuth.handleSignIn();
-              Future.delayed(Duration(seconds: 45)).then((value) {
-                if (user.status != AuthStatus.AUTHENTICATED) {
-                  logDal("timed out");
-                  showToast(S.current.Setup_timed_out);
-                  if (mounted)
-                    setState(() {
-                      user.status = AuthStatus.UNAUTHENTICATED;
-                    });
-                } else {
-                  if (mounted) setState(() {});
-                }
-              });
-            },
-            // elevation: 2,
+            onPressed: () => _handleSignIn(),
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(13)),
             child: Text(
@@ -155,8 +133,24 @@ class _SigninWidgetState extends State<SigninWidget> {
               style: TextStyle(fontSize: 15),
             ),
           ),
-        )
-        // : SB.z
+        ),
+        if (kDebugMode) ...[
+          SB.h30,
+          // Enter code manually
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 20),
+            width: 500,
+            child: TextFormField(
+              decoration: InputDecoration(hintText: "Enter code manually"),
+              onFieldSubmitted: (value) async {
+                var uri = Uri.tryParse(value);
+                if (uri == null || !(await MalAuth.checkIfSignIn(uri))) {
+                  showToast("Couldn't handle Code");
+                }
+              },
+            ),
+          ),
+        ]
       ];
     }
 
@@ -171,6 +165,22 @@ class _SigninWidgetState extends State<SigninWidget> {
         ],
       ),
     );
+  }
+
+  void _handleSignIn() {
+    MalAuth.handleSignIn();
+    Future.delayed(Duration(seconds: 45)).then((value) {
+      if (user.status != AuthStatus.AUTHENTICATED) {
+        logDal("timed out");
+        showToast(S.current.Setup_timed_out);
+        if (mounted)
+          setState(() {
+            user.status = AuthStatus.UNAUTHENTICATED;
+          });
+      } else {
+        if (mounted) setState(() {});
+      }
+    });
   }
 
   Widget textWidget(String text) {
