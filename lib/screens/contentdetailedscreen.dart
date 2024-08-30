@@ -61,6 +61,7 @@ class VisibleSection {
   final skipTitle;
   final bool isTab;
   final VoidCallback? onViewAll;
+  final Widget? additionalWidget;
 
   VisibleSection(
     this.title,
@@ -68,6 +69,7 @@ class VisibleSection {
     this.isTab = true,
     this.onViewAll,
     this.skipTitle = false,
+    this.additionalWidget,
   });
 }
 
@@ -360,6 +362,8 @@ class _ContentDetailedScreenState extends State<ContentDetailedScreen>
                   reviews: animeDetailedHtml!.animeReviewList!,
                   horizPadding: horizPadding,
                 ),
+                additionalWidget: ReviewGeneratedSummary(
+                    reviews: animeDetailedHtml!.animeReviewList!),
                 onViewAll: _reviewsShowAll,
               )),
       TabType.Recommendations => _nullIf(
@@ -1080,8 +1084,13 @@ class _ContentDetailedScreenState extends State<ContentDetailedScreen>
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 text(section.title, fontSize: 22),
-                if (section.onViewAll != null) ...[
+                if (section.onViewAll != null ||
+                    section.additionalWidget != null) ...[
                   Expanded(child: SB.z),
+                  if (section.additionalWidget != null) ...[
+                    section.additionalWidget!,
+                    SB.w15,
+                  ],
                   Padding(
                     padding: const EdgeInsets.only(right: horizPadding),
                     child: PlainButton(
@@ -1704,4 +1713,3 @@ class NoScalingAnimation extends FloatingActionButtonAnimator {
     return Tween<double>(begin: 1.0, end: 1.0).animate(parent);
   }
 }
-
