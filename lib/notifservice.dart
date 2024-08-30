@@ -380,7 +380,8 @@ class NotificationService {
         user.pref.notifPref.onWatchingListUpdated) {
       final notifPerm = await Permission.notification.status;
       final alamPerm = await Permission.scheduleExactAlarm.status;
-      if (notifPerm == PermissionStatus.denied || alamPerm == PermissionStatus.denied) {
+      if (notifPerm == PermissionStatus.denied ||
+          alamPerm == PermissionStatus.denied) {
         bool allowed = await showConfirmationDialog(
           alertTitle: S.current.ConfirmNotifPerm,
           desc: S.current.ConfirmNotifPermDesc,
@@ -388,8 +389,7 @@ class NotificationService {
         );
         if (allowed) {
           allowed = await _askNotifPermissionUsingLocal();
-        }
-        if (!allowed) {
+        } else {
           user.pref.notifPref.onPTWGoesToWatching = false;
           user.pref.notifPref.onWatchingListUpdated = false;
           user.setIntance();

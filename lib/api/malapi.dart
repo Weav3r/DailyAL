@@ -412,9 +412,7 @@ class MalApi {
 
   static Future<bool> _checkIfDeviceIsConnected() async {
     try {
-      final connectivityResult = await (Connectivity().checkConnectivity());
-      if (connectivityResult == ConnectivityResult.mobile ||
-          connectivityResult == ConnectivityResult.wifi) {
+      if (await hasConnection()) {
         await Dio().get(githubApiLink);
         return true;
       }

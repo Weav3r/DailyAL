@@ -514,9 +514,8 @@ bool shouldUpdateContent(
 }
 
 Future<bool> hasConnection() async {
-  var connectivityResult = await Connectivity().checkConnectivity();
-  return connectivityResult == ConnectivityResult.mobile ||
-      connectivityResult == ConnectivityResult.wifi;
+  final connectivityResult = await Connectivity().checkConnectivity();
+  return !connectivityResult.contains(ConnectivityResult.none);
 }
 
 Future<void> showToast(String message, {Toast? toast}) async {
