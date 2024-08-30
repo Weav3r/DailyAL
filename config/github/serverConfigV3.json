@@ -5,7 +5,7 @@
     "errorLogging": false,
     "maxLoad": 100,
     "featureFlags":  {
-      "aireviews": true
+      "aireviews": false
     },
     "preferredServers": [
       {
