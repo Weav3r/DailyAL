@@ -736,8 +736,6 @@ class ReviewGeneratedSummary extends StatefulWidget {
 
 class _ReviewGeneratedSummaryState extends State<ReviewGeneratedSummary> {
   late Future<ContentReviewSummary?> reviewSummaryFuture;
-  String _refKey = MalAuth.codeChallenge(10);
-  bool _hasReviewSummaryExpanded = false;
   bool _hasReviewSummary = false;
 
   List<String> get reviewsText =>
@@ -758,9 +756,8 @@ class _ReviewGeneratedSummaryState extends State<ReviewGeneratedSummary> {
 
   void _handlePostFrameCallback() {
     DalApi.i.isFeatureEnabled(FeatureFlag.aireviews).then((value) {
-      if (!value) {
+      if (value) {
         _hasReviewSummary = true;
-        _refKey = MalAuth.codeChallenge(10);
         reviewSummaryFuture = DalApi.i.getReviewsSummary(reviewsText);
         if (mounted) {
           setState(() {});
@@ -773,43 +770,65 @@ class _ReviewGeneratedSummaryState extends State<ReviewGeneratedSummary> {
   Widget build(BuildContext context) {
     if (!_hasReviewSummary) return SB.z;
     if (widget.reviewSummaryFuture == null) {
-      return AvatarWidget(
-        url: 'assets/images/gemini.png',
-        width: 35,
-        height: 35,
-        onLongPress: _onIconTap,
-        isNetworkImage: false,
-        onTap: _onIconTap,
-      );
+      return _buildIcon();
     }
     return StateFullFutureWidget(
-      refKey: _refKey,
       done: (sp) => _buildSummary(sp.data),
       loadingChild: _reviewAnimation(),
       future: () => reviewSummaryFuture,
     );
   }
 
-  void _onIconTap() {
-    openAlertDialog(
-      context: context,
-      title: '',
-      content: ReviewGeneratedSummary(
-        reviews: widget.reviews,
-        reviewSummaryFuture: reviewSummaryFuture,
-      ),
+  Widget _buildIcon() {
+    return AvatarWidget(
+      url: 'assets/images/gemini.png',
+      width: 30,
+      height: 30,
+      onLongPress: _onIconTap,
+      isNetworkImage: false,
+      onTap: _onIconTap,
     );
+  }
+
+  void _onIconTap() {
+    showAdaptiveDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(S.current.Review_Summary),
+            contentPadding: EdgeInsets.zero,
+            content: SingleChildScrollView(
+              child: ReviewGeneratedSummary(
+                reviews: widget.reviews,
+                reviewSummaryFuture: reviewSummaryFuture,
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(S.current.Close),
+              ),
+            ],
+          );
+        });
   }
 
   Widget _reviewAnimation() {
     return SizedBox(
-      height: 350,
+      height: 300,
       child: Stack(
         children: [
-          InterlaceAnimation(colorScheme: Theme.of(context).colorScheme),
+          Center(
+            child: SizedBox(
+              height: 320,
+              width: 200,
+              child: InterlaceAnimation(
+                  colorScheme: Theme.of(context).colorScheme),
+            ),
+          ),
           Center(
             child: Text(
-              S.current.Generating_Review_Summary,
+              S.current.Generating,
               style: Theme.of(context).textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),
@@ -824,55 +843,7 @@ class _ReviewGeneratedSummaryState extends State<ReviewGeneratedSummary> {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.symmetric(horizontal: 15),
-      child: Card(
-        child: Stack(
-          children: [
-            ClipRRect(
-              borderRadius: BorderRadius.circular(14),
-              child: CustomPaint(
-                foregroundPainter: FadingEffect(
-                  extend: 5,
-                  color: Theme.of(context).scaffoldBackgroundColor,
-                  start: _hasReviewSummaryExpanded ? 50 : 0,
-                  end: _hasReviewSummaryExpanded ? 50 : 255,
-                ),
-                child: Container(
-                  height: _hasReviewSummaryExpanded ? null : 145,
-                  padding: EdgeInsets.fromLTRB(
-                    15,
-                    0,
-                    15,
-                    0,
-                  ),
-                  child: _summaryContent(data),
-                ),
-              ),
-            ),
-            if (!_hasReviewSummaryExpanded)
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  height: 40,
-                  child: IconButton(
-                    onPressed: () {
-                      if (mounted)
-                        setState(() {
-                          _hasReviewSummaryExpanded = true;
-                        });
-                    },
-                    padding: EdgeInsets.zero,
-                    icon: Icon(
-                      Icons.keyboard_arrow_down,
-                      size: 24,
-                    ),
-                  ),
-                ),
-              )
-          ],
-        ),
-      ),
+      child: _summaryContent(data),
     );
   }
 
@@ -884,25 +855,16 @@ class _ReviewGeneratedSummaryState extends State<ReviewGeneratedSummary> {
           message: S.current.Review_Summary_Desc),
       true,
     );
-    if (!_hasReviewSummaryExpanded) {
-      return SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        padding: EdgeInsets.symmetric(vertical: 10),
-        child: verdictWidget,
-      );
-    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SB.h10,
         verdictWidget,
-        if (_hasReviewSummaryExpanded) ...[
-          ...data.pros.map(
-              (item) => _reviewItem(item, _additionalText(S.current.Pros))),
-          ...data.cons.map(
-              (item) => _reviewItem(item, _additionalText(S.current.Cons))),
-        ],
+        ...data.pros
+            .map((item) => _reviewItem(item, _additionalText(S.current.Pros))),
+        ...data.cons
+            .map((item) => _reviewItem(item, _additionalText(S.current.Cons))),
         SB.h10,
       ],
     );

@@ -426,6 +426,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Плевать по умолчанию"),
         "Generate_Other_charts":
             MessageLookupByLibrary.simpleMessage("Создать другие диаграммы"),
+        "Generating": MessageLookupByLibrary.simpleMessage("Создание"),
         "Generating_Review_Summary":
             MessageLookupByLibrary.simpleMessage("Создание сводки обзора"),
         "Genre": MessageLookupByLibrary.simpleMessage("Жанр"),

@@ -953,5 +953,6 @@
     "Cons": "Contras",
     "Verdict": "Veredicto",
     "Review_Summary_Desc": "O veredicto da revis\u00e3o \u00e9 gerado pela IA usando as an\u00e1lises a seguir e pode n\u00e3o ser preciso. Por favor, leia os coment\u00e1rios para obter mais informa\u00e7\u00f5es.",
-    "Generating_Review_Summary": "Gerando Resumo de Revis\u00e3o"
+    "Generating_Review_Summary": "Gerando Resumo de Revis\u00e3o",
+    "Generating": "Gerando"
 }

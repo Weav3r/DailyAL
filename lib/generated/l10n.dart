@@ -9540,6 +9540,16 @@ class S {
     );
   }
 
+  /// `Generating`
+  String get Generating {
+    return Intl.message(
+      'Generating',
+      name: 'Generating',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Anime Calendar`
   String get AnimeCalendar {
     return Intl.message(

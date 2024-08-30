@@ -379,6 +379,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Gender_desc": MessageLookupByLibrary.simpleMessage("デフォルトで気にしないでください"),
         "Generate_Other_charts":
             MessageLookupByLibrary.simpleMessage("他のチャートを生成する"),
+        "Generating": MessageLookupByLibrary.simpleMessage("生成中"),
         "Generating_Review_Summary":
             MessageLookupByLibrary.simpleMessage("レビュー概要の生成"),
         "Genre": MessageLookupByLibrary.simpleMessage("ジャンル"),

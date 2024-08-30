@@ -415,6 +415,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Gender_desc": MessageLookupByLibrary.simpleMessage("لا تهتم افتراضيا"),
         "Generate_Other_charts":
             MessageLookupByLibrary.simpleMessage("إنشاء مخططات أخرى"),
+        "Generating": MessageLookupByLibrary.simpleMessage("توليد"),
         "Generating_Review_Summary":
             MessageLookupByLibrary.simpleMessage("إنشاء ملخص المراجعة"),
         "Genre": MessageLookupByLibrary.simpleMessage("النوع"),

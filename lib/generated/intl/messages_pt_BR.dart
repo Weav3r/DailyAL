@@ -433,6 +433,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Não se importa por padrão"),
         "Generate_Other_charts":
             MessageLookupByLibrary.simpleMessage("Gerar outros gráficos"),
+        "Generating": MessageLookupByLibrary.simpleMessage("Gerando"),
         "Generating_Review_Summary":
             MessageLookupByLibrary.simpleMessage("Gerando Resumo de Revisão"),
         "Genre": MessageLookupByLibrary.simpleMessage("Gênero"),

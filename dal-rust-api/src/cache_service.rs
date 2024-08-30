@@ -8,9 +8,9 @@ pub struct CacheService {
 }
 
 impl CacheService {
-    async fn get_connection(&self) -> redis::aio::Connection {
+    async fn get_connection(&self) -> redis::aio::MultiplexedConnection {
         let client = redis::Client::open(self.config.secrets.rediscloud_url.to_string()).unwrap();
-        return client.get_async_connection().await.unwrap();
+        return client.get_multiplexed_async_connection().await.unwrap();
     }
 
     pub async fn get_by_id<T: DeserializeOwned + Clone>(

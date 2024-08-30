@@ -952,5 +952,6 @@
     "Cons": "Inconv\u00e9nients",
     "Verdict": "Verdict",
     "Review_Summary_Desc": "Le verdict des avis est g\u00e9n\u00e9r\u00e9 par l'IA \u00e0 l'aide des avis suivants et peut ne pas \u00eatre exact. Veuillez lire les commentaires pour plus d'informations.",
-    "Generating_Review_Summary": "G\u00e9n\u00e9ration du r\u00e9sum\u00e9 des avis"
+    "Generating_Review_Summary": "G\u00e9n\u00e9ration du r\u00e9sum\u00e9 des avis",
+    "Generating": "G\u00e9n\u00e9rateur"
 }

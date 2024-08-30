@@ -380,6 +380,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Gender_desc": MessageLookupByLibrary.simpleMessage("기본적으로 상관 없어"),
         "Generate_Other_charts":
             MessageLookupByLibrary.simpleMessage("다른 차트 생성"),
+        "Generating": MessageLookupByLibrary.simpleMessage("생성 중"),
         "Generating_Review_Summary":
             MessageLookupByLibrary.simpleMessage("리뷰 요약 생성 중"),
         "Genre": MessageLookupByLibrary.simpleMessage("장르"),

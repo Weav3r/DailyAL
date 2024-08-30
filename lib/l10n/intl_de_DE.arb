@@ -953,5 +953,6 @@
     "Cons": "Nachteile",
     "Verdict": "Urteil",
     "Review_Summary_Desc": "Das Bewertungsurteil wird von KI anhand der folgenden Bewertungen erstellt und ist m\u00f6glicherweise nicht korrekt. F\u00fcr weitere Informationen lesen Sie bitte die Bewertungen.",
-    "Generating_Review_Summary": "Zusammenfassung der Rezension erstellen"
+    "Generating_Review_Summary": "Zusammenfassung der Rezension erstellen",
+    "Generating": "Generieren"
 }
