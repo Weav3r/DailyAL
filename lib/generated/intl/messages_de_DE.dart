@@ -219,6 +219,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ConfirmNotifPermDesc": MessageLookupByLibrary.simpleMessage(
             "Möchten Sie Benachrichtigungen für diese App zulassen? Dazu gehören Benachrichtigungen, wenn eine Episode von Ihrem PTW (Plan To Watch) und Ihrer Beobachtungsliste ausgestrahlt wird."),
         "Confusing": MessageLookupByLibrary.simpleMessage("Verwirrend"),
+        "Cons": MessageLookupByLibrary.simpleMessage("Nachteile"),
         "Content_type": MessageLookupByLibrary.simpleMessage("Inhaltstyp"),
         "Continue": MessageLookupByLibrary.simpleMessage("fortsetzen?"),
         "ContinueW": MessageLookupByLibrary.simpleMessage("Fortsetzen"),
@@ -428,6 +429,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Kümmere mich nicht standardmäßig"),
         "Generate_Other_charts":
             MessageLookupByLibrary.simpleMessage("Andere Diagramme generieren"),
+        "Generating": MessageLookupByLibrary.simpleMessage("Generieren"),
+        "Generating_Review_Summary": MessageLookupByLibrary.simpleMessage(
+            "Zusammenfassung der Rezension erstellen"),
         "Genre": MessageLookupByLibrary.simpleMessage("Genre"),
         "Genre_Distribution":
             MessageLookupByLibrary.simpleMessage("Genreverteilung"),
@@ -842,6 +846,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Der Profilhintergrund wurde erfolgreich festgelegt"),
         "Promo_Videos": MessageLookupByLibrary.simpleMessage("Promo-Videos."),
         "Promotional": MessageLookupByLibrary.simpleMessage("Werbeartikel"),
+        "Pros": MessageLookupByLibrary.simpleMessage("Vorteile"),
         "Psychological": MessageLookupByLibrary.simpleMessage("Psychologisch"),
         "Published": MessageLookupByLibrary.simpleMessage("Veröffentlicht"),
         "Published_Manga":
@@ -920,6 +925,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review": MessageLookupByLibrary.simpleMessage("Rezension"),
         "Review_By": MessageLookupByLibrary.simpleMessage("Überprüfung durch"),
         "Review_On": MessageLookupByLibrary.simpleMessage("Rezension an"),
+        "Review_Summary": MessageLookupByLibrary.simpleMessage(
+            "Zusammenfassung der Rezension"),
+        "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
+            "Das Bewertungsurteil wird von KI anhand der folgenden Bewertungen erstellt und ist möglicherweise nicht korrekt. Für weitere Informationen lesen Sie bitte die Bewertungen."),
         "Reviews": MessageLookupByLibrary.simpleMessage("Rezensionen"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("Wiederverwatschen"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("Wiederverwinternd"),
@@ -1100,6 +1109,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Studios": MessageLookupByLibrary.simpleMessage("Studios"),
         "Sub_Category": MessageLookupByLibrary.simpleMessage("Unterkategorie"),
         "Suggestions": MessageLookupByLibrary.simpleMessage("Vorschläge"),
+        "Summary": MessageLookupByLibrary.simpleMessage("Zusammenfassung"),
         "Summer_2007": MessageLookupByLibrary.simpleMessage("Sommer 2007."),
         "Summer_2008": MessageLookupByLibrary.simpleMessage("Sommer 2008."),
         "Summer_2009": MessageLookupByLibrary.simpleMessage("Sommer 2009."),
@@ -1235,6 +1245,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Users": MessageLookupByLibrary.simpleMessage("Benutzer"),
         "Value": MessageLookupByLibrary.simpleMessage("Wert"),
         "Vampire": MessageLookupByLibrary.simpleMessage("Vampir"),
+        "Verdict": MessageLookupByLibrary.simpleMessage("Urteil"),
         "Version": MessageLookupByLibrary.simpleMessage("Ausführung"),
         "Very_Bad": MessageLookupByLibrary.simpleMessage("Sehr schlecht"),
         "Very_Good": MessageLookupByLibrary.simpleMessage("Sehr gut"),

@@ -17,6 +17,8 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/src/media_type.dart';
 
+enum FeatureFlag { aireviews }
+
 class DalApi {
   static DalApi _internal = DalApi._();
   static DalApi i = _internal;
@@ -37,6 +39,10 @@ class DalApi {
     _dalConfigFuture = _getDalConfigFuture();
     _preferredServer = _getPreferredServer();
     _scheduleForMalIds = _getScheduleForMalIds();
+  }
+
+  void resetScheduleForMalIds() {
+    _scheduleForMalIds = _getScheduleForMalIds(fromCache: false);
   }
 
   Future<Servers> _getDalConfigFuture() async {
@@ -213,13 +219,16 @@ class DalApi {
     String type = 'all',
     SeasonType? season,
     int? year,
+    bool fromCache = true,
   }) async {
     return ListData<ScheduleData>.fromJson(
-            await httpGet('schedules?${buildQueryParams({
-                  'type': type,
-                  'season': season?.name,
-                  'year': year
-                })}'),
+            await httpGet(
+                'schedules?${buildQueryParams({
+                      'type': type,
+                      'season': season?.name,
+                      'year': year
+                    })}',
+                fromCache),
             (p0) => ScheduleData.fromJson(p0))?.data ??
         [];
   }
@@ -228,12 +237,13 @@ class DalApi {
     String type = 'all',
     SeasonType? season,
     int? year,
+    bool fromCache = true,
   }) async {
-    return HashMap.fromEntries(
-        (await getSchedules(season: season, type: type, year: year))
-            .map((e) => MapEntry(PathUtils.getIdUrl(e.relatedLinks?.mal), e))
-            .where((e) => e.key != null)
-            .map((e) => MapEntry(e.key!, e.value)));
+    return HashMap.fromEntries((await getSchedules(
+            season: season, type: type, year: year, fromCache: fromCache))
+        .map((e) => MapEntry(PathUtils.getIdUrl(e.relatedLinks?.mal), e))
+        .where((e) => e.key != null)
+        .map((e) => MapEntry(e.key!, e.value)));
   }
 
   Future<SearchResult> searchInterestStacks({
@@ -403,13 +413,19 @@ class DalApi {
 
   Future<dynamic> _apiGET(String endpoint) async {
     final apiURL = await _getAPIBaseUrl();
-    return MalConnect.getContent('$apiURL/$endpoint',
-        retryOnFail: false,
-        withNoHeaders: true,
-        includeNsfw: false,
-        headers: {
-          'Authorization': 'Bearer ${CredMal.apiSecret}',
-        });
+    return MalConnect.getContent(
+      '$apiURL/$endpoint',
+      retryOnFail: false,
+      withNoHeaders: true,
+      includeNsfw: false,
+      headers: _headers,
+    );
+  }
+
+  Map<String, String> get _headers {
+    return {
+      'Authorization': 'Bearer ${CredMal.apiSecret}',
+    };
   }
 
   Future<AnimeGraph> getAnimeGraph(int id) async {
@@ -418,6 +434,29 @@ class DalApi {
         'anime/$id/related',
       ),
     );
+  }
+
+  Future<bool> isFeatureEnabled(FeatureFlag flag) {
+    return _dalConfigFuture.then((value) {
+      return value?.featureFlags?[flag.name] ?? false;
+    });
+  }
+
+  Future<ContentReviewSummary?> getReviewsSummary(List<String> reviews) async {
+    try {
+      final apiURL = '${await _getAPIBaseUrl()}/reviews';
+      logDal('Sending reviews to $apiURL');
+      final response = await http.post(
+        Uri.parse(apiURL),
+        headers: _headers,
+        body: jsonEncode(reviews),
+      );
+      final body = response.body;
+      return ContentReviewSummary.fromJson(jsonDecode(body));
+    } catch (e) {
+      logDal(e);
+      return null;
+    }
   }
 
   Future<String> getSignedImageUrl(String type, String id) async {

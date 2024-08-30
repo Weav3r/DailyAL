@@ -20,7 +20,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:dynamic_color/dynamic_color.dart';
-import 'package:restart_app/restart_app.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 /// Global UserData
@@ -55,11 +55,11 @@ void main() async {
     } catch (e) {}
   }
 
-  runApp(_buildProvider(node));
+  runApp(Phoenix(child: _buildProvider(node)));
 }
 
-void restartApp() {
-  Restart.restartApp();
+void restartApp(BuildContext context) {
+  Phoenix.rebirth(context);
 }
 
 MultiProvider _buildProvider(Node? node) {

@@ -72,6 +72,7 @@ class _AnimeCalendarWidgetState extends State<AnimeCalendarWidget> {
       fromCache: fromCache,
       limit: 500,
     );
+    DalApi.i.resetScheduleForMalIds();
   }
 
   @override
@@ -343,7 +344,7 @@ class __ScheduleCustomListState extends State<_ScheduleCustomList> {
 
   Widget _buildAnimeListTile(int index, _SchduledNode node, int dayIndex) {
     if (node.currentDay) {
-      final nextNode = _currentDayNodes(dayIndex).tryAt(index + 1);
+      final nextNode = _getNextClosestNode(node);
       return _buildCurrentDayTile(node, index, nextNode);
     }
     final timestamp = node.scheduleData.timestamp!;
@@ -525,5 +526,12 @@ class __ScheduleCustomListState extends State<_ScheduleCustomList> {
   String _hourMinText(int stamp) {
     final timestamp = DateTime.fromMillisecondsSinceEpoch(stamp * 1000);
     return '${timestamp.hour.toString().padLeft(2, '0')}:${timestamp.minute.toString().padLeft(2, '0')}';
+  }
+  
+  _SchduledNode? _getNextClosestNode(_SchduledNode node) {
+    var list = widget.scheduleNodeData.values.flattened.where(_filterScheduleNode).toList();
+    list.sort((a, b) => a.scheduleData.timestamp! - b.scheduleData.timestamp!);
+    final index = list.indexOf(node);
+    return list.tryAt(index + 1);
   }
 }

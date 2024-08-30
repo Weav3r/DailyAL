@@ -218,6 +218,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ConfirmNotifPermDesc": MessageLookupByLibrary.simpleMessage(
             "Deseja permitir notificações para este aplicativo. Isso inclui notificações quando um episódio é transmitido a partir de seu PTW (Plano para assistir) e lista de exibição."),
         "Confusing": MessageLookupByLibrary.simpleMessage("Confuso"),
+        "Cons": MessageLookupByLibrary.simpleMessage("Contras"),
         "Content_type":
             MessageLookupByLibrary.simpleMessage("Tipo de conteúdo"),
         "Continue": MessageLookupByLibrary.simpleMessage("Prosseguir?"),
@@ -432,6 +433,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Não se importa por padrão"),
         "Generate_Other_charts":
             MessageLookupByLibrary.simpleMessage("Gerar outros gráficos"),
+        "Generating": MessageLookupByLibrary.simpleMessage("Gerando"),
+        "Generating_Review_Summary":
+            MessageLookupByLibrary.simpleMessage("Gerando Resumo de Revisão"),
         "Genre": MessageLookupByLibrary.simpleMessage("Gênero"),
         "Genre_Distribution":
             MessageLookupByLibrary.simpleMessage("Distribuição de gênero"),
@@ -845,6 +849,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Promo_Videos":
             MessageLookupByLibrary.simpleMessage("Vídeos promocionais."),
         "Promotional": MessageLookupByLibrary.simpleMessage("Promocional"),
+        "Pros": MessageLookupByLibrary.simpleMessage("Prós"),
         "Psychological": MessageLookupByLibrary.simpleMessage("Psicológico"),
         "Published": MessageLookupByLibrary.simpleMessage("Published"),
         "Published_Manga":
@@ -924,6 +929,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review": MessageLookupByLibrary.simpleMessage("Análise"),
         "Review_By": MessageLookupByLibrary.simpleMessage("Revisão por"),
         "Review_On": MessageLookupByLibrary.simpleMessage("Revisar em"),
+        "Review_Summary":
+            MessageLookupByLibrary.simpleMessage("Resumo da revisão"),
+        "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
+            "O veredicto da revisão é gerado pela IA usando as análises a seguir e pode não ser preciso. Por favor, leia os comentários para obter mais informações."),
         "Reviews": MessageLookupByLibrary.simpleMessage("Avaliações"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("Rewatch"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("Rewatching."),
@@ -1110,6 +1119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Studios": MessageLookupByLibrary.simpleMessage("Estúdios"),
         "Sub_Category": MessageLookupByLibrary.simpleMessage("Sub categoria"),
         "Suggestions": MessageLookupByLibrary.simpleMessage("Sugestões"),
+        "Summary": MessageLookupByLibrary.simpleMessage("Resumo"),
         "Summer_2007": MessageLookupByLibrary.simpleMessage("Verão 2007."),
         "Summer_2008": MessageLookupByLibrary.simpleMessage("Verão 2008."),
         "Summer_2009": MessageLookupByLibrary.simpleMessage("Verão 2009."),
@@ -1247,6 +1257,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Users": MessageLookupByLibrary.simpleMessage("Comercial"),
         "Value": MessageLookupByLibrary.simpleMessage("Valor"),
         "Vampire": MessageLookupByLibrary.simpleMessage("Vampire"),
+        "Verdict": MessageLookupByLibrary.simpleMessage("Veredicto"),
         "Version": MessageLookupByLibrary.simpleMessage("Versão"),
         "Very_Bad": MessageLookupByLibrary.simpleMessage("Muito mal"),
         "Very_Good": MessageLookupByLibrary.simpleMessage("Muito bom"),

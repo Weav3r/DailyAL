@@ -216,6 +216,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ConfirmNotifPermDesc": MessageLookupByLibrary.simpleMessage(
             "Apakah Anda ingin mengizinkan pemberitahuan untuk aplikasi ini. Ini termasuk pemberitahuan ketika sebuah episode ditayangkan dari PTW (Plan To Watch) dan daftar Tontonan Anda."),
         "Confusing": MessageLookupByLibrary.simpleMessage("Membingungkan"),
+        "Cons": MessageLookupByLibrary.simpleMessage("Kontra"),
         "Content_type": MessageLookupByLibrary.simpleMessage("Jenis konten"),
         "Continue": MessageLookupByLibrary.simpleMessage("melanjutkan?"),
         "ContinueW": MessageLookupByLibrary.simpleMessage("Melanjutkan"),
@@ -424,6 +425,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Tidak peduli secara default"),
         "Generate_Other_charts":
             MessageLookupByLibrary.simpleMessage("Hasilkan grafik lainnya"),
+        "Generating": MessageLookupByLibrary.simpleMessage("Menghasilkan"),
+        "Generating_Review_Summary": MessageLookupByLibrary.simpleMessage(
+            "Menghasilkan Ringkasan Tinjauan"),
         "Genre": MessageLookupByLibrary.simpleMessage("Genre"),
         "Genre_Distribution":
             MessageLookupByLibrary.simpleMessage("Distribusi Genre"),
@@ -832,6 +836,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Latar belakang profil berhasil disetel"),
         "Promo_Videos": MessageLookupByLibrary.simpleMessage("Video promo"),
         "Promotional": MessageLookupByLibrary.simpleMessage("Promosi"),
+        "Pros": MessageLookupByLibrary.simpleMessage("Kelebihan"),
         "Psychological": MessageLookupByLibrary.simpleMessage("Psikologis"),
         "Published": MessageLookupByLibrary.simpleMessage("Diterbitkan"),
         "Published_Manga":
@@ -908,6 +913,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review": MessageLookupByLibrary.simpleMessage("Review"),
         "Review_By": MessageLookupByLibrary.simpleMessage("Tinjau oleh"),
         "Review_On": MessageLookupByLibrary.simpleMessage("Tinjau kembali"),
+        "Review_Summary":
+            MessageLookupByLibrary.simpleMessage("Ringkasan Tinjauan"),
+        "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
+            "Putusan Tinjauan dibuat oleh AI menggunakan ulasan berikut dan mungkin tidak akurat. Silakan baca ulasan untuk informasi lebih lanjut."),
         "Reviews": MessageLookupByLibrary.simpleMessage("Ulasan"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("Rewatch."),
         "Rewatching": MessageLookupByLibrary.simpleMessage("Rewatching."),
@@ -1083,6 +1092,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Studios": MessageLookupByLibrary.simpleMessage("Studio"),
         "Sub_Category": MessageLookupByLibrary.simpleMessage("Sub kategori."),
         "Suggestions": MessageLookupByLibrary.simpleMessage("Saran"),
+        "Summary": MessageLookupByLibrary.simpleMessage("Ringkasan"),
         "Summer_2007":
             MessageLookupByLibrary.simpleMessage("Musim panas 2007."),
         "Summer_2008":
@@ -1233,6 +1243,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Users": MessageLookupByLibrary.simpleMessage("pengguna."),
         "Value": MessageLookupByLibrary.simpleMessage("Nilai"),
         "Vampire": MessageLookupByLibrary.simpleMessage("Vampir."),
+        "Verdict": MessageLookupByLibrary.simpleMessage("Dakwaan"),
         "Version": MessageLookupByLibrary.simpleMessage("Versi: kapan"),
         "Very_Bad": MessageLookupByLibrary.simpleMessage("Sangat buruk"),
         "Very_Good": MessageLookupByLibrary.simpleMessage("Sangat bagus"),

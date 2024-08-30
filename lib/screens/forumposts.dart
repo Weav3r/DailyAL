@@ -17,7 +17,7 @@ import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
-import 'package:share/share.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'generalsearchscreen.dart';

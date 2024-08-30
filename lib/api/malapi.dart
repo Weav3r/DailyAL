@@ -1,6 +1,6 @@
 import 'dart:collection';
 
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dailyanimelist/api/credmal.dart';
 import 'package:dailyanimelist/api/dalapi.dart';
 import 'package:dailyanimelist/api/malconnect.dart';
@@ -412,9 +412,7 @@ class MalApi {
 
   static Future<bool> _checkIfDeviceIsConnected() async {
     try {
-      final connectivityResult = await (Connectivity().checkConnectivity());
-      if (connectivityResult == ConnectivityResult.mobile ||
-          connectivityResult == ConnectivityResult.wifi) {
+      if (await hasConnection()) {
         await Dio().get(githubApiLink);
         return true;
       }

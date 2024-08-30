@@ -1,5 +1,9 @@
+// ignore_for_file: unused_import
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
+import 'package:dailyanimelist/api/auth/auth.dart';
+import 'package:dailyanimelist/api/dalapi.dart';
 import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
 import 'package:dailyanimelist/screens/contentdetailedscreen.dart';
@@ -7,13 +11,19 @@ import 'package:dailyanimelist/screens/plainscreen.dart';
 import 'package:dailyanimelist/util/pathutils.dart';
 import 'package:dailyanimelist/widgets/avatarwidget.dart';
 import 'package:dailyanimelist/widgets/common/share_builder.dart';
+import 'package:dailyanimelist/widgets/customanimations.dart';
 import 'package:dailyanimelist/widgets/customappbar.dart';
 import 'package:dailyanimelist/widgets/custombutton.dart';
+import 'package:dailyanimelist/widgets/customfuture.dart';
+import 'package:dailyanimelist/widgets/fadingeffect.dart';
+import 'package:dailyanimelist/widgets/home/accordion.dart';
+import 'package:dailyanimelist/widgets/loading/shimmerwidget.dart';
 import 'package:dailyanimelist/widgets/selectbottom.dart';
 import 'package:dailyanimelist/widgets/slivers.dart';
 import 'package:dailyanimelist/widgets/translator.dart';
 import 'package:dal_commons/dal_commons.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
@@ -709,4 +719,188 @@ class ReviewWidget extends StatelessWidget {
       ),
     );
   }
+}
+
+class ReviewGeneratedSummary extends StatefulWidget {
+  final List<AnimeReviewHtml> reviews;
+  final Future<ContentReviewSummary?>? reviewSummaryFuture;
+  const ReviewGeneratedSummary({
+    super.key,
+    required this.reviews,
+    this.reviewSummaryFuture,
+  });
+
+  @override
+  State<ReviewGeneratedSummary> createState() => _ReviewGeneratedSummaryState();
+}
+
+class _ReviewGeneratedSummaryState extends State<ReviewGeneratedSummary> {
+  late Future<ContentReviewSummary?> reviewSummaryFuture;
+  bool _hasReviewSummary = false;
+
+  List<String> get reviewsText =>
+      widget.reviews.map((e) => e.reviewText ?? '').toList();
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.reviewSummaryFuture != null) {
+      _hasReviewSummary = true;
+      reviewSummaryFuture = widget.reviewSummaryFuture!;
+    } else {
+      _hasReviewSummary = false;
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => _handlePostFrameCallback());
+    }
+  }
+
+  void _handlePostFrameCallback() {
+    DalApi.i.isFeatureEnabled(FeatureFlag.aireviews).then((value) {
+      if (value) {
+        _hasReviewSummary = true;
+        reviewSummaryFuture = DalApi.i.getReviewsSummary(reviewsText);
+        if (mounted) {
+          setState(() {});
+        }
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_hasReviewSummary) return SB.z;
+    if (widget.reviewSummaryFuture == null) {
+      return _buildIcon();
+    }
+    return StateFullFutureWidget(
+      done: (sp) => _buildSummary(sp.data),
+      loadingChild: _reviewAnimation(),
+      future: () => reviewSummaryFuture,
+    );
+  }
+
+  Widget _buildIcon() {
+    return AvatarWidget(
+      url: 'assets/images/gemini.png',
+      width: 30,
+      height: 30,
+      onLongPress: _onIconTap,
+      isNetworkImage: false,
+      onTap: _onIconTap,
+    );
+  }
+
+  void _onIconTap() {
+    showAdaptiveDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: Text(S.current.Review_Summary),
+            contentPadding: EdgeInsets.zero,
+            content: SingleChildScrollView(
+              child: ReviewGeneratedSummary(
+                reviews: widget.reviews,
+                reviewSummaryFuture: reviewSummaryFuture,
+              ),
+            ),
+            actions: [
+              TextButton(
+                onPressed: () => Navigator.pop(context),
+                child: Text(S.current.Close),
+              ),
+            ],
+          );
+        });
+  }
+
+  Widget _reviewAnimation() {
+    return SizedBox(
+      height: 300,
+      child: Stack(
+        children: [
+          Center(
+            child: SizedBox(
+              height: 320,
+              width: 200,
+              child: InterlaceAnimation(
+                  colorScheme: Theme.of(context).colorScheme),
+            ),
+          ),
+          Center(
+            child: Text(
+              S.current.Generating,
+              style: Theme.of(context).textTheme.titleLarge,
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildSummary(ContentReviewSummary? data) {
+    if (data == null || data.verdict.isEmpty) return SB.z;
+    return Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 15),
+      child: _summaryContent(data),
+    );
+  }
+
+  Widget _summaryContent(ContentReviewSummary data) {
+    final verdictWidget = _reviewItem(
+      ReviewItem(title: S.current.Verdict, description: data.verdict),
+      ToolTipButton(
+          child: Icon(Icons.info_outline),
+          message: S.current.Review_Summary_Desc),
+      true,
+    );
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SB.h10,
+        verdictWidget,
+        ...data.pros
+            .map((item) => _reviewItem(item, _additionalText(S.current.Pros))),
+        ...data.cons
+            .map((item) => _reviewItem(item, _additionalText(S.current.Cons))),
+        SB.h10,
+      ],
+    );
+  }
+}
+
+Widget _reviewItem(
+  ReviewItem item,
+  Widget additional, [
+  bool defaultExpanded = false,
+]) {
+  return Padding(
+    padding: const EdgeInsets.symmetric(vertical: 5.0),
+    child: Accordion(
+      title: item.title,
+      atStartExpanded: defaultExpanded,
+      isOpen: defaultExpanded,
+      additional: [additional],
+      child: TranslaterWidget(
+        content: item.description,
+        done: (data) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 5),
+          child: Text(data ?? item.description, style: TextStyle(fontSize: 13)),
+        ),
+      ),
+    ),
+  );
+}
+
+SizedBox _additionalText(String additional) {
+  return SizedBox(
+    height: 30.0,
+    child: PlainButton(
+      padding: EdgeInsets.zero,
+      onPressed: () {},
+      child: Text(additional),
+    ),
+  );
 }

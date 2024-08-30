@@ -5,6 +5,7 @@ pub struct Secrets {
     pub rediscloud_url: String,
     pub subastorage_url: String,
     pub subastorage_key: String,
+    pub gemini_api_key: String,
 }
 
 #[derive(Debug, Clone)]
@@ -21,12 +22,14 @@ impl Config {
         let rediscloud_url = std::env::var("REDISCLOUD_URL").expect("missing REDISCLOUD_URL");
         let subastorage_url = std::env::var("SUPABASE_URL_STORAGE").expect("missing SUPABASE_URL_STORAGE");
         let subastorage_key = std::env::var("SUPABASE_API_KEY").expect("missing SUPABASE_API_KEY");
+        let gemini_api_key = std::env::var("GEMINI_API_KEY").expect("missing GEMINI_API_KEY");
         let secrets = Secrets {
             mal_client_id,
             bearer_secret,
             rediscloud_url,
             subastorage_url,
-            subastorage_key
+            subastorage_key,
+            gemini_api_key
         };
 
         Config { secrets, base_url }

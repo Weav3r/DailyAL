@@ -203,13 +203,14 @@ class AnimeGridCard extends StatelessWidget {
                 child: Text(
                   nodeTitle,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 13,
+                        fontSize: 14,
                         color: Colors.white,
                         overflow: TextOverflow.fade,
+                        fontWeight: FontWeight.w400,
                         shadows: [
                           Shadow(
                             color: Colors.black,
-                            offset: Offset(.5, .5),
+                            offset: Offset(1, 1),
                             blurRadius: 2,
                           )
                         ]
@@ -394,7 +395,7 @@ class AnimeGridCard extends StatelessWidget {
       left: 0,
       right: 0,
       child: SizedBox(
-        height: 30,
+        height: 80,
         child: ClipRRect(
           borderRadius: BorderRadius.circular(borderRadius),
           child: CustomPaint(
@@ -402,7 +403,7 @@ class AnimeGridCard extends StatelessWidget {
                 color: Colors.black,
                 start: 5,
                 end: 255,
-                extend: 5,
+                extend: 10,
               ),
               child: SB.z),
         ),

@@ -13,6 +13,7 @@ mod model_dto;
 mod cache_service;
 mod file_storage_service;
 mod image_service;
+mod gemini_api;
 
 pub struct AppState {
     pub config: Config,
@@ -27,7 +28,10 @@ async fn main() {
     let config = Config::init();
     let app = routes::setup_app(config).await;
 
-    println!("Server started at http://localhost:8001");
-    let listener = tokio::net::TcpListener::bind("0.0.0.0:8001").await.unwrap();
+    let port = std::env::var("PORT").unwrap_or_else(|_| "8001".to_string());
+    let addr = format!("0.0.0.0:{}", port);
+
+    println!("Server started at http://{}", addr);
+    let listener = tokio::net::TcpListener::bind(addr).await.unwrap();
     axum::serve(listener, app).await.unwrap();
 }

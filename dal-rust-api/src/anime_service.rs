@@ -1,8 +1,10 @@
+use seahash::SeaHasher;
 use std::collections::HashSet;
 use std::error::Error;
+use std::hash::Hasher;
 use std::sync::{Arc, Mutex};
 
-use crate::model::{Anime, Edge, RelatedAnime, RelationType};
+use crate::model::{Anime, Edge, RelatedAnime, RelationType, ReviewResponse};
 
 use crate::config::Config;
 use crate::model_dto::{ContentGraphDTO, ContentNodeDTO};
@@ -10,10 +12,13 @@ use async_recursion::async_recursion;
 use chrono::{DateTime, Utc};
 use futures::{stream, StreamExt};
 
+const REVIEW_SYSTEM: &str = "You are an anime review critic, you are given the task to go through all the anime reviews and provide a review under 500 words. Split it into 3-4 Pros and Cons and a final Verdict. No need for any intro. Each pros/cons should be descriptive along with a concise title for it. Output should be in the format { pros: [ { title, description }, cons: [ { title, description }  ], verdict }";
+
 pub struct AnimeService {
     pub config: Config,
     pub mal_api: crate::mal_api::MalAPI,
     pub cache_service: crate::cache_service::CacheService,
+    pub ai_service: crate::gemini_api::GeminiAPI,
 }
 
 impl AnimeService {
@@ -83,14 +88,21 @@ impl AnimeService {
         (anime, self.get_unvisited_edges(id, vec, false))
     }
 
-    fn get_unvisited_edges(&self, id: i64, related_anime: Option<Vec<RelatedAnime>>, include_others: bool) -> Vec<Edge> {
+    fn get_unvisited_edges(
+        &self,
+        id: i64,
+        related_anime: Option<Vec<RelatedAnime>>,
+        include_others: bool,
+    ) -> Vec<Edge> {
         let mut unvisited_edges: Vec<Edge> = Vec::new();
         if related_anime.is_some() {
             unvisited_edges.extend(
                 related_anime
                     .unwrap()
                     .iter()
-                    .filter(|related_anime| self.valid_relation(&related_anime.relation_type, include_others))
+                    .filter(|related_anime| {
+                        self.valid_relation(&related_anime.relation_type, include_others)
+                    })
                     .map(|related_anime| Edge {
                         source: id,
                         target: related_anime.node.id,
@@ -148,7 +160,9 @@ impl AnimeService {
             let anime = self.mal_api.get_anime_details(id).await?;
 
             // Store the anime in the cache for future use
-            self.cache_service.set_by_id("anime", id.to_string(), &anime, None).await;
+            self.cache_service
+                .set_by_id("anime", id.to_string(), &anime, None)
+                .await;
             let then = chrono::Utc::now();
             self.log_anime(&anime, "Saved".to_string(), then, now);
             Ok(anime)
@@ -175,5 +189,39 @@ impl AnimeService {
             anime.title,
             then.timestamp_millis() - now.timestamp_millis()
         );
+    }
+
+    pub fn hash_str(&self, s: &str) -> String {
+        let mut hasher = SeaHasher::new();
+        hasher.write(s.as_bytes());
+        let finish = hasher.finish();
+        format!("{:x}", finish)
+    }
+
+    pub async fn summarize_review(&self, reviews: &str) -> Result<ReviewResponse, reqwest::Error> {
+        println!("Summarizing review {}", reviews.len());
+
+        let hash_str = self.hash_str(reviews);
+
+        println!("Using hash_key: {}", hash_str);
+
+        let cached_review: Option<ReviewResponse> =
+            self.cache_service.get_by_id("reviews", hash_str.clone()).await;
+
+        if cached_review.is_some() {
+            return Ok(cached_review.unwrap());
+        } else {
+            println!("Cache miss for {}", hash_str);
+            let review_response: ReviewResponse = self
+                .ai_service
+                .talk(REVIEW_SYSTEM, reviews)
+                .await
+                .map(|text| serde_json::from_str(&text).unwrap()).unwrap();
+
+            self.cache_service
+                .set_by_id("reviews", hash_str, &review_response, Some(3600 * 24 * 30))
+                .await;
+            return Ok(review_response);
+        }
     }
 }

@@ -2,12 +2,11 @@ use core::panic;
 use std::sync::Arc;
 
 use crate::{
-    file_storage_service::SignedURLResponse, model::File, model_dto::ContentGraphDTO, AppState,
+    file_storage_service::SignedURLResponse, model::{File, ReviewResponse}, model_dto::ContentGraphDTO, AppState,
 };
 
 use axum::{
-    extract::{Multipart, Path, State},
-    Json,
+    extract::{Multipart, Path, State}, Json
 };
 
 /// A function to handle GET requests at /anime/{id}/related
@@ -46,6 +45,13 @@ pub async fn delete_image(
 ) -> String {
     data.image_service.delete_image(image_type, image_id).await;
     "ok".to_string()
+}
+
+pub async fn get_review_summary(
+    State(data): State<Arc<AppState>>,
+    body: String
+) -> Json<ReviewResponse> {
+    Json(data.anime_service.summarize_review(body.as_str()).await.unwrap())
 }
 
 async fn field_to_file(field: axum::extract::multipart::Field<'_>) -> File {

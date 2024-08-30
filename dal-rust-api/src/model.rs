@@ -10,7 +10,7 @@ pub struct Anime {
     pub status: Option<String>,
     pub start_season: Option<Season>,
     pub related_anime: Option<Vec<RelatedAnime>>,
-    pub alternative_titles: Option<AlternateTitles>
+    pub alternative_titles: Option<AlternateTitles>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -71,4 +71,37 @@ pub struct File {
     pub content: Vec<u8>,
     pub content_type: String,
     pub file_name: String,
+}
+
+#[derive(Clone, Deserialize, Serialize, Debug)]
+pub struct ReviewResponse {
+    pros: Vec<ReviewItem>,
+    cons: Vec<ReviewItem>,
+    verdict: String,
+}
+
+#[derive(Clone, Deserialize, Serialize, Debug)]
+pub struct ReviewItem {
+    title: String,
+    description: String,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct GeminiReponse {
+    pub candidates: Vec<Candidates>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Candidates {
+    pub content: Content,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Content {
+    pub parts: Vec<Parts>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct Parts {
+    pub text: String,
 }

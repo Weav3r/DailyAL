@@ -190,6 +190,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ConfirmNotifPermDesc": MessageLookupByLibrary.simpleMessage(
             "このアプリの通知を許可しますか?これには、PTW (視聴プラン) および視聴リストからエピソードが放送されたときの通知が含まれます。"),
         "Confusing": MessageLookupByLibrary.simpleMessage("紛らわしい"),
+        "Cons": MessageLookupByLibrary.simpleMessage("短所"),
         "Content_type": MessageLookupByLibrary.simpleMessage("コンテンツタイプ"),
         "Continue": MessageLookupByLibrary.simpleMessage("継続する？"),
         "ContinueW": MessageLookupByLibrary.simpleMessage("継続する"),
@@ -378,6 +379,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Gender_desc": MessageLookupByLibrary.simpleMessage("デフォルトで気にしないでください"),
         "Generate_Other_charts":
             MessageLookupByLibrary.simpleMessage("他のチャートを生成する"),
+        "Generating": MessageLookupByLibrary.simpleMessage("生成中"),
+        "Generating_Review_Summary":
+            MessageLookupByLibrary.simpleMessage("レビュー概要の生成"),
         "Genre": MessageLookupByLibrary.simpleMessage("ジャンル"),
         "Genre_Distribution": MessageLookupByLibrary.simpleMessage("ジャンル配信"),
         "Genre_Exclude": MessageLookupByLibrary.simpleMessage("ジャンル除外"),
@@ -735,6 +739,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("プロフィールの背景が正常に設定されました"),
         "Promo_Videos": MessageLookupByLibrary.simpleMessage("プロモビデオ"),
         "Promotional": MessageLookupByLibrary.simpleMessage("プロモーション"),
+        "Pros": MessageLookupByLibrary.simpleMessage("長所"),
         "Psychological": MessageLookupByLibrary.simpleMessage("心理学"),
         "Published": MessageLookupByLibrary.simpleMessage("発行"),
         "Published_Manga": MessageLookupByLibrary.simpleMessage("公開されたマンガ"),
@@ -803,6 +808,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review": MessageLookupByLibrary.simpleMessage("レビュー"),
         "Review_By": MessageLookupByLibrary.simpleMessage("審査員"),
         "Review_On": MessageLookupByLibrary.simpleMessage("レビュー"),
+        "Review_Summary": MessageLookupByLibrary.simpleMessage("レビューの概要"),
+        "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
+            "レビュー評決は以下のレビューを使用して AI によって生成されており、正確ではない可能性があります。詳細についてはレビューをお読みください。"),
         "Reviews": MessageLookupByLibrary.simpleMessage("レビュー"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("再ウォッチ"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("再ウォッチング"),
@@ -962,6 +970,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Studios": MessageLookupByLibrary.simpleMessage("スタジオ"),
         "Sub_Category": MessageLookupByLibrary.simpleMessage("サブカテゴリ"),
         "Suggestions": MessageLookupByLibrary.simpleMessage("suggest suggest"),
+        "Summary": MessageLookupByLibrary.simpleMessage("まとめ"),
         "Summer_2007": MessageLookupByLibrary.simpleMessage("2007年夏"),
         "Summer_2008": MessageLookupByLibrary.simpleMessage("2008年夏"),
         "Summer_2009": MessageLookupByLibrary.simpleMessage("2009年夏"),
@@ -1079,6 +1088,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Users": MessageLookupByLibrary.simpleMessage("ユーザー"),
         "Value": MessageLookupByLibrary.simpleMessage("価値"),
         "Vampire": MessageLookupByLibrary.simpleMessage("吸血鬼"),
+        "Verdict": MessageLookupByLibrary.simpleMessage("評決"),
         "Version": MessageLookupByLibrary.simpleMessage("バージョン"),
         "Very_Bad": MessageLookupByLibrary.simpleMessage("ひどい"),
         "Very_Good": MessageLookupByLibrary.simpleMessage("とても良い"),

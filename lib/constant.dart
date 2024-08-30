@@ -2,7 +2,7 @@ import 'dart:ui' as ui;
 import 'dart:ui';
 
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:connectivity/connectivity.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dailyanimelist/api/auth/auth.dart';
 import 'package:dailyanimelist/api/credmal.dart';
 import 'package:dailyanimelist/enums.dart';
@@ -514,9 +514,8 @@ bool shouldUpdateContent(
 }
 
 Future<bool> hasConnection() async {
-  var connectivityResult = await Connectivity().checkConnectivity();
-  return connectivityResult == ConnectivityResult.mobile ||
-      connectivityResult == ConnectivityResult.wifi;
+  final connectivityResult = await Connectivity().checkConnectivity();
+  return !connectivityResult.contains(ConnectivityResult.none);
 }
 
 Future<void> showToast(String message, {Toast? toast}) async {
@@ -631,7 +630,7 @@ void launchLogOutConfirmation({required BuildContext context}) async {
   if (result) {
     try {
       await MalAuth.signOut();
-      restartApp();
+      restartApp(context);
     } catch (e) {
       logDal(e);
       showToast(S.current.Couldnt_sign_out_now);

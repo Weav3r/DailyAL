@@ -214,6 +214,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "ConfirmNotifPermDesc": MessageLookupByLibrary.simpleMessage(
             "Bu uygulama için bildirimlere izin vermek istiyor musunuz? Buna PTW (İzleme Planınız) ve İzleme listenizden bir bölüm yayınlandığında yapılan bildirimler de dahildir."),
         "Confusing": MessageLookupByLibrary.simpleMessage("Kafa karıştırıcı"),
+        "Cons": MessageLookupByLibrary.simpleMessage("Eksileri"),
         "Content_type": MessageLookupByLibrary.simpleMessage("İçerik türü"),
         "Continue": MessageLookupByLibrary.simpleMessage("devam etmek?"),
         "ContinueW": MessageLookupByLibrary.simpleMessage("Devam etmek"),
@@ -420,6 +421,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Varsayılan olarak umursama"),
         "Generate_Other_charts":
             MessageLookupByLibrary.simpleMessage("Diğer grafikler oluştur"),
+        "Generating": MessageLookupByLibrary.simpleMessage("Üretiliyor"),
+        "Generating_Review_Summary": MessageLookupByLibrary.simpleMessage(
+            "İnceleme Özeti Oluşturuluyor"),
         "Genre": MessageLookupByLibrary.simpleMessage("Tür"),
         "Genre_Distribution":
             MessageLookupByLibrary.simpleMessage("Tür Dağılımı"),
@@ -823,6 +827,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Promo_Videos":
             MessageLookupByLibrary.simpleMessage("Tanıtım Videoları"),
         "Promotional": MessageLookupByLibrary.simpleMessage("Promosyon"),
+        "Pros": MessageLookupByLibrary.simpleMessage("Artıları"),
         "Psychological": MessageLookupByLibrary.simpleMessage("Psikolojik"),
         "Published": MessageLookupByLibrary.simpleMessage("Yayınlanan"),
         "Published_Manga":
@@ -902,6 +907,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review_By":
             MessageLookupByLibrary.simpleMessage("Tarafından incelemek"),
         "Review_On": MessageLookupByLibrary.simpleMessage("İnceleme"),
+        "Review_Summary":
+            MessageLookupByLibrary.simpleMessage("İnceleme Özeti"),
+        "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
+            "İnceleme Kararı yapay zeka tarafından aşağıdaki incelemeler kullanılarak oluşturulur ve doğru olmayabilir. Daha fazla bilgi için lütfen yorumları okuyun."),
         "Reviews": MessageLookupByLibrary.simpleMessage("Yorumlar"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("Tekrar izle"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("Tekrar izliyorum"),
@@ -1083,6 +1092,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Studios": MessageLookupByLibrary.simpleMessage("Stüdyolar"),
         "Sub_Category": MessageLookupByLibrary.simpleMessage("Alt Kategori"),
         "Suggestions": MessageLookupByLibrary.simpleMessage("Öneriler"),
+        "Summary": MessageLookupByLibrary.simpleMessage("Özet"),
         "Summer_2007": MessageLookupByLibrary.simpleMessage("Yaz 2007"),
         "Summer_2008": MessageLookupByLibrary.simpleMessage("Yaz 2008"),
         "Summer_2009": MessageLookupByLibrary.simpleMessage("Yaz 2009"),
@@ -1218,6 +1228,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Users": MessageLookupByLibrary.simpleMessage("kullanıcılar"),
         "Value": MessageLookupByLibrary.simpleMessage("Değer"),
         "Vampire": MessageLookupByLibrary.simpleMessage("Vampir"),
+        "Verdict": MessageLookupByLibrary.simpleMessage("Karar"),
         "Version": MessageLookupByLibrary.simpleMessage("Sürüm"),
         "Very_Bad": MessageLookupByLibrary.simpleMessage("Çok Kötü"),
         "Very_Good": MessageLookupByLibrary.simpleMessage("Çok güzel"),
