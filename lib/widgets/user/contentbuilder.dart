@@ -270,6 +270,7 @@ class _UserContentBuilderState extends State<UserContentBuilder>
             expand: _enableSearch,
             child: SizedBox(
               width: 80.0,
+              height: 27.0,
               child: Padding(
                 padding:
                     const EdgeInsets.symmetric(vertical: 8.0, horizontal: 0.0),

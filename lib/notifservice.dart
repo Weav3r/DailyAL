@@ -378,8 +378,9 @@ class NotificationService {
   Future<void> askForPermission() async {
     if (user.pref.notifPref.onPTWGoesToWatching ||
         user.pref.notifPref.onWatchingListUpdated) {
-      var status = await Permission.notification.status;
-      if (status == PermissionStatus.denied) {
+      final notifPerm = await Permission.notification.status;
+      final alamPerm = await Permission.scheduleExactAlarm.status;
+      if (notifPerm == PermissionStatus.denied || alamPerm == PermissionStatus.denied) {
         bool allowed = await showConfirmationDialog(
           alertTitle: S.current.ConfirmNotifPerm,
           desc: S.current.ConfirmNotifPermDesc,
