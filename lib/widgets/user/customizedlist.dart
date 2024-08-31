@@ -13,13 +13,11 @@ import 'package:dailyanimelist/user/list_pref.dart';
 import 'package:dailyanimelist/widgets/avatarwidget.dart';
 import 'package:dailyanimelist/widgets/common/image_preview.dart';
 import 'package:dailyanimelist/widgets/custombutton.dart';
-import 'package:dailyanimelist/widgets/customfuture.dart';
 import 'package:dailyanimelist/widgets/headerwidget.dart';
 import 'package:dailyanimelist/widgets/home/animecard.dart';
 import 'package:dailyanimelist/widgets/user/contentlistwidget.dart';
 import 'package:dal_commons/commons.dart';
 import 'package:dal_commons/dal_commons.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:uuid/uuid.dart';
@@ -176,6 +174,28 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
   final _formKey = GlobalKey<FormState>();
   late ContentCardProps props;
 
+  void showEditSheet() {
+    dynamic _dynContent = widget.node;
+    if (_dynContent is BaseNode) {
+      _dynContent.myListStatus = myListStatus;
+    } else {
+      _dynContent?.content?.myListStatus = myListStatus;
+    }
+
+    showContentEditSheet(context, 'anime', _dynContent, updateCache: false,
+        onListStatusChange: (status) {
+      if (mounted && status != null)
+        setState(() {
+          myListStatus = status;
+        });
+    }, onDelete: () {
+      if (mounted)
+        setState(() {
+          myListStatus = null;
+        });
+    });
+  }
+
   @override
   void initState() {
     super.initState();
@@ -196,6 +216,14 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
   MyAnimeListStatus? get myListStatus =>
       (widget.node?.myListStatus ?? widget.node?.content?.myListStatus)
           as MyAnimeListStatus?;
+
+  void set myListStatus(MyAnimeListStatus? value) {
+    widget.node?.myListStatus = value;
+    final content = widget.node?.content;
+    if (content is AnimeDetailed) {
+      content.myListStatus = value;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -218,8 +246,7 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
           ),
           SB.h20,
           if (selectedField == null)
-            Text(S.current.Tap_to_select,
-                style: TextStyle(fontSize: 11)),
+            Text(S.current.Tap_to_select, style: TextStyle(fontSize: 11)),
           SB.h10,
           HeaderWidget(
             width: MediaQuery.of(context).size.width,
@@ -495,9 +522,7 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
         padding: EdgeInsets.symmetric(horizontal: 5),
         onPressed: widget.editMode
             ? () => _setSelected(CustomizableFieldType.edit_button)
-            : () {
-                showContentEditSheet(context, 'anime', node);
-              },
+            : () => showEditSheet(),
         child: myListStatus == null
             ? Icon(Icons.edit)
             : AutoSizeText(
@@ -671,7 +696,6 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
     ];
   }
 
-  
   bool _isAlphaNumeric(String value) {
     return RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value);
   }

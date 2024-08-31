@@ -761,16 +761,25 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
           ),
           SliverList.list(
               children: displayOption.subOptions!.map((e) {
+            final currentValue = e.subType == DisplaySubType.custom ? e.id! : e.subType!.name;
+            final groupValue = (_sortFilterDisplay.displayOption.displaySubType == DisplaySubType.custom)
+                  ? _sortFilterDisplay.displayOption.id
+                  : _sortFilterDisplay.displayOption.displaySubType.name;
+            logDal('currentValue: $currentValue, groupValue: $groupValue');
             return RadioListTile<String>(
-              value: e.subType == DisplaySubType.custom ? e.id! : e.subType!.name,
-              groupValue: _sortFilterDisplay.displayOption.id ?? _sortFilterDisplay.displayOption.displaySubType.name,
+              value: currentValue,
+              groupValue: groupValue,
               title: Text(e.name),
               onChanged: (value) {
                 if (value == null) return;
                 _sortFilterDisplay = _sortFilterDisplay.copyWith(
                   display: _sortFilterDisplay.displayOption.copyWith(
-                    displaySubType: e.subType,
-                    id: e.id,
+                    displaySubType: DisplaySubType.custom == e.subType
+                        ? DisplaySubType.custom
+                        : DisplaySubType.values.firstWhere(
+                            (element) => element.name.equals(value),
+                          ),
+                    id: DisplaySubType.custom == e.subType ? value : null,
                   ),
                 );
                 setState(() {});
