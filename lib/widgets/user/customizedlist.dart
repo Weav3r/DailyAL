@@ -1,10 +1,15 @@
+import 'dart:collection';
 import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dailyanimelist/api/dalapi.dart';
 import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
+import 'package:dailyanimelist/main.dart';
 import 'package:dailyanimelist/pages/animedetailed/synopsiswidget.dart';
 import 'package:dailyanimelist/pages/settings/notifsettings.dart';
+import 'package:dailyanimelist/pages/settings/optiontile.dart';
+import 'package:dailyanimelist/user/list_pref.dart';
 import 'package:dailyanimelist/widgets/avatarwidget.dart';
 import 'package:dailyanimelist/widgets/common/image_preview.dart';
 import 'package:dailyanimelist/widgets/custombutton.dart';
@@ -14,97 +19,10 @@ import 'package:dailyanimelist/widgets/home/animecard.dart';
 import 'package:dailyanimelist/widgets/user/contentlistwidget.dart';
 import 'package:dal_commons/commons.dart';
 import 'package:dal_commons/dal_commons.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-class ContentCardProps {
-  final double height;
-  final List<CustomizableField> fields;
-  ContentCardProps({
-    required this.height,
-    required this.fields,
-  });
-}
-
-class Position {
-  final double? top;
-  final double? left;
-  final double? right;
-  final double? bottom;
-
-  Position({
-    this.top,
-    this.left,
-    this.right,
-    this.bottom,
-  });
-
-  Position copyWith({
-    double? top,
-    double? left,
-    double? right,
-    double? bottom,
-  }) {
-    return Position(
-      top: top ?? this.top,
-      left: left ?? this.left,
-      right: right ?? this.right,
-      bottom: bottom ?? this.bottom,
-    );
-  }
-
-  @override
-  String toString() {
-    return 'Position(top: $top, left: $left, right: $right, bottom: $bottom)';
-  }
-}
-
-enum CustomizableFieldType {
-  title,
-  image,
-  media_type,
-  mean_score,
-  num_list_users,
-  list_status,
-  watched_episodes,
-  list_score,
-  edit_button,
-  next_episode_counter,
-  un_seen_episodes,
-}
-
-class CustomizableField {
-  final CustomizableFieldType type;
-  final String title;
-  final String description;
-  final Position position;
-
-  CustomizableField({
-    required this.type,
-    required this.title,
-    required this.description,
-    required this.position,
-  });
-
-  CustomizableField copyWith({
-    CustomizableFieldType? type,
-    String? title,
-    String? description,
-    Position? position,
-  }) {
-    return CustomizableField(
-      type: type ?? this.type,
-      title: title ?? this.title,
-      description: description ?? this.description,
-      position: position ?? this.position,
-    );
-  }
-
-  @override
-  String toString() {
-    return 'CustomizableField(type: $type, title: $title, description: $description, position: $position)';
-  }
-}
+import 'package:uuid/uuid.dart';
 
 String _imageUrl(value) {
   if (value is AnimeDetailed) {
@@ -128,9 +46,12 @@ class _ContentCustomizerState extends State<ContentCustomizer> {
       .toList();
   @override
   Widget build(BuildContext context) {
+    var customizedLists =
+        user.pref.animeMangaPagePreferences.contentCardProps ?? [];
     return ListView(
       children: [
         _addItemButton(),
+        for (var item in customizedLists) _customizableFieldWidget(item),
       ],
     );
   }
@@ -139,169 +60,107 @@ class _ContentCustomizerState extends State<ContentCustomizer> {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: ShadowButton(
-        onPressed: () {
-          showDialog(
-              context: context,
-              builder: (context) => AlertDialog.adaptive(
-                    title: Text(S.current.Add_an_Item),
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 5, vertical: 20),
-                    insetPadding:
-                        EdgeInsets.symmetric(horizontal: 15, vertical: 25),
-                    content: CustomizableFieldWidget(
-                      props: ContentCardProps(
-                          fields: _getDefaultFields(), height: 150),
-                      node: BaseNode(content: _nodes.first),
-                    ),
-                    actions: [
-                      TextButton(
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(S.current.Close),
-                      ),
-                    ],
-                  ));
-        },
+        onPressed: () => _showUpdateDialog(false),
         child: Text(
           S.current.Add_an_Item,
         ),
       ),
     );
   }
-}
 
-List<CustomizableField> _getDefaultFields() {
-  return [
-    _titleField(),
-    _imageField(),
-    _mediaTypeField(),
-    _scoreField(),
-    _numListUsersField(),
-    _listScoreField(),
-    _editButtonField(),
-    _countDownField(),
-    _unSeenEpisodesField(),
-  ];
-}
+  void _showUpdateDialog(
+    bool editMode, [
+    ContentCardProps? props,
+  ]) {
+    showDialog(
+        context: context,
+        builder: (context) => AlertDialog.adaptive(
+              title: Text(editMode
+                  ? S.current.Edit_Display_Profile
+                  : S.current.Add_display_profile),
+              contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
+              insetPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 25),
+              content: CustomizableFieldWidget(
+                editMode: true,
+                onUpdated: (value) {
+                  if (editMode) {
+                    user.pref.animeMangaPagePreferences.contentCardProps
+                        ?.remove(props);
+                  }
+                  _setNewDisplayProfile(value);
+                  user.setIntance();
+                  if (mounted) {
+                    setState(() {});
+                  }
+                },
+                props: props ?? ContentCardProps.defaultObject(),
+                node: BaseNode(content: _nodes.first),
+              ),
+              actions: [],
+            ));
+  }
 
-CustomizableField _unSeenEpisodesField() {
-  return CustomizableField(
-    type: CustomizableFieldType.un_seen_episodes,
-    title: 'Unseen Episodes',
-    description: 'Number of unseen episodes',
-    position: Position(
-      bottom: 3.5,
-      left: 60,
-    ),
-  );
-}
+  void _setNewDisplayProfile(ContentCardProps value) {
+    logDal('Updated value: $value');
+    if (user.pref.animeMangaPagePreferences.contentCardProps == null) {
+      user.pref.animeMangaPagePreferences.contentCardProps = [value];
+    } else {
+      user.pref.animeMangaPagePreferences.contentCardProps!.add(value);
+    }
+  }
 
-CustomizableField _mediaTypeField() {
-  return CustomizableField(
-    type: CustomizableFieldType.media_type,
-    title: 'Media Type',
-    description: 'Type of the media',
-    position: Position(
-      top: 5,
-      right: 25,
-    ),
-  );
-}
-
-CustomizableField _imageField() {
-  return CustomizableField(
-    type: CustomizableFieldType.image,
-    title: 'Image',
-    description: 'Image of the item',
-    position: Position(
-      top: 5,
-      left: 5,
-    ),
-  );
-}
-
-CustomizableField _titleField() {
-  return CustomizableField(
-    type: CustomizableFieldType.title,
-    title: 'Title',
-    description: 'Title of the item',
-    position: Position(
-      top: 40,
-      left: 100,
-    ),
-  );
-}
-
-CustomizableField _scoreField() {
-  return CustomizableField(
-    type: CustomizableFieldType.mean_score,
-    title: 'Mean Score',
-    description: 'Mean score of the item',
-    position: Position(
-      top: 5,
-      left: 100,
-    ),
-  );
-}
-
-CustomizableField _numListUsersField() {
-  return CustomizableField(
-    type: CustomizableFieldType.num_list_users,
-    title: 'Number of List Users',
-    description: 'Number of users who have this item in their list',
-    position: Position(
-      top: 7,
-      left: 150,
-    ),
-  );
-}
-
-CustomizableField _listScoreField() {
-  return CustomizableField(
-    type: CustomizableFieldType.list_score,
-    title: 'List Score',
-    description: 'Score given to the item',
-    position: Position(
-      bottom: 13,
-      left: 100,
-    ),
-  );
-}
-
-CustomizableField _editButtonField() {
-  return CustomizableField(
-    type: CustomizableFieldType.edit_button,
-    title: 'Edit Button',
-    description: 'Button to edit the item',
-    position: Position(
-      bottom: 10,
-      right: 10,
-    ),
-  );
-}
-
-CustomizableField _countDownField() {
-  return CustomizableField(
-    type: CustomizableFieldType.next_episode_counter,
-    title: 'Next Episode Counter',
-    description: 'Countdown to next episode',
-    position: Position(
-      bottom: 10,
-      right: 100,
-    ),
-  );
+  Widget _customizableFieldWidget(ContentCardProps item) {
+    return OptionTile(
+      text: item.profileName,
+      desc: S.current.Tap_to_edit,
+      onPressed: () => _showUpdateDialog(true, item),
+      trailing: IconButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: Text(S.current.Delete_Profile),
+              content: Text(S.current.Are_you_sure_you_want_to_delete_profile),
+              actions: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                  child: Text(S.current.Cancel),
+                ),
+                TextButton(
+                  onPressed: () {
+                    user.pref.animeMangaPagePreferences.contentCardProps!
+                        .remove(item);
+                    user.setIntance();
+                    Navigator.of(context).pop();
+                    if (mounted) {
+                      setState(() {});
+                    }
+                  },
+                  child: Text(S.current.Delete),
+                ),
+              ],
+            ),
+          );
+        },
+        icon: Icon(Icons.delete),
+      ),
+    );
+  }
 }
 
 class CustomizableFieldWidget extends StatefulWidget {
   final BaseNode? node;
   final ContentCardProps props;
   final bool editMode;
+  final ValueChanged<ContentCardProps>? onUpdated;
   const CustomizableFieldWidget({
     super.key,
-    this.editMode = true,
+    this.editMode = false,
     required this.props,
     this.node,
+    this.onUpdated,
   });
 
   @override
@@ -314,12 +173,15 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
   Map<CustomizableFieldType, CustomizableField> _fieldValues = {};
   List<String> get _fieldNames =>
       _fieldValues.values.map((e) => e.title).toList();
+  final _formKey = GlobalKey<FormState>();
+  late ContentCardProps props;
 
   @override
   void initState() {
     super.initState();
-    _fieldValues = Map.fromIterable(widget.props.fields,
-        key: (e) => e.type, value: (e) => e);
+    props = widget.props;
+    _fieldValues =
+        Map.fromIterable(props.fields, key: (e) => e.type, value: (e) => e);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       DalApi.i.onScheduleLoaded(() {
         logDal('Schedule loaded');
@@ -344,18 +206,19 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
       child: Column(
         children: [
           SB.h20,
+          ..._displayProfileName(),
           Container(
             decoration: BoxDecoration(
               border: Border.all(
                 color: Theme.of(context).dividerColor,
-                width: 1,
+                width: 0.5,
               ),
             ),
             child: _populateFields(),
           ),
           SB.h20,
           if (selectedField == null)
-            Text('Tap to select a field to edit',
+            Text(S.current.Tap_to_select,
                 style: TextStyle(fontSize: 11)),
           SB.h10,
           HeaderWidget(
@@ -375,6 +238,7 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
           ),
           if (selectedField != null) ..._onSelectedOptions,
           SB.h20,
+          _actionButtons(),
         ],
       ),
     );
@@ -387,20 +251,10 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
         child: Column(
           children: [
             Text(
-              'Drag the field or use arrow keys to move the field',
+              S.current.Drag_the_field,
               style: TextStyle(fontSize: 11),
             ),
             SB.h20,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                _moveButton(_fieldValues[selectedField!]!, AxisDirection.up),
-                _moveButton(_fieldValues[selectedField!]!, AxisDirection.left),
-                _moveButton(_fieldValues[selectedField!]!, AxisDirection.right),
-                _moveButton(_fieldValues[selectedField!]!, AxisDirection.down),
-              ],
-            ),
-            SB.h10,
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
@@ -413,6 +267,26 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
                   },
                   icon: Icon(Icons.deselect),
                 ),
+                _moveButton(_fieldValues[selectedField!]!, AxisDirection.up),
+                _moveButton(_fieldValues[selectedField!]!, AxisDirection.left),
+                _moveButton(_fieldValues[selectedField!]!, AxisDirection.right),
+                _moveButton(_fieldValues[selectedField!]!, AxisDirection.down),
+              ],
+            ),
+            SB.h10,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ShadowButton(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  onPressed: () => _moveToFront(),
+                  child: Text(S.current.Move_to_front),
+                ),
+                ShadowButton(
+                  padding: EdgeInsets.symmetric(horizontal: 10),
+                  onPressed: () => _moveToBack(),
+                  child: Text(S.current.Move_to_front),
+                ),
               ],
             )
           ],
@@ -421,20 +295,71 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
     ];
   }
 
+  void _moveToFront() {
+    final index = _fieldValues.keys.toList().indexOf(selectedField!);
+    if (index != _fieldValues.length - 1) {
+      final selectedFieldValue = _fieldValues[selectedField]!;
+      final nextFieldKey = _fieldValues.keys.elementAt(index + 1);
+
+      setState(() {
+        _fieldValues.remove(selectedField);
+
+        final newFieldValues =
+            LinkedHashMap<CustomizableFieldType, CustomizableField>();
+        _fieldValues.forEach((key, value) {
+          newFieldValues[key] = value;
+          if (key == nextFieldKey) {
+            newFieldValues[selectedField!] = selectedFieldValue;
+          }
+        });
+
+        _fieldValues
+          ..clear()
+          ..addAll(newFieldValues);
+      });
+    }
+  }
+
+  void _moveToBack() {
+    final index = _fieldValues.keys.toList().indexOf(selectedField!);
+    if (index != 0) {
+      final selectedFieldValue = _fieldValues[selectedField]!;
+      final previousFieldKey = _fieldValues.keys.elementAt(index - 1);
+
+      setState(() {
+        _fieldValues.remove(selectedField);
+
+        final newFieldValues =
+            LinkedHashMap<CustomizableFieldType, CustomizableField>();
+        _fieldValues.forEach((key, value) {
+          if (key == previousFieldKey) {
+            newFieldValues[selectedField!] = selectedFieldValue;
+          }
+          newFieldValues[key] = value;
+        });
+
+        _fieldValues
+          ..clear()
+          ..addAll(newFieldValues);
+      });
+    }
+  }
+
   SizedBox _populateFields() {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
-      height: widget.props.height,
+      height: props.height,
       child: Stack(
         children: [
           for (final field in _fieldValues.values)
-            Positioned(
-              top: field.position.top,
-              left: field.position.left,
-              right: field.position.right,
-              bottom: field.position.bottom,
-              child: _customizeField(field, buildField(field)),
-            ),
+            if (!field.hidden)
+              Positioned(
+                top: field.position.top,
+                left: field.position.left,
+                right: field.position.right,
+                bottom: field.position.bottom,
+                child: _customizeField(field, buildField(field)),
+              ),
         ],
       ),
     );
@@ -539,7 +464,7 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
               ? () => _setSelected(CustomizableFieldType.next_episode_counter)
               : () {
                   showToast(
-                      'Next episode ${data.episode} in ${timer.expanded()}');
+                      '${S.current.Next_episode} ${data.episode} in ${timer.expanded()}');
                 },
           child: Text(
             timer.highestOnly(),
@@ -567,7 +492,7 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
       height: 30,
       child: ShadowButton(
         backgroundColor: nsv.color,
-        padding: EdgeInsets.zero,
+        padding: EdgeInsets.symmetric(horizontal: 5),
         onPressed: widget.editMode
             ? () => _setSelected(CustomizableFieldType.edit_button)
             : () {
@@ -575,8 +500,10 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
               },
         child: myListStatus == null
             ? Icon(Icons.edit)
-            : Text(
+            : AutoSizeText(
                 s,
+                minFontSize: 6,
+                maxFontSize: 13,
                 style: TextStyle(color: Colors.white),
               ),
       ),
@@ -699,6 +626,111 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
           color: Colors.white,
         ),
       ),
+    );
+  }
+
+  List<Widget> _displayProfileName() {
+    return [
+      Form(
+        key: _formKey,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SB.w20,
+            Text(
+              S.current.Profile_name,
+              style: TextStyle(fontSize: 12),
+            ),
+            SB.w20,
+            Expanded(
+              child: TextFormField(
+                initialValue: props.profileName,
+                onSaved: (newValue) =>
+                    props = props.copyWith(profileName: newValue!),
+                validator: (value) {
+                  if (value == null || value.isEmpty) {
+                    return S.current.Enter_valid_profile;
+                  }
+                  if (!_isAlphaNumeric(value)) {
+                    return S.current.Should_be_aplhanumeric;
+                  }
+                  return null;
+                },
+                style: TextStyle(fontSize: 12),
+                decoration: InputDecoration(
+                  hintText: S.current.Enter_profile_name,
+                  border: OutlineInputBorder(),
+                ),
+              ),
+            ),
+            SB.w20,
+          ],
+        ),
+      ),
+      SB.h20,
+    ];
+  }
+
+  
+  bool _isAlphaNumeric(String value) {
+    return RegExp(r'^[a-zA-Z0-9]+$').hasMatch(value);
+  }
+
+  Widget _actionButtons() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        SB.w20,
+        TextButton(
+          onPressed: () {
+            if (!_formKey.currentState!.validate()) {
+              return;
+            }
+            _formKey.currentState!.save();
+            props = props.copyWith(
+              id: Uuid().v4(),
+              fields: _fieldValues.values.toList(),
+            );
+            widget.onUpdated?.call(props);
+            Navigator.of(context).pop();
+          },
+          child: Text(S.current.Save),
+        ),
+        SB.w20,
+        TextButton(
+          onPressed: () {
+            props = props.copyWith(fields: _fieldValues.values.toList());
+            if (widget.props == props) {
+              Navigator.of(context).pop();
+            } else {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text(S.current.Discard_changes),
+                  content: Text(S.current.Are_you_sure_you_want_to_discard),
+                  actions: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(S.current.Cancel),
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(S.current.Discard),
+                    ),
+                  ],
+                ),
+              );
+            }
+          },
+          child: Text(S.current.Close),
+        ),
+        SB.w20,
+      ],
     );
   }
 }

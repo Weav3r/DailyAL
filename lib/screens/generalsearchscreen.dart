@@ -1852,4 +1852,4 @@ class CustomFilters {
 
 enum DisplayType { list_vert, grid, list_horiz }
 
-enum DisplaySubType { compact, comfortable, cover_only_grid, spacious }
+enum DisplaySubType { compact, comfortable, cover_only_grid, spacious, custom }

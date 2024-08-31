@@ -95,8 +95,9 @@ class _ListPreferenceSettingsState extends State<ListPreferenceSettings> {
   Widget _customViewForAnime() {
     return AccordionOptionTile(
       isOpen: true,
-      text: 'Custom view for anime',
-      desc: 'Customize the view for anime tab when list view is selected.',
+      text: S.current.Custom_view_for_anime,
+      desc: S.current.Custom_view_for_anime_desc,
+      multiLine: true,
       child: SizedBox(
         height: 300.0,
         child: ContentCustomizer(),

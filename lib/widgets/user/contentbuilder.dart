@@ -7,6 +7,7 @@ import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/enums.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
 import 'package:dailyanimelist/main.dart';
+import 'package:dailyanimelist/pages/animedetailed/reviewpage.dart';
 import 'package:dailyanimelist/screens/generalsearchscreen.dart';
 import 'package:dailyanimelist/user/hompagepref.dart';
 import 'package:dailyanimelist/widgets/custombutton.dart';
@@ -14,6 +15,7 @@ import 'package:dailyanimelist/widgets/customfuture.dart';
 import 'package:dailyanimelist/widgets/listsortfilter.dart';
 import 'package:dailyanimelist/widgets/loading/expandedwidget.dart';
 import 'package:dailyanimelist/widgets/user/contentlistwidget.dart';
+import 'package:dailyanimelist/widgets/user/customizedlist.dart';
 import 'package:dal_commons/dal_commons.dart';
 import 'package:flutter/material.dart';
 import 'package:line_icons/line_icons.dart';
@@ -195,18 +197,35 @@ class _UserContentBuilderState extends State<UserContentBuilder>
               },
               gridChildCount:
                   _sortFilterDisplay!.displayOption.gridCrossAxisCount,
-              itemBuilder: (_, item, index) => buildBaseNodePageItem(
-                widget.category,
-                item,
-                index,
-                _sortFilterDisplay!.displayOption.displayType,
-                showEdit: widget.username.equals("@me"),
-                displaySubType:
-                    _sortFilterDisplay!.displayOption.displaySubType,
-                gridAxisCount:
-                    _sortFilterDisplay!.displayOption.gridCrossAxisCount,
-                gridHeight: _sortFilterDisplay!.displayOption.gridHeight,
-              ),
+              itemBuilder: (_, item, index) {
+                final subType =
+                    _sortFilterDisplay!.displayOption.displaySubType;
+                final id = _sortFilterDisplay!.displayOption.id;
+                var allprops =
+                    user.pref.animeMangaPagePreferences.contentCardProps ?? [];
+                final props =
+                    allprops.firstWhereOrNull((element) => element.id == id);
+
+                if (subType == DisplaySubType.custom && props != null) {
+                  return CustomizableFieldWidget(
+                    props: props,
+                    editMode: false,
+                    node: item.rowItems.first,
+                  );
+                }
+
+                return buildBaseNodePageItem(
+                  widget.category,
+                  item,
+                  index,
+                  _sortFilterDisplay!.displayOption.displayType,
+                  showEdit: widget.username.equals("@me"),
+                  displaySubType: subType,
+                  gridAxisCount:
+                      _sortFilterDisplay!.displayOption.gridCrossAxisCount,
+                  gridHeight: _sortFilterDisplay!.displayOption.gridHeight,
+                );
+              },
             ),
           ),
           SizedBox(

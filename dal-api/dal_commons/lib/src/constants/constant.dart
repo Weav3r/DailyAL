@@ -278,6 +278,17 @@ extension DocumentExt on Document {
   }
 }
 
+extension IterableExtensions<E> on Iterable<E> {
+  E? firstWhereOrNull(bool Function(E element) test) {
+    for (E element in this) {
+      if (test(element)) {
+        return element;
+      }
+    }
+    return null;
+  }
+}
+
 String buildQueryParams(Map<String, dynamic> queryParams) {
   if (queryParams.isEmpty) {
     return '';

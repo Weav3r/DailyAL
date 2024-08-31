@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Add_Friend": MessageLookupByLibrary.simpleMessage("Añadir amigo"),
         "Add_an_Item":
             MessageLookupByLibrary.simpleMessage("Añadir un artículo"),
+        "Add_display_profile": MessageLookupByLibrary.simpleMessage(
+            "Agregar perfil de visualización"),
         "Add_to_List":
             MessageLookupByLibrary.simpleMessage("Agregar a la lista"),
         "AdditionalTitles":
@@ -112,6 +114,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Aplicar filtros"),
         "Arabic": MessageLookupByLibrary.simpleMessage("Arábica"),
         "Arch_Enemies": MessageLookupByLibrary.simpleMessage("Archienemigos"),
+        "Are_you_sure_you_want_to_delete_profile":
+            MessageLookupByLibrary.simpleMessage(
+                "¿Estás seguro de que deseas eliminar este perfil?"),
+        "Are_you_sure_you_want_to_discard":
+            MessageLookupByLibrary.simpleMessage(
+                "¿Está seguro de que desea descartar los cambios?"),
         "Art": MessageLookupByLibrary.simpleMessage("Arte"),
         "Attack_on_Titan":
             MessageLookupByLibrary.simpleMessage("Ataque en Titan"),
@@ -270,6 +278,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Etiqueta personalizada"),
         "Custom_tag_desc": MessageLookupByLibrary.simpleMessage(
             "Inserte una etiqueta personalizada"),
+        "Custom_view_for_anime": MessageLookupByLibrary.simpleMessage(
+            "Vista personalizada para anime"),
+        "Custom_view_for_anime_desc": MessageLookupByLibrary.simpleMessage(
+            "Personaliza la vista de la pestaña anime cuando se selecciona la vista de lista."),
         "Customize_Bottom_Navbar_desc": MessageLookupByLibrary.simpleMessage(
             "Seleccione una página de inicio desde inicio/foro/usuario/explorar"),
         "Customize_Home_Page": MessageLookupByLibrary.simpleMessage(
@@ -291,6 +303,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "La página de usuario usa la vista de lista en lugar de la vista de cuadrícula"),
         "Delete": MessageLookupByLibrary.simpleMessage("Borrar"),
+        "Delete_Profile":
+            MessageLookupByLibrary.simpleMessage("Eliminar perfil"),
         "Delete_from_List":
             MessageLookupByLibrary.simpleMessage("Eliminar de la lista"),
         "Delinquents": MessageLookupByLibrary.simpleMessage("Delincuentes"),
@@ -301,6 +315,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Details": MessageLookupByLibrary.simpleMessage("Detalles"),
         "Detective": MessageLookupByLibrary.simpleMessage("detective"),
         "Director": MessageLookupByLibrary.simpleMessage("Director"),
+        "Discard": MessageLookupByLibrary.simpleMessage("Desechar"),
+        "Discard_changes":
+            MessageLookupByLibrary.simpleMessage("Descartar cambios"),
         "DiscordInvite":
             MessageLookupByLibrary.simpleMessage("Invitación de discordia"),
         "DiscordInviteDesc": MessageLookupByLibrary.simpleMessage(
@@ -315,6 +332,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Do_you_wish_to_logout":
             MessageLookupByLibrary.simpleMessage("¿Deseas cerrar sesión?"),
         "Doujunshi": MessageLookupByLibrary.simpleMessage("Forma de dirección"),
+        "Drag_the_field": MessageLookupByLibrary.simpleMessage(
+            "Arrastre el campo o use las teclas de flecha para mover el campo"),
         "Dragon_Ball":
             MessageLookupByLibrary.simpleMessage("esfera del dragón"),
         "Drama": MessageLookupByLibrary.simpleMessage("Drama"),
@@ -323,6 +342,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Ecchi": MessageLookupByLibrary.simpleMessage("Ecchi"),
         "Edit": MessageLookupByLibrary.simpleMessage("Editar"),
         "Edit_About": MessageLookupByLibrary.simpleMessage("editar sobre"),
+        "Edit_Display_Profile": MessageLookupByLibrary.simpleMessage(
+            "Editar perfil de visualización"),
         "Edit_Refresh_Message": MessageLookupByLibrary.simpleMessage(
             "Después de editar, pasará algún tiempo antes de que se actualice esta sección."),
         "Editorial": MessageLookupByLibrary.simpleMessage("Editorial"),
@@ -335,6 +356,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Por defecto en inglés Si la aplicación no admite la configuración regional del sistema o el código de país."),
         "English_Dub": MessageLookupByLibrary.simpleMessage("DUB DE INGLÉS"),
         "Enjoyment": MessageLookupByLibrary.simpleMessage("Disfrute"),
+        "Enter_profile_name": MessageLookupByLibrary.simpleMessage(
+            "Introduce el nombre del perfil"),
+        "Enter_valid_profile": MessageLookupByLibrary.simpleMessage(
+            "Por favor ingresa un nombre de perfil"),
         "Entries": MessageLookupByLibrary.simpleMessage("entradas"),
         "Entry": MessageLookupByLibrary.simpleMessage("entrada"),
         "Episode_Reminder":
@@ -578,6 +603,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Venta de novela ligera"),
         "Light_Novels": MessageLookupByLibrary.simpleMessage("Novelas ligeras"),
         "List": MessageLookupByLibrary.simpleMessage("Lista"),
+        "List_preferences":
+            MessageLookupByLibrary.simpleMessage("Preferencias de lista"),
+        "List_preferences_desc": MessageLookupByLibrary.simpleMessage(
+            "Personaliza tu vista de lista de anime/manga"),
         "Live": MessageLookupByLibrary.simpleMessage("Vivir"),
         "Live_Action": MessageLookupByLibrary.simpleMessage("Acción en vivo"),
         "Load_More": MessageLookupByLibrary.simpleMessage("Carga más"),
@@ -674,6 +703,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Más información"),
         "Most_Popular_Anime":
             MessageLookupByLibrary.simpleMessage("Anime más popular"),
+        "Move_to_back":
+            MessageLookupByLibrary.simpleMessage("Mover hacia atrás"),
+        "Move_to_front":
+            MessageLookupByLibrary.simpleMessage("pasar al frente"),
         "Music": MessageLookupByLibrary.simpleMessage("Música"),
         "Music_Entertainment":
             MessageLookupByLibrary.simpleMessage("Música y Entretenimiento"),
@@ -716,6 +749,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Por ejemplo: la etiqueta de recomendación le dará algunas recomendaciones increíbles."),
         "Next": MessageLookupByLibrary.simpleMessage("Next"),
         "NextShow": MessageLookupByLibrary.simpleMessage("Próximo espectáculo"),
+        "Next_episode":
+            MessageLookupByLibrary.simpleMessage("Próximo episodio"),
         "Nice": MessageLookupByLibrary.simpleMessage("agradable"),
         "No": MessageLookupByLibrary.simpleMessage("No"),
         "NoMoreItemsFound": MessageLookupByLibrary.simpleMessage(
@@ -857,6 +892,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "El fondo del perfil se eliminó correctamente"),
         "Profile_bg_set": MessageLookupByLibrary.simpleMessage(
             "El fondo del perfil se configuró correctamente"),
+        "Profile_name":
+            MessageLookupByLibrary.simpleMessage("Nombre del perfil"),
         "Promo_Videos":
             MessageLookupByLibrary.simpleMessage("Videos de promoción"),
         "Promotional": MessageLookupByLibrary.simpleMessage("Promocional"),
@@ -1037,6 +1074,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Configuración programada.Inténtalo de nuevo."),
         "Share": MessageLookupByLibrary.simpleMessage("Cuota"),
         "Shoujo": MessageLookupByLibrary.simpleMessage("Shoujo"),
+        "Should_be_aplhanumeric":
+            MessageLookupByLibrary.simpleMessage("debe ser alfanumérico"),
         "Shounen": MessageLookupByLibrary.simpleMessage("Shounen"),
         "Show": MessageLookupByLibrary.simpleMessage("Espectáculo"),
         "ShowOnlyLastQuote":
@@ -1168,6 +1207,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "Las etiquetas no se aplicarán con la consulta de búsqueda."),
         "Tap_to_Sign_In":
             MessageLookupByLibrary.simpleMessage("Toque para iniciar sesión"),
+        "Tap_to_edit": MessageLookupByLibrary.simpleMessage("Toca para editar"),
+        "Tap_to_select": MessageLookupByLibrary.simpleMessage(
+            "Toque para seleccionar un campo para editar"),
         "Team_Sports":
             MessageLookupByLibrary.simpleMessage("Deportes de equipo"),
         "Technology": MessageLookupByLibrary.simpleMessage("Tecnología"),

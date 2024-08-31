@@ -23,6 +23,9 @@ AnimeMangaPagePreferences _$AnimeMangaPagePreferencesFromJson(
       defaultTab: json['defaultTab'] as String?,
       defaultAnimeTab: json['defaultAnimeTab'] as String?,
       defaultMangaTab: json['defaultMangaTab'] as String?,
+      contentCardProps: (json['contentCardProps'] as List<dynamic>?)
+          ?.map((e) => ContentCardProps.fromJson(e as Map<String, dynamic>?))
+          .toList(),
     );
 
 Map<String, dynamic> _$AnimeMangaPagePreferencesToJson(
@@ -34,6 +37,7 @@ Map<String, dynamic> _$AnimeMangaPagePreferencesToJson(
       'defaultTab': instance.defaultTab,
       'defaultAnimeTab': instance.defaultAnimeTab,
       'defaultMangaTab': instance.defaultMangaTab,
+      'contentCardProps': instance.contentCardProps,
     };
 
 const _$TimezonePrefEnumMap = {

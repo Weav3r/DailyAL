@@ -1,4 +1,5 @@
 import 'package:dailyanimelist/user/anime_manga_tab_pref.dart';
+import 'package:dailyanimelist/user/list_pref.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'anime_manga_pref.g.dart';
@@ -13,6 +14,7 @@ class AnimeMangaPagePreferences {
   String? defaultTab;
   String? defaultAnimeTab;
   String? defaultMangaTab;
+  List<ContentCardProps>? contentCardProps;
 
   AnimeMangaPagePreferences({
     required this.animeTabs,
@@ -21,6 +23,7 @@ class AnimeMangaPagePreferences {
     this.defaultTab,
     this.defaultAnimeTab,
     this.defaultMangaTab,
+    this.contentCardProps,
   });
 
   String get defaultTabSelected {

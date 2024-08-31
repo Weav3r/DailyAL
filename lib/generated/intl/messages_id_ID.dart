@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tambahkan atau Edit bagian tentang Anda."),
         "Add_Friend": MessageLookupByLibrary.simpleMessage("Menambah teman"),
         "Add_an_Item": MessageLookupByLibrary.simpleMessage("Tambahkan item"),
+        "Add_display_profile":
+            MessageLookupByLibrary.simpleMessage("Tambahkan Profil Tampilan"),
         "Add_to_List":
             MessageLookupByLibrary.simpleMessage("Tambahkan ke Daftar"),
         "AdditionalTitles":
@@ -107,6 +109,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Terapkan filter"),
         "Arabic": MessageLookupByLibrary.simpleMessage("Arab"),
         "Arch_Enemies": MessageLookupByLibrary.simpleMessage("Musuh lengkung"),
+        "Are_you_sure_you_want_to_delete_profile":
+            MessageLookupByLibrary.simpleMessage(
+                "Apakah Anda yakin ingin menghapus profil ini?"),
+        "Are_you_sure_you_want_to_discard":
+            MessageLookupByLibrary.simpleMessage(
+                "Apakah Anda yakin ingin membuang perubahan tersebut?"),
         "Art": MessageLookupByLibrary.simpleMessage("Seni"),
         "Attack_on_Titan":
             MessageLookupByLibrary.simpleMessage("Serangan terhadap Titan"),
@@ -261,6 +269,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom_tag": MessageLookupByLibrary.simpleMessage("Tag khusus"),
         "Custom_tag_desc":
             MessageLookupByLibrary.simpleMessage("Masukkan tag khusus"),
+        "Custom_view_for_anime":
+            MessageLookupByLibrary.simpleMessage("Tampilan khusus untuk anime"),
+        "Custom_view_for_anime_desc": MessageLookupByLibrary.simpleMessage(
+            "Sesuaikan tampilan tab anime saat tampilan daftar dipilih."),
         "Customize_Bottom_Navbar_desc": MessageLookupByLibrary.simpleMessage(
             "Pilih halaman awal dari beranda/forum/pengguna/jelajahi"),
         "Customize_Home_Page":
@@ -281,6 +293,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "Halaman pengguna menggunakan tampilan daftar alih-alih tampilan kisi"),
         "Delete": MessageLookupByLibrary.simpleMessage("Menghapus"),
+        "Delete_Profile": MessageLookupByLibrary.simpleMessage("Hapus Profil"),
         "Delete_from_List":
             MessageLookupByLibrary.simpleMessage("Hapus dari daftar"),
         "Delinquents": MessageLookupByLibrary.simpleMessage("tunggakan"),
@@ -291,6 +304,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Details": MessageLookupByLibrary.simpleMessage("Detail."),
         "Detective": MessageLookupByLibrary.simpleMessage("Detektif"),
         "Director": MessageLookupByLibrary.simpleMessage("Direktur"),
+        "Discard": MessageLookupByLibrary.simpleMessage("Membuang"),
+        "Discard_changes":
+            MessageLookupByLibrary.simpleMessage("Buang perubahan"),
         "DiscordInvite":
             MessageLookupByLibrary.simpleMessage("Undangan Perselisihan"),
         "DiscordInviteDesc": MessageLookupByLibrary.simpleMessage(
@@ -304,6 +320,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Do_you_wish_to_logout":
             MessageLookupByLibrary.simpleMessage("Apakah Anda ingin keluar?"),
         "Doujunshi": MessageLookupByLibrary.simpleMessage("Cara arah"),
+        "Drag_the_field": MessageLookupByLibrary.simpleMessage(
+            "Seret bidang atau gunakan tombol panah untuk memindahkan bidang"),
         "Dragon_Ball": MessageLookupByLibrary.simpleMessage("bola naga"),
         "Drama": MessageLookupByLibrary.simpleMessage("Drama"),
         "Dropped": MessageLookupByLibrary.simpleMessage("Menjatuhkan"),
@@ -311,6 +329,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Ecchi": MessageLookupByLibrary.simpleMessage("Ecchi."),
         "Edit": MessageLookupByLibrary.simpleMessage("Sunting"),
         "Edit_About": MessageLookupByLibrary.simpleMessage("Sunting tentang"),
+        "Edit_Display_Profile":
+            MessageLookupByLibrary.simpleMessage("Edit Profil Tampilan"),
         "Edit_Refresh_Message": MessageLookupByLibrary.simpleMessage(
             "Setelah diedit, perlu beberapa saat sebelum bagian ini disegarkan"),
         "Editorial": MessageLookupByLibrary.simpleMessage("Tajuk rencana"),
@@ -324,6 +344,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "English_Dub":
             MessageLookupByLibrary.simpleMessage("Dub Bahasa Inggris"),
         "Enjoyment": MessageLookupByLibrary.simpleMessage("Kenikmatan"),
+        "Enter_profile_name":
+            MessageLookupByLibrary.simpleMessage("Masukkan nama profil"),
+        "Enter_valid_profile": MessageLookupByLibrary.simpleMessage(
+            "Silakan masukkan nama profil"),
         "Entries": MessageLookupByLibrary.simpleMessage("entri"),
         "Entry": MessageLookupByLibrary.simpleMessage("pintu masuk"),
         "Episode_Reminder":
@@ -562,6 +586,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Penjualan novel ringan"),
         "Light_Novels": MessageLookupByLibrary.simpleMessage("Novel ringan"),
         "List": MessageLookupByLibrary.simpleMessage("Daftar"),
+        "List_preferences":
+            MessageLookupByLibrary.simpleMessage("Daftar Preferensi"),
+        "List_preferences_desc": MessageLookupByLibrary.simpleMessage(
+            "Sesuaikan tampilan daftar anime/manga Anda"),
         "Live": MessageLookupByLibrary.simpleMessage("Hidup"),
         "Live_Action": MessageLookupByLibrary.simpleMessage("Aksi langsung"),
         "Load_More": MessageLookupByLibrary.simpleMessage("Muat lebih banyak"),
@@ -654,6 +682,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Informasi lebih lanjut"),
         "Most_Popular_Anime":
             MessageLookupByLibrary.simpleMessage("Anime paling populer"),
+        "Move_to_back":
+            MessageLookupByLibrary.simpleMessage("Pindah ke belakang"),
+        "Move_to_front":
+            MessageLookupByLibrary.simpleMessage("Pindah ke depan"),
         "Music": MessageLookupByLibrary.simpleMessage("Musik"),
         "Music_Entertainment":
             MessageLookupByLibrary.simpleMessage("Musik & Hiburan"),
@@ -695,6 +727,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Next": MessageLookupByLibrary.simpleMessage("Lanjut"),
         "NextShow":
             MessageLookupByLibrary.simpleMessage("Pertunjukan Berikutnya"),
+        "Next_episode":
+            MessageLookupByLibrary.simpleMessage("Episode selanjutnya"),
         "Nice": MessageLookupByLibrary.simpleMessage("Bagus"),
         "No": MessageLookupByLibrary.simpleMessage("Tidak"),
         "NoMoreItemsFound": MessageLookupByLibrary.simpleMessage(
@@ -834,6 +868,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Latar belakang profil berhasil dihapus"),
         "Profile_bg_set": MessageLookupByLibrary.simpleMessage(
             "Latar belakang profil berhasil disetel"),
+        "Profile_name": MessageLookupByLibrary.simpleMessage("Nama Profil"),
         "Promo_Videos": MessageLookupByLibrary.simpleMessage("Video promo"),
         "Promotional": MessageLookupByLibrary.simpleMessage("Promosi"),
         "Pros": MessageLookupByLibrary.simpleMessage("Kelebihan"),
@@ -1004,6 +1039,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Pengaturan waktu habis.Silakan coba lagi."),
         "Share": MessageLookupByLibrary.simpleMessage("Membagikan"),
         "Shoujo": MessageLookupByLibrary.simpleMessage("Shoujo."),
+        "Should_be_aplhanumeric":
+            MessageLookupByLibrary.simpleMessage("Harus alfanumerik"),
         "Shounen": MessageLookupByLibrary.simpleMessage("Shounen."),
         "Show": MessageLookupByLibrary.simpleMessage("Menunjukkan"),
         "ShowOnlyLastQuote": MessageLookupByLibrary.simpleMessage(
@@ -1140,6 +1177,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Tag tidak akan diterapkan dengan permintaan pencarian."),
         "Tap_to_Sign_In":
             MessageLookupByLibrary.simpleMessage("Ketuk untuk Masuk"),
+        "Tap_to_edit":
+            MessageLookupByLibrary.simpleMessage("Ketuk untuk mengedit"),
+        "Tap_to_select": MessageLookupByLibrary.simpleMessage(
+            "Ketuk untuk memilih bidang yang akan diedit"),
         "Team_Sports":
             MessageLookupByLibrary.simpleMessage("Olahraga berkelompok"),
         "Technology": MessageLookupByLibrary.simpleMessage("Teknologi"),

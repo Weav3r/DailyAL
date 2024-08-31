@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "إضافة أو تحرير القسم الخاص بك."),
         "Add_Friend": MessageLookupByLibrary.simpleMessage("إضافة صديق"),
         "Add_an_Item": MessageLookupByLibrary.simpleMessage("إضافة عنصر"),
+        "Add_display_profile":
+            MessageLookupByLibrary.simpleMessage("إضافة ملف تعريف العرض"),
         "Add_to_List": MessageLookupByLibrary.simpleMessage("أضف إلى القائمة"),
         "AdditionalTitles":
             MessageLookupByLibrary.simpleMessage("عناوين إضافية"),
@@ -105,6 +107,12 @@ class MessageLookup extends MessageLookupByLibrary {
         "Apply_Filters": MessageLookupByLibrary.simpleMessage("تطبيق المرشحات"),
         "Arabic": MessageLookupByLibrary.simpleMessage("عربي"),
         "Arch_Enemies": MessageLookupByLibrary.simpleMessage("الأعداء القوس"),
+        "Are_you_sure_you_want_to_delete_profile":
+            MessageLookupByLibrary.simpleMessage(
+                "هل أنت متأكد أنك تريد حذف هذا الملف الشخصي؟"),
+        "Are_you_sure_you_want_to_discard":
+            MessageLookupByLibrary.simpleMessage(
+                "هل أنت متأكد أنك تريد تجاهل التغييرات؟"),
         "Art": MessageLookupByLibrary.simpleMessage("فن"),
         "Attack_on_Titan":
             MessageLookupByLibrary.simpleMessage("الهجوم على العمالقة"),
@@ -253,6 +261,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom_tag": MessageLookupByLibrary.simpleMessage("علامة مخصصة"),
         "Custom_tag_desc":
             MessageLookupByLibrary.simpleMessage("أدخل علامة مخصصة"),
+        "Custom_view_for_anime":
+            MessageLookupByLibrary.simpleMessage("عرض مخصص للأنيمي"),
+        "Custom_view_for_anime_desc": MessageLookupByLibrary.simpleMessage(
+            "قم بتخصيص العرض لعلامة تبويب الرسوم المتحركة عند تحديد عرض القائمة."),
         "Customize_Bottom_Navbar_desc": MessageLookupByLibrary.simpleMessage(
             "حدد صفحة بدء التشغيل من الصفحة الرئيسية/المنتدى/المستخدم/الاستكشاف"),
         "Customize_Home_Page":
@@ -274,6 +286,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "تستخدم صفحة المستخدم عرض القائمة بدلاً من عرض الشبكة"),
         "Delete": MessageLookupByLibrary.simpleMessage("حذف"),
+        "Delete_Profile":
+            MessageLookupByLibrary.simpleMessage("حذف الملف الشخصي"),
         "Delete_from_List":
             MessageLookupByLibrary.simpleMessage("حذف من القائمة"),
         "Delinquents": MessageLookupByLibrary.simpleMessage("الجانحون"),
@@ -285,6 +299,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Details": MessageLookupByLibrary.simpleMessage("تفاصيل"),
         "Detective": MessageLookupByLibrary.simpleMessage("المحقق"),
         "Director": MessageLookupByLibrary.simpleMessage("مخرج"),
+        "Discard": MessageLookupByLibrary.simpleMessage("ينبذ"),
+        "Discard_changes":
+            MessageLookupByLibrary.simpleMessage("تجاهل التغييرات"),
         "DiscordInvite": MessageLookupByLibrary.simpleMessage("دعوة الخلاف"),
         "DiscordInviteDesc": MessageLookupByLibrary.simpleMessage(
             "انقر هنا للانضمام إلى خادم Discord الرسمي"),
@@ -297,6 +314,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Do_you_wish_to_logout":
             MessageLookupByLibrary.simpleMessage("هل ترغب في تسجيل الخروج؟"),
         "Doujunshi": MessageLookupByLibrary.simpleMessage("طريقة الاتجاه"),
+        "Drag_the_field": MessageLookupByLibrary.simpleMessage(
+            "اسحب الحقل أو استخدم مفاتيح الأسهم لتحريك الحقل"),
         "Dragon_Ball": MessageLookupByLibrary.simpleMessage("كرة التنين"),
         "Drama": MessageLookupByLibrary.simpleMessage("دراما"),
         "Dropped": MessageLookupByLibrary.simpleMessage("إسقاط"),
@@ -304,6 +323,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Ecchi": MessageLookupByLibrary.simpleMessage("ecchi."),
         "Edit": MessageLookupByLibrary.simpleMessage("يحرر"),
         "Edit_About": MessageLookupByLibrary.simpleMessage("تحرير حول"),
+        "Edit_Display_Profile":
+            MessageLookupByLibrary.simpleMessage("تحرير ملف تعريف العرض"),
         "Edit_Refresh_Message": MessageLookupByLibrary.simpleMessage(
             "بعد التحرير ، سيستغرق الأمر بعض الوقت قبل أن يتم تحديث هذا القسم"),
         "Editorial": MessageLookupByLibrary.simpleMessage("الافتتاحية"),
@@ -315,6 +336,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "الإعدادات الافتراضية إلى اللغة الإنجليزية إذا كان التطبيق لا يدعم لغة النظام أو رمز البلد."),
         "English_Dub": MessageLookupByLibrary.simpleMessage("الإنجليزية يصف"),
         "Enjoyment": MessageLookupByLibrary.simpleMessage("التمتع"),
+        "Enter_profile_name":
+            MessageLookupByLibrary.simpleMessage("أدخل اسم الملف الشخصي"),
+        "Enter_valid_profile": MessageLookupByLibrary.simpleMessage(
+            "الرجاء إدخال اسم الملف الشخصي"),
         "Entries": MessageLookupByLibrary.simpleMessage("إدخالات"),
         "Entry": MessageLookupByLibrary.simpleMessage("دخول"),
         "Episode_Reminder":
@@ -551,6 +576,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light_Novels":
             MessageLookupByLibrary.simpleMessage("الروايات الخفيفة"),
         "List": MessageLookupByLibrary.simpleMessage("قائمة"),
+        "List_preferences":
+            MessageLookupByLibrary.simpleMessage("قائمة التفضيلات"),
+        "List_preferences_desc": MessageLookupByLibrary.simpleMessage(
+            "قم بتخصيص طريقة عرض قائمة الأنمي/المانجا الخاصة بك"),
         "Live": MessageLookupByLibrary.simpleMessage("يعيش"),
         "Live_Action":
             MessageLookupByLibrary.simpleMessage("فعل حى أو حدث مباشر"),
@@ -644,6 +673,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("معلومات اكثر"),
         "Most_Popular_Anime":
             MessageLookupByLibrary.simpleMessage("أنيمي الأكثر شعبية"),
+        "Move_to_back":
+            MessageLookupByLibrary.simpleMessage("الانتقال إلى الخلف"),
+        "Move_to_front":
+            MessageLookupByLibrary.simpleMessage("انتقل إلى الأمام"),
         "Music": MessageLookupByLibrary.simpleMessage("موسيقى"),
         "Music_Entertainment":
             MessageLookupByLibrary.simpleMessage("الموسيقى والترفيه"),
@@ -684,6 +717,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "بالنسبة إلى السابقين: وسوف تمنحك علامة التوصية بعض التوصيات الرائعة."),
         "Next": MessageLookupByLibrary.simpleMessage("التالي"),
         "NextShow": MessageLookupByLibrary.simpleMessage("العرض القادم"),
+        "Next_episode": MessageLookupByLibrary.simpleMessage("الحلقة القادمة"),
         "Nice": MessageLookupByLibrary.simpleMessage("لطيف - جيد"),
         "No": MessageLookupByLibrary.simpleMessage("لا"),
         "NoMoreItemsFound": MessageLookupByLibrary.simpleMessage(
@@ -819,6 +853,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "تمت إزالة خلفية الملف الشخصي بنجاح"),
         "Profile_bg_set": MessageLookupByLibrary.simpleMessage(
             "تم تعيين خلفية الملف الشخصي بنجاح"),
+        "Profile_name":
+            MessageLookupByLibrary.simpleMessage("اسم الملف الشخصي"),
         "Promo_Videos":
             MessageLookupByLibrary.simpleMessage("أشرطة الفيديو الترويجي"),
         "Promotional": MessageLookupByLibrary.simpleMessage("الترويجية"),
@@ -983,6 +1019,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ضبط مهلة.حاول مرة اخرى."),
         "Share": MessageLookupByLibrary.simpleMessage("يشارك"),
         "Shoujo": MessageLookupByLibrary.simpleMessage("شوجو"),
+        "Should_be_aplhanumeric":
+            MessageLookupByLibrary.simpleMessage("يجب أن تكون أبجدية رقمية"),
         "Shounen": MessageLookupByLibrary.simpleMessage("شونين"),
         "Show": MessageLookupByLibrary.simpleMessage("يعرض"),
         "ShowOnlyLastQuote":
@@ -1104,6 +1142,9 @@ class MessageLookup extends MessageLookupByLibrary {
             "لن يتم تطبيق العلامات مع استعلام البحث."),
         "Tap_to_Sign_In":
             MessageLookupByLibrary.simpleMessage("انقر لتسجيل الدخول"),
+        "Tap_to_edit": MessageLookupByLibrary.simpleMessage("انقر للتحرير"),
+        "Tap_to_select":
+            MessageLookupByLibrary.simpleMessage("انقر لتحديد حقل لتحريره"),
         "Team_Sports": MessageLookupByLibrary.simpleMessage("رياضات جماعية"),
         "Technology": MessageLookupByLibrary.simpleMessage("تقنية"),
         "TestNotification":
