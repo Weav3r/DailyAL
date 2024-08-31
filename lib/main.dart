@@ -17,6 +17,7 @@ import 'package:dal_commons/dal_commons.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
 import 'package:dynamic_color/dynamic_color.dart';
@@ -44,6 +45,7 @@ void main() async {
     await StreamUtils.i.init();
     final androidInfo = await DeviceInfoPlugin().androidInfo;
     androidSDKVersion = androidInfo.version.sdkInt;
+    await FlutterDisplayMode.setHighRefreshRate();
   } catch (e) {}
 
   Node? node;
