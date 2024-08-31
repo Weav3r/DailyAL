@@ -918,26 +918,19 @@ class _ContentAllWidgetState extends State<ContentAllWidget>
       if (alreadyAired && content2.numEpisodes != null) {
         return _episodeUnseenWidget(content2.numEpisodes!, episodesWatched);
       } else {
-        return _usingScheduler(
-            (data) => _unseenUsingScheduleData(data) ?? SB.z);
+        return usingScheduler(
+            id,
+            (data) =>
+                unseenUsingScheduleData(
+                  data: data,
+                  onBuild: (p0, p1) => _episodeUnseenWidget(p0, p1),
+                  baseNode: widget.dynContent,
+                  myListStatus: myListStatus,
+                ) ??
+                SB.z);
       }
     }
     return null;
-  }
-
-  Widget _usingScheduler(Widget Function(ScheduleData) widget) {
-    return CFutureBuilder<Map<int, ScheduleData>>(
-      future: DalApi.i.scheduleForMalIds,
-      loadingChild: SB.z,
-      done: (sn) {
-        ScheduleData? data;
-        if (sn.hasData && sn.data!.containsKey(id)) {
-          data = sn.data![id]!;
-          return widget(data);
-        }
-        return SB.z;
-      },
-    );
   }
 
   bool _anime() => widget.category.equals('anime');
@@ -952,23 +945,6 @@ class _ContentAllWidgetState extends State<ContentAllWidget>
       url: imageUrl,
       userRoundBorderforLoading: false,
     );
-  }
-
-  Widget? _unseenUsingScheduleData(ScheduleData data) {
-    var episodesWatched = myListStatus?.numEpisodesWatched as int?;
-    if (episodesWatched != null) {
-      int? episodesAired = data.episode;
-      if (episodesAired != null) {
-        episodesAired--;
-      } else {
-        var contenDetailed = widget.dynContent?.content as AnimeDetailed;
-        episodesAired ??= contenDetailed.numEpisodes;
-      }
-      if (episodesAired != null) {
-        return _episodeUnseenWidget(episodesAired, episodesWatched);
-      }
-    }
-    return SB.z;
   }
 
   Widget? _episodeUnseenWidget(int episodesAired, int episodesWatched) {
@@ -1145,16 +1121,6 @@ class _ContentAllWidgetState extends State<ContentAllWidget>
     );
   }
 
-  Widget statusBadge(nsv) => Container(
-      width: 40,
-      padding: EdgeInsets.zero,
-      decoration: BoxDecoration(
-          color: nsv.color, borderRadius: BorderRadius.circular(16)),
-      child: Center(
-        child: title(nsv?.status ?? "",
-            opacity: 1, fontSize: 11, colorVal: Colors.white.value),
-      ));
-
   Widget indexWidget(index) => widget.showIndex
       ? Padding(
           padding: const EdgeInsets.only(right: 7),
@@ -1189,26 +1155,6 @@ class _ContentAllWidgetState extends State<ContentAllWidget>
               ],
             ))
         : const SizedBox();
-  }
-
-  Widget starWwidget(String score,
-      [EdgeInsetsGeometry? padding, double? fontSize]) {
-    return Padding(
-        padding: padding ?? EdgeInsets.only(right: 10),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Container(
-              height: 14,
-              child: Image.asset("assets/images/star.png"),
-            ),
-            const SizedBox(
-              width: 5,
-            ),
-            title(score, opacity: 1, fontSize: fontSize ?? 14),
-          ],
-        ));
   }
 
   Widget listStatusWidget() => Padding(
@@ -1350,75 +1296,6 @@ class _ContentAllWidgetState extends State<ContentAllWidget>
   @override
   bool get wantKeepAlive => true;
 
-  Widget countdownWidget({
-    EdgeInsetsGeometry? padding,
-    Widget Function(Widget child)? wrapper,
-  }) {
-    if (widget.category.equals('anime')) {
-      return _usingScheduler((data) {
-        var child = _countdownWidget(data, padding: padding);
-        return wrapper != null ? wrapper(child) : child;
-      });
-    }
-    return SB.z;
-  }
-
-  CountDownWidget _countdownWidget(ScheduleData scheduleData,
-      {EdgeInsetsGeometry? padding}) {
-    return CountDownWidget(
-      timestamp: scheduleData.timestamp!,
-      customTimer: (t) => t.timerOver
-          ? SB.z
-          : Padding(
-              padding: padding ?? const EdgeInsets.only(top: 2, bottom: 6.0),
-              child: RichText(
-                text: TextSpan(
-                  text: 'Ep ',
-                  style: Theme.of(context).textTheme.labelSmall,
-                  children: [
-                    TextSpan(
-                      text: scheduleData.episode?.toString() ?? '?',
-                    ),
-                    TextSpan(
-                      text: ' in ',
-                    ),
-                    if (t.days > 0) ...[
-                      TextSpan(
-                        text: t.days.toString(),
-                      ),
-                      TextSpan(
-                        text: 'd ',
-                      ),
-                    ],
-                    if (t.hours > 0) ...[
-                      TextSpan(
-                        text: t.hours.toString(),
-                      ),
-                      TextSpan(
-                        text: 'h ',
-                      ),
-                    ],
-                    if (t.minutes > 0) ...[
-                      TextSpan(
-                        text: t.minutes.toString(),
-                      ),
-                      TextSpan(
-                        text: 'm ',
-                      ),
-                    ],
-                    TextSpan(
-                      text: t.seconds.toString(),
-                    ),
-                    TextSpan(
-                      text: 's',
-                    ),
-                  ],
-                ),
-              ),
-            ),
-    );
-  }
-
   Widget _buildCompactListTile(NodeStatusValue nsv, String nodeTitle) {
     var avatarWidget = AvatarWidget(
       height: 35,
@@ -1467,7 +1344,20 @@ class _ContentAllWidgetState extends State<ContentAllWidget>
             ),
       );
     else
-      return countdownWidget();
+      return countdownWidgetInternal();
+  }
+
+  Widget countdownWidgetInternal({
+    EdgeInsetsGeometry? padding,
+    Widget Function(Widget child)? wrapper,
+  }) {
+    return countdownWidget(
+      id: id,
+      category: widget.category,
+      context: context,
+      padding: padding,
+      wrapper: wrapper,
+    );
   }
 
   Widget _buildSpaciousTile(NodeStatusValue nsv, String nodeTitle) {
@@ -1486,7 +1376,7 @@ class _ContentAllWidgetState extends State<ContentAllWidget>
                   overflow: TextOverflow.fade,
                   fontSize: 11,
                 ))
-        : countdownWidget(padding: EdgeInsets.zero, wrapper: wrapper);
+        : countdownWidgetInternal(padding: EdgeInsets.zero, wrapper: wrapper);
 
     return SpaciousContentWidget(
       category: widget.category,
@@ -1509,6 +1399,158 @@ class _ContentAllWidgetState extends State<ContentAllWidget>
       ),
     );
   }
+}
+
+Widget? unseenUsingScheduleData({
+  required ScheduleData data,
+  dynamic myListStatus,
+  baseNode,
+  required Widget? Function(int, int) onBuild,
+}) {
+  var episodesWatched = myListStatus?.numEpisodesWatched as int?;
+  if (episodesWatched != null) {
+    int? episodesAired = data.episode;
+    if (episodesAired != null) {
+      episodesAired--;
+    } else {
+      var contenDetailed = baseNode?.content as AnimeDetailed;
+      episodesAired ??= contenDetailed.numEpisodes;
+    }
+    if (episodesAired != null) {
+      return onBuild(episodesAired, episodesWatched);
+    }
+  }
+  return SB.z;
+}
+
+Widget countdownWidget({
+  required int id,
+  required String category,
+  required BuildContext context,
+  EdgeInsetsGeometry? padding,
+  Widget Function(Widget child)? wrapper,
+}) {
+  if (category.equals('anime')) {
+    return usingScheduler(id, (data) {
+      var child = _countdownWidget(data, padding: padding, context: context);
+      return wrapper != null ? wrapper(child) : child;
+    });
+  }
+  return SB.z;
+}
+
+Widget usingScheduler(int id, Widget Function(ScheduleData) widget) {
+  return CFutureBuilder<Map<int, ScheduleData>>(
+    future: DalApi.i.scheduleForMalIds,
+    loadingChild: SB.z,
+    done: (sn) {
+      ScheduleData? data;
+      if (sn.hasData && sn.data!.containsKey(id)) {
+        data = sn.data![id]!;
+        return widget(data);
+      }
+      return SB.z;
+    },
+  );
+}
+
+Widget usingSyncScheduler(int id, Widget Function(ScheduleData) widget) {
+  final data = DalApi.i.scheduleForMalIdsSync[id];
+  return data == null ? SB.z : widget(data);
+}
+
+Widget statusBadge(NodeStatusValue nsv) => Container(
+    width: 40,
+    padding: EdgeInsets.zero,
+    decoration: BoxDecoration(
+        color: nsv.color, borderRadius: BorderRadius.circular(16)),
+    child: Center(
+      child: title(nsv.status ?? "",
+          opacity: 1, fontSize: 11, colorVal: Colors.white.value),
+    ));
+
+Widget starWwidget(String score,
+    [EdgeInsetsGeometry? padding, double? fontSize]) {
+  return Padding(
+      padding: padding ?? EdgeInsets.only(right: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Container(
+            height: 14,
+            child: Image.asset("assets/images/star.png"),
+          ),
+          const SizedBox(
+            width: 5,
+          ),
+          title(score, opacity: 1, fontSize: fontSize ?? 14),
+        ],
+      ));
+}
+
+CountDownWidget _countdownWidget(
+  ScheduleData scheduleData, {
+  EdgeInsetsGeometry? padding,
+  required BuildContext context,
+}) {
+  return CountDownWidget(
+    timestamp: scheduleData.timestamp!,
+    customTimer: (t) {
+      var hasDays = t.days > 0;
+      var hasHours = t.hours > 0;
+      var hasMins = t.minutes > 0;
+      return t.timerOver
+          ? SB.z
+          : Padding(
+              padding: padding ?? const EdgeInsets.only(top: 2, bottom: 6.0),
+              child: RichText(
+                text: TextSpan(
+                  text: 'Ep ',
+                  style: Theme.of(context).textTheme.labelSmall,
+                  children: [
+                    TextSpan(
+                      text: scheduleData.episode?.toString() ?? '?',
+                    ),
+                    TextSpan(
+                      text: ' in ',
+                    ),
+                    if (hasDays) ...[
+                      TextSpan(
+                        text: t.days.toString(),
+                      ),
+                      TextSpan(
+                        text: 'd ',
+                      ),
+                    ],
+                    if (hasHours) ...[
+                      TextSpan(
+                        text: t.hours.toString(),
+                      ),
+                      TextSpan(
+                        text: 'h ',
+                      ),
+                    ],
+                    if (hasMins) ...[
+                      TextSpan(
+                        text: t.minutes.toString(),
+                      ),
+                      TextSpan(
+                        text: 'm ',
+                      ),
+                    ],
+                    TextSpan(
+                      text: t.seconds.toString(),
+                    ),
+                    TextSpan(
+                      text: 's',
+                    ),
+                  ],
+                ),
+              ),
+            );
+    },
+  );
 }
 
 Widget buildGridResults(var _results, var _category,

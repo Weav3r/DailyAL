@@ -203,18 +203,17 @@ class AnimeGridCard extends StatelessWidget {
                 child: Text(
                   nodeTitle,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 14,
-                        color: Colors.white,
-                        overflow: TextOverflow.fade,
-                        fontWeight: FontWeight.w400,
-                        shadows: [
-                          Shadow(
-                            color: Colors.black,
-                            offset: Offset(1, 1),
-                            blurRadius: 2,
-                          )
-                        ]
-                      ),
+                      fontSize: 14,
+                      color: Colors.white,
+                      overflow: TextOverflow.fade,
+                      fontWeight: FontWeight.w400,
+                      shadows: [
+                        Shadow(
+                          color: Colors.black,
+                          offset: Offset(1, 1),
+                          blurRadius: 2,
+                        )
+                      ]),
                 ),
               ),
             ),

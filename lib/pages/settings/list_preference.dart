@@ -1,9 +1,11 @@
+import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/enums.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
 import 'package:dailyanimelist/main.dart';
 import 'package:dailyanimelist/pages/settings/customsettings.dart';
 import 'package:dailyanimelist/pages/settings/optiontile.dart';
 import 'package:dailyanimelist/widgets/selectbottom.dart';
+import 'package:dailyanimelist/widgets/user/customizedlist.dart';
 import 'package:flutter/material.dart';
 
 class ListPreferenceSettings extends StatefulWidget {
@@ -23,6 +25,7 @@ class _ListPreferenceSettingsState extends State<ListPreferenceSettings> {
           _defaultTabSelected(),
           _defaultAnimeTabSelected(),
           _defaultMangaTabSelected(),
+          _customViewForAnime(),
         ],
       ),
     );
@@ -87,5 +90,17 @@ class _ListPreferenceSettingsState extends State<ListPreferenceSettings> {
           },
         ),
         onPressed: null);
+  }
+
+  Widget _customViewForAnime() {
+    return AccordionOptionTile(
+      isOpen: true,
+      text: 'Custom view for anime',
+      desc: 'Customize the view for anime tab when list view is selected.',
+      child: SizedBox(
+        height: 300.0,
+        child: ContentCustomizer(),
+      ),
+    );
   }
 }

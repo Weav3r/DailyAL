@@ -341,6 +341,17 @@ class CWTime {
     required this.seconds,
     required this.timerOver,
   });
+
+  String highestOnly() {
+    if (days > 0) return '$days days';
+    if (hours > 0) return '$hours hours';
+    if (minutes > 0) return '$minutes minutes';
+    return '$seconds seconds';
+  }
+
+  String expanded() {
+    return '$days days, $hours hours, $minutes minutes, $seconds seconds';
+  }
 }
 
 class CountDownWidget extends StatefulWidget {
