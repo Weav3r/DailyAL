@@ -393,18 +393,23 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
       height: props.height,
-      child: Stack(
-        children: [
-          for (final field in _fieldValues.values)
-            if (!field.hidden)
-              Positioned(
-                top: field.position.top,
-                left: field.position.left,
-                right: field.position.right,
-                bottom: field.position.bottom,
-                child: _customizeField(field, buildField(field)),
-              ),
-        ],
+      child: Card(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
+        ),  
+        child: Stack(
+          children: [
+            for (final field in _fieldValues.values)
+              if (!field.hidden)
+                Positioned(
+                  top: field.position.top,
+                  left: field.position.left,
+                  right: field.position.right,
+                  bottom: field.position.bottom,
+                  child: _customizeField(field, buildField(field)),
+                ),
+          ],
+        ),
       ),
     );
   }
@@ -485,7 +490,7 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
         starWwidget(node?.mean?.toString() ?? '-', EdgeInsets.zero),
       CustomizableFieldType.num_list_users => _listUserWidget(),
       CustomizableFieldType.list_score =>
-        starWwidget(myListStatus?.score?.toString() ?? '-'),
+       myListStatus?.score == null ? SB.z : starWwidget(myListStatus?.score?.toString() ?? '-'),
       CustomizableFieldType.edit_button => _editButtonWidget(),
       CustomizableFieldType.next_episode_counter => _episodeCounterWidget(),
       CustomizableFieldType.un_seen_episodes => _unSeenEpisodesWidget(),
@@ -546,7 +551,8 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
                 s,
                 minFontSize: 6,
                 maxFontSize: 13,
-                style: TextStyle(color: Colors.white),
+                style:
+                    nsv.color == null ? null : TextStyle(color: Colors.white),
               ),
       ),
     );
@@ -566,7 +572,7 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
   Text _mediaTypeWidget() {
     final content = node;
     return Text(
-      (content?.mediaType ?? '').toUpperCase(),
+      (content?.mediaType ?? '').standardize()!.titleCase(),
       style: TextStyle(
         fontSize: 12,
         color: Theme.of(context).textTheme.bodyMedium?.color?.withOpacity(0.7),

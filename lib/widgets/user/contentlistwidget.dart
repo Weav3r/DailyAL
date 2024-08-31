@@ -302,6 +302,7 @@ Widget buildBaseNodePageItem(
         props: props,
         editMode: false,
         node: item.rowItems.first,
+        updateCacheOnEdit: updateCacheOnEdit,
       );
     }
   }
@@ -424,6 +425,7 @@ class ContentListWithDisplayType extends StatelessWidget {
           showEdit: showEdit ?? true,
           showIndex: showIndex,
           showStatus: showStatus,
+          id: sortFilterDisplay.displayOption.id,
         ),
       );
     }
