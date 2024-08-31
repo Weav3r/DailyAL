@@ -291,6 +291,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Kullanıcı sayfası için liste görünümünü tercih et"),
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "Kullanıcı sayfası tablo görünümü yerine liste görünümünü kullanıyor"),
+        "Default_tab_selected_for_anime": MessageLookupByLibrary.simpleMessage(
+            "Anime için seçilen varsayılan sekme"),
+        "Default_tab_selected_for_anime_manga":
+            MessageLookupByLibrary.simpleMessage(
+                "Anime/manga için seçilen varsayılan sekme"),
+        "Default_tab_selected_for_manga": MessageLookupByLibrary.simpleMessage(
+            "Manga için seçilen varsayılan sekme"),
         "Delete": MessageLookupByLibrary.simpleMessage("Silmek"),
         "Delete_Profile": MessageLookupByLibrary.simpleMessage("Profili Sil"),
         "Delete_from_List":
@@ -484,6 +491,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Helpful": MessageLookupByLibrary.simpleMessage("Yardımsever"),
         "Hentai": MessageLookupByLibrary.simpleMessage("hentai"),
         "Hiatus": MessageLookupByLibrary.simpleMessage("Boşluk"),
+        "Hide": MessageLookupByLibrary.simpleMessage("Saklamak"),
         "High": MessageLookupByLibrary.simpleMessage("Yüksek"),
         "High_Stakes_Game":
             MessageLookupByLibrary.simpleMessage("High_Stakes_Game"),
@@ -511,6 +519,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Idols_Female": MessageLookupByLibrary.simpleMessage("Idols_Kadın"),
         "Idols_Male": MessageLookupByLibrary.simpleMessage("Putlar_Erkek"),
         "If_You_Liked": MessageLookupByLibrary.simpleMessage("Beğendiysen"),
+        "If_nothing_is_selected": MessageLookupByLibrary.simpleMessage(
+            "Hiçbir şey seçilmezse, varsayılan olarak en son açılana göre ayarlanacaktır."),
         "Image_Not_Selected": MessageLookupByLibrary.simpleMessage(
             "Herhangi bir resim seçmediniz."),
         "Image_Size_Too_Large": MessageLookupByLibrary.simpleMessage(

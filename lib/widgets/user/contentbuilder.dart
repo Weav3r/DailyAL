@@ -121,7 +121,16 @@ class _UserContentBuilderState extends State<UserContentBuilder>
     bool fromCache = false,
   }) async {
     try {
-      final sortFilterDisplay = _sortFilterDisplay!.clone();
+      final sortFilterDisplay = _sortFilterDisplay!.copyWith(
+        display:( _sortFilterDisplay?.displayOption.displaySubType ==
+                DisplaySubType.custom && widget.category.notEquals('anime'))
+            ? _sortFilterDisplay?.displayOption.copyWith(
+                displayType: DisplayType.list_vert,
+                displaySubType: DisplaySubType.comfortable,
+              )
+            : _sortFilterDisplay?.displayOption,
+      );
+      _sortFilterDisplay = sortFilterDisplay.clone();
       return _getFuture(fromCache, sortFilterDisplay, offset);
     } catch (e) {
       logDal(e);
@@ -198,32 +207,18 @@ class _UserContentBuilderState extends State<UserContentBuilder>
               gridChildCount:
                   _sortFilterDisplay!.displayOption.gridCrossAxisCount,
               itemBuilder: (_, item, index) {
-                final subType =
-                    _sortFilterDisplay!.displayOption.displaySubType;
-                final id = _sortFilterDisplay!.displayOption.id;
-                var allprops =
-                    user.pref.animeMangaPagePreferences.contentCardProps ?? [];
-                final props =
-                    allprops.firstWhereOrNull((element) => element.id == id);
-
-                if (subType == DisplaySubType.custom && props != null) {
-                  return CustomizableFieldWidget(
-                    props: props,
-                    editMode: false,
-                    node: item.rowItems.first,
-                  );
-                }
-
                 return buildBaseNodePageItem(
                   widget.category,
                   item,
                   index,
                   _sortFilterDisplay!.displayOption.displayType,
                   showEdit: widget.username.equals("@me"),
-                  displaySubType: subType,
+                  displaySubType:
+                      _sortFilterDisplay!.displayOption.displaySubType,
                   gridAxisCount:
                       _sortFilterDisplay!.displayOption.gridCrossAxisCount,
                   gridHeight: _sortFilterDisplay!.displayOption.gridHeight,
+                  id: _sortFilterDisplay!.displayOption.id,
                 );
               },
             ),

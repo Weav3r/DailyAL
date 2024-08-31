@@ -293,6 +293,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Предпочитать просмотр списка для страницы пользователя"),
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "На странице пользователя используется представление списка вместо представления сетки."),
+        "Default_tab_selected_for_anime": MessageLookupByLibrary.simpleMessage(
+            "Для аниме выбрана вкладка по умолчанию"),
+        "Default_tab_selected_for_anime_manga":
+            MessageLookupByLibrary.simpleMessage(
+                "Вкладка по умолчанию выбрана для аниме/манги"),
+        "Default_tab_selected_for_manga": MessageLookupByLibrary.simpleMessage(
+            "Для манги выбрана вкладка по умолчанию"),
         "Delete": MessageLookupByLibrary.simpleMessage("Удалить"),
         "Delete_Profile":
             MessageLookupByLibrary.simpleMessage("Удалить профиль"),
@@ -490,6 +497,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Helpful": MessageLookupByLibrary.simpleMessage("Полезный"),
         "Hentai": MessageLookupByLibrary.simpleMessage("хентай"),
         "Hiatus": MessageLookupByLibrary.simpleMessage("Разрыв"),
+        "Hide": MessageLookupByLibrary.simpleMessage("Скрывать"),
         "High": MessageLookupByLibrary.simpleMessage("Высокий"),
         "High_Stakes_Game":
             MessageLookupByLibrary.simpleMessage("High_Stakes_Game"),
@@ -520,6 +528,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Idols_Male": MessageLookupByLibrary.simpleMessage("Идолы_Мужчина"),
         "If_You_Liked":
             MessageLookupByLibrary.simpleMessage("Если вам понравилось"),
+        "If_nothing_is_selected": MessageLookupByLibrary.simpleMessage(
+            "Если ничего не выбрано, по умолчанию будет использоваться последнее открытое окно."),
         "Image_Not_Selected": MessageLookupByLibrary.simpleMessage(
             "Вы не выбрали ни одного изображения."),
         "Image_Size_Too_Large": MessageLookupByLibrary.simpleMessage(

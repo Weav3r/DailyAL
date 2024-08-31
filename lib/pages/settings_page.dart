@@ -6,7 +6,7 @@ import 'package:dailyanimelist/pages/settings/cachesettings.dart';
 import 'package:dailyanimelist/pages/settings/customsettings.dart';
 import 'package:dailyanimelist/pages/settings/homepagesettings.dart';
 import 'package:dailyanimelist/pages/settings/langsettings.dart';
-import 'package:dailyanimelist/pages/settings/list_preference.dart';
+import 'package:dailyanimelist/pages/settings/list_pref_settings.dart';
 import 'package:dailyanimelist/pages/settings/notifsettings.dart';
 import 'package:dailyanimelist/pages/settings/optiontile.dart';
 import 'package:dailyanimelist/pages/settings/themesettings.dart';

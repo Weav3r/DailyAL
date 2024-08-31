@@ -390,7 +390,7 @@ class SortFilterOptions {
     );
   }
 
-  static List<SelectDisplayOption> getDisplayOptions() {
+  static List<SelectDisplayOption> getDisplayOptions({String? category}) {
     final cardProps =
         user.pref.animeMangaPagePreferences.contentCardProps ?? [];
     return [
@@ -428,7 +428,7 @@ class SortFilterOptions {
             name: S.current.Spacious,
             subType: DisplaySubType.spacious,
           ),
-          if (cardProps.isNotEmpty) ...[
+          if (cardProps.isNotEmpty && 'anime'.equals(category)) ...[
             for (var prop in cardProps)
               SelectDisplayOption(
                 name: prop.profileName,
@@ -625,7 +625,8 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
       sortOptions:
           SortFilterOptions.getSortOptions(_isAnime, _sortFilterDisplay.sort),
       filterOptions: getFilterOptions(_sortFilterDisplay.category),
-      displayOptions: SortFilterOptions.getDisplayOptions(),
+      displayOptions: SortFilterOptions.getDisplayOptions(
+          category: _sortFilterDisplay.category),
       categories: [],
     );
   }
@@ -761,10 +762,13 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
           ),
           SliverList.list(
               children: displayOption.subOptions!.map((e) {
-            final currentValue = e.subType == DisplaySubType.custom ? e.id! : e.subType!.name;
-            final groupValue = (_sortFilterDisplay.displayOption.displaySubType == DisplaySubType.custom)
-                  ? _sortFilterDisplay.displayOption.id
-                  : _sortFilterDisplay.displayOption.displaySubType.name;
+            final currentValue =
+                e.subType == DisplaySubType.custom ? e.id! : e.subType!.name;
+            final groupValue =
+                (_sortFilterDisplay.displayOption.displaySubType ==
+                        DisplaySubType.custom)
+                    ? _sortFilterDisplay.displayOption.id
+                    : _sortFilterDisplay.displayOption.displaySubType.name;
             logDal('currentValue: $currentValue, groupValue: $groupValue');
             return RadioListTile<String>(
               value: currentValue,
@@ -1275,13 +1279,12 @@ class DisplayOption {
   final double gridHeight;
   final String? id;
 
-  DisplayOption copyWith({
-    DisplayType? displayType,
-    DisplaySubType? displaySubType,
-    int? gridCrossAxisCount,
-    double? gridHeight,
-    String? id
-  }) {
+  DisplayOption copyWith(
+      {DisplayType? displayType,
+      DisplaySubType? displaySubType,
+      int? gridCrossAxisCount,
+      double? gridHeight,
+      String? id}) {
     return DisplayOption(
       displayType: displayType ?? this.displayType,
       displaySubType: displaySubType ?? this.displaySubType,
@@ -1310,7 +1313,9 @@ class DisplayOption {
               ? 'compact'
               : displaySubType == DisplaySubType.spacious
                   ? 'spacious'
-                  : 'cover_only_grid',
+                  : displaySubType == DisplaySubType.custom
+                      ? 'custom'
+                      : 'cover_only_grid',
       'gridCrossAxisCount': gridCrossAxisCount,
       'gridHeight': gridHeight,
       'id': id,
@@ -1331,7 +1336,9 @@ class DisplayOption {
               ? DisplaySubType.compact
               : json['displaySubType'] == 'spacious'
                   ? DisplaySubType.spacious
-                  : DisplaySubType.cover_only_grid,
+                  : json['displaySubType'] == 'custom'
+                      ? DisplaySubType.custom
+                      : DisplaySubType.cover_only_grid,
       gridCrossAxisCount: json['gridCrossAxisCount'] ?? 2,
       gridHeight: json['gridHeight'] ?? 280.0,
       id: json['id'],

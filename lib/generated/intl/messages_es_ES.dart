@@ -302,6 +302,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Preferir vista de lista para la página de usuario"),
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "La página de usuario usa la vista de lista en lugar de la vista de cuadrícula"),
+        "Default_tab_selected_for_anime": MessageLookupByLibrary.simpleMessage(
+            "Pestaña predeterminada seleccionada para anime"),
+        "Default_tab_selected_for_anime_manga":
+            MessageLookupByLibrary.simpleMessage(
+                "Pestaña predeterminada seleccionada para anime/manga"),
+        "Default_tab_selected_for_manga": MessageLookupByLibrary.simpleMessage(
+            "Pestaña predeterminada seleccionada para manga"),
         "Delete": MessageLookupByLibrary.simpleMessage("Borrar"),
         "Delete_Profile":
             MessageLookupByLibrary.simpleMessage("Eliminar perfil"),
@@ -504,6 +511,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Helpful": MessageLookupByLibrary.simpleMessage("Útil"),
         "Hentai": MessageLookupByLibrary.simpleMessage("Hentai"),
         "Hiatus": MessageLookupByLibrary.simpleMessage("Hiato"),
+        "Hide": MessageLookupByLibrary.simpleMessage("Esconder"),
         "High": MessageLookupByLibrary.simpleMessage("High"),
         "High_Stakes_Game":
             MessageLookupByLibrary.simpleMessage("High_Stakes_Game"),
@@ -534,6 +542,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ídolos_femeninos"),
         "Idols_Male": MessageLookupByLibrary.simpleMessage("Idols_Masculino"),
         "If_You_Liked": MessageLookupByLibrary.simpleMessage("Si te gustó"),
+        "If_nothing_is_selected": MessageLookupByLibrary.simpleMessage(
+            "Si no se selecciona nada, se utilizará de forma predeterminada el último abierto."),
         "Image_Not_Selected": MessageLookupByLibrary.simpleMessage(
             "No seleccionó ninguna imagen."),
         "Image_Size_Too_Large": MessageLookupByLibrary.simpleMessage(

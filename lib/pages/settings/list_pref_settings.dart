@@ -33,8 +33,8 @@ class _ListPreferenceSettingsState extends State<ListPreferenceSettings> {
 
   Widget _defaultMangaTabSelected() {
     return OptionTile(
-        text: 'Default tab selected for manga',
-        desc: 'If nothing is selected, it will default to last opened one.',
+        text: S.current.Default_tab_selected_for_manga,
+        desc: S.current.If_nothing_is_selected,
         trailing: SelectButton(
           options: ['none', ...allMangaStatusMap.keys.toList()],
           displayValues: ['None', ...allMangaStatusMap.values.toList()],
@@ -53,8 +53,8 @@ class _ListPreferenceSettingsState extends State<ListPreferenceSettings> {
 
   Widget _defaultAnimeTabSelected() {
     return OptionTile(
-        text: 'Default tab selected for anime',
-        desc: 'If nothing is selected, it will default to last opened one.',
+        text: S.current.Default_tab_selected_for_anime,
+        desc: S.current.If_nothing_is_selected,
         trailing: SelectButton(
           options: ['none', ...allAnimeStatusMap.keys.toList()],
           displayValues: ['None', ...allAnimeStatusMap.values.toList()],
@@ -73,9 +73,9 @@ class _ListPreferenceSettingsState extends State<ListPreferenceSettings> {
 
   Widget _defaultTabSelected() {
     return OptionTile(
-        text: 'Default tab selected for anime/manga',
+        text: S.current.Default_tab_selected_for_anime_manga,
+        desc: S.current.If_nothing_is_selected,
         iconData: Icons.line_style,
-        desc: 'If nothing is selected, it will default to last opened one.',
         trailing: SelectButton(
           options: ['none', 'anime', 'manga'],
           displayValues: ['None', 'Anime', 'Manga'],

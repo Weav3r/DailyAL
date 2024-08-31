@@ -973,5 +973,10 @@
     "Should_be_aplhanumeric": "Alfasay\u0131sal olmal\u0131",
     "Enter_profile_name": "Profil ad\u0131n\u0131 girin",
     "Custom_view_for_anime": "Anime i\u00e7in \u00f6zel g\u00f6r\u00fcn\u00fcm",
-    "Custom_view_for_anime_desc": "Liste g\u00f6r\u00fcn\u00fcm\u00fc se\u00e7ildi\u011finde anime sekmesinin g\u00f6r\u00fcn\u00fcm\u00fcn\u00fc \u00f6zelle\u015ftirin."
+    "Custom_view_for_anime_desc": "Liste g\u00f6r\u00fcn\u00fcm\u00fc se\u00e7ildi\u011finde anime sekmesinin g\u00f6r\u00fcn\u00fcm\u00fcn\u00fc \u00f6zelle\u015ftirin.",
+    "Hide": "Saklamak",
+    "Default_tab_selected_for_manga": "Manga i\u00e7in se\u00e7ilen varsay\u0131lan sekme",
+    "Default_tab_selected_for_anime": "Anime i\u00e7in se\u00e7ilen varsay\u0131lan sekme",
+    "Default_tab_selected_for_anime_manga": "Anime/manga i\u00e7in se\u00e7ilen varsay\u0131lan sekme",
+    "If_nothing_is_selected": "Hi\u00e7bir \u015fey se\u00e7ilmezse, varsay\u0131lan olarak en son a\u00e7\u0131lana g\u00f6re ayarlanacakt\u0131r."
 }

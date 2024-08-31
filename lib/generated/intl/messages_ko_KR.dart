@@ -257,6 +257,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("사용자 페이지에 대한 목록 보기 선호"),
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "사용자 페이지는 그리드 보기 대신 목록 보기를 사용합니다."),
+        "Default_tab_selected_for_anime":
+            MessageLookupByLibrary.simpleMessage("애니메이션용으로 선택된 기본 탭"),
+        "Default_tab_selected_for_anime_manga":
+            MessageLookupByLibrary.simpleMessage("애니메이션/만화용으로 선택된 기본 탭"),
+        "Default_tab_selected_for_manga":
+            MessageLookupByLibrary.simpleMessage("만화용으로 선택된 기본 탭"),
         "Delete": MessageLookupByLibrary.simpleMessage("삭제"),
         "Delete_Profile": MessageLookupByLibrary.simpleMessage("프로필 삭제"),
         "Delete_from_List": MessageLookupByLibrary.simpleMessage("목록에서 삭제하십시오"),
@@ -436,6 +442,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Helpful": MessageLookupByLibrary.simpleMessage("도움이 되는"),
         "Hentai": MessageLookupByLibrary.simpleMessage("헨타이"),
         "Hiatus": MessageLookupByLibrary.simpleMessage("틈새"),
+        "Hide": MessageLookupByLibrary.simpleMessage("숨다"),
         "High": MessageLookupByLibrary.simpleMessage("높은"),
         "High_Stakes_Game":
             MessageLookupByLibrary.simpleMessage("High_Stakes_Game"),
@@ -460,6 +467,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Idols_Female": MessageLookupByLibrary.simpleMessage("아이돌_여자"),
         "Idols_Male": MessageLookupByLibrary.simpleMessage("아이돌_남자"),
         "If_You_Liked": MessageLookupByLibrary.simpleMessage("당신이 좋아했다면"),
+        "If_nothing_is_selected": MessageLookupByLibrary.simpleMessage(
+            "아무 것도 선택하지 않으면 마지막으로 열었던 항목이 기본값으로 설정됩니다."),
         "Image_Not_Selected":
             MessageLookupByLibrary.simpleMessage("이미지를 선택하지 않았습니다."),
         "Image_Size_Too_Large": MessageLookupByLibrary.simpleMessage(

@@ -288,6 +288,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Prefer list view for user page"),
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "User page uses list view instead of grid view"),
+        "Default_tab_selected_for_anime": MessageLookupByLibrary.simpleMessage(
+            "Default tab selected for anime"),
+        "Default_tab_selected_for_anime_manga":
+            MessageLookupByLibrary.simpleMessage(
+                "Default tab selected for anime/manga"),
+        "Default_tab_selected_for_manga": MessageLookupByLibrary.simpleMessage(
+            "Default tab selected for manga"),
         "Delete": MessageLookupByLibrary.simpleMessage("Delete"),
         "Delete_Profile":
             MessageLookupByLibrary.simpleMessage("Delete Profile"),
@@ -479,6 +486,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Helpful": MessageLookupByLibrary.simpleMessage("Helpful"),
         "Hentai": MessageLookupByLibrary.simpleMessage("Hentai"),
         "Hiatus": MessageLookupByLibrary.simpleMessage("Hiatus"),
+        "Hide": MessageLookupByLibrary.simpleMessage("Hide"),
         "High": MessageLookupByLibrary.simpleMessage("High"),
         "High_Stakes_Game":
             MessageLookupByLibrary.simpleMessage("High_Stakes_Game"),
@@ -508,6 +516,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Idols_Female": MessageLookupByLibrary.simpleMessage("Idols_Female"),
         "Idols_Male": MessageLookupByLibrary.simpleMessage("Idols_Male"),
         "If_You_Liked": MessageLookupByLibrary.simpleMessage("If you liked"),
+        "If_nothing_is_selected": MessageLookupByLibrary.simpleMessage(
+            "If nothing is selected, it will default to last opened one."),
         "Image_Not_Selected": MessageLookupByLibrary.simpleMessage(
             "You didn\'t select any image."),
         "Image_Size_Too_Large": MessageLookupByLibrary.simpleMessage(

@@ -169,8 +169,12 @@ class UserPreferences {
         showAnimeMangaBg = json['showAnimeMangaBg'] ?? showAnimeMangaBg;
       }
       if (json.containsKey('animeMangaPagePreferences')) {
-        _animeMangaPagePreferences = AnimeMangaPagePreferences.fromJson(
-            json['animeMangaPagePreferences']);
+        try {
+          _animeMangaPagePreferences = AnimeMangaPagePreferences.fromJson(
+              json['animeMangaPagePreferences']);
+        } catch (e) {
+          logDal(e);
+        }
       }
     }
     return json != null

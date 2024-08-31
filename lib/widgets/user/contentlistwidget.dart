@@ -24,6 +24,7 @@ import 'package:dailyanimelist/widgets/customfuture.dart';
 import 'package:dailyanimelist/widgets/featured/tagswidget.dart';
 import 'package:dailyanimelist/widgets/home/animecard.dart';
 import 'package:dailyanimelist/widgets/listsortfilter.dart';
+import 'package:dailyanimelist/widgets/user/customizedlist.dart';
 import 'package:dailyanimelist/widgets/web/c_webview.dart';
 import 'package:dal_commons/commons.dart';
 import 'package:dal_commons/dal_commons.dart';
@@ -271,6 +272,7 @@ Widget buildBaseNodePageItem(
   bool showTime = false,
   bool? showIndex,
   bool? showStatus,
+  String? id,
 }) {
   Widget fromItem(int index, BaseNode node, [HomePageTileSize? tileSize]) {
     if (node.content == null) {
@@ -292,6 +294,17 @@ Widget buildBaseNodePageItem(
     );
   }
 
+  if (displaySubType == DisplaySubType.custom) {
+    final allprops = user.pref.animeMangaPagePreferences.contentCardProps ?? [];
+    final props = allprops.firstWhereOrNull((element) => element.id == id);
+    if (props != null) {
+      return CustomizableFieldWidget(
+        props: props,
+        editMode: false,
+        node: item.rowItems.first,
+      );
+    }
+  }
   if (displayType == DisplayType.list_vert) {
     return fromItem(index, item.rowItems.first);
   } else {

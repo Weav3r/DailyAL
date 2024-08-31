@@ -285,6 +285,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "تفضل عرض القائمة لصفحة المستخدم"),
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "تستخدم صفحة المستخدم عرض القائمة بدلاً من عرض الشبكة"),
+        "Default_tab_selected_for_anime": MessageLookupByLibrary.simpleMessage(
+            "تم تحديد علامة التبويب الافتراضية للأنيمي"),
+        "Default_tab_selected_for_anime_manga":
+            MessageLookupByLibrary.simpleMessage(
+                "تم تحديد علامة التبويب الافتراضية للأنيمي/المانجا"),
+        "Default_tab_selected_for_manga": MessageLookupByLibrary.simpleMessage(
+            "تم تحديد علامة التبويب الافتراضية للمانجا"),
         "Delete": MessageLookupByLibrary.simpleMessage("حذف"),
         "Delete_Profile":
             MessageLookupByLibrary.simpleMessage("حذف الملف الشخصي"),
@@ -480,6 +487,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Helpful": MessageLookupByLibrary.simpleMessage("متعاون"),
         "Hentai": MessageLookupByLibrary.simpleMessage("هنتاي"),
         "Hiatus": MessageLookupByLibrary.simpleMessage("التوقف"),
+        "Hide": MessageLookupByLibrary.simpleMessage("يخفي"),
         "High": MessageLookupByLibrary.simpleMessage("عالي"),
         "High_Stakes_Game":
             MessageLookupByLibrary.simpleMessage("هاي_ستيكس_سم"),
@@ -508,6 +516,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Idols_Female": MessageLookupByLibrary.simpleMessage("الأصنام_الإناث"),
         "Idols_Male": MessageLookupByLibrary.simpleMessage("ايدولز_ذكور"),
         "If_You_Liked": MessageLookupByLibrary.simpleMessage("إذا حببت"),
+        "If_nothing_is_selected": MessageLookupByLibrary.simpleMessage(
+            "إذا لم يتم تحديد أي شيء، فسيتم تعيينه افتراضيًا على آخر ملف تم فتحه."),
         "Image_Not_Selected":
             MessageLookupByLibrary.simpleMessage("لم تحدد أي صورة."),
         "Image_Size_Too_Large": MessageLookupByLibrary.simpleMessage(

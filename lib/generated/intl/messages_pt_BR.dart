@@ -297,6 +297,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Preferir a visualização de lista para a página do usuário"),
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "A página do usuário usa o modo de exibição de lista em vez do modo de exibição de grade"),
+        "Default_tab_selected_for_anime": MessageLookupByLibrary.simpleMessage(
+            "Guia padrão selecionada para anime"),
+        "Default_tab_selected_for_anime_manga":
+            MessageLookupByLibrary.simpleMessage(
+                "Guia padrão selecionada para anime/mangá"),
+        "Default_tab_selected_for_manga": MessageLookupByLibrary.simpleMessage(
+            "Guia padrão selecionada para mangá"),
         "Delete": MessageLookupByLibrary.simpleMessage("Excluir"),
         "Delete_Profile":
             MessageLookupByLibrary.simpleMessage("Excluir perfil"),
@@ -499,6 +506,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Helpful": MessageLookupByLibrary.simpleMessage("Útil"),
         "Hentai": MessageLookupByLibrary.simpleMessage("Hentai"),
         "Hiatus": MessageLookupByLibrary.simpleMessage("Hiato"),
+        "Hide": MessageLookupByLibrary.simpleMessage("Esconder"),
         "High": MessageLookupByLibrary.simpleMessage("High"),
         "High_Stakes_Game":
             MessageLookupByLibrary.simpleMessage("High_Stakes_Game"),
@@ -528,6 +536,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Idols_Female": MessageLookupByLibrary.simpleMessage("Idols_Female"),
         "Idols_Male": MessageLookupByLibrary.simpleMessage("Idols_Male"),
         "If_You_Liked": MessageLookupByLibrary.simpleMessage("Se você gostou"),
+        "If_nothing_is_selected": MessageLookupByLibrary.simpleMessage(
+            "Se nada for selecionado, o padrão será o último aberto."),
         "Image_Not_Selected": MessageLookupByLibrary.simpleMessage(
             "Você não selecionou nenhuma imagem."),
         "Image_Size_Too_Large": MessageLookupByLibrary.simpleMessage(

@@ -108,10 +108,10 @@ class Position {
 
   static Position fromJson(Map<String, dynamic> json) {
     return Position(
-      top: json['top'] as double,
-      left: json['left'] as double,
-      right: json['right'] as double,
-      bottom: json['bottom'] as double,
+      top: json['top'] as double?,
+      left: json['left'] as double?,
+      right: json['right'] as double?,
+      bottom: json['bottom'] as double?,
     );
   }
 
@@ -159,12 +159,14 @@ class CustomizableField {
     String? title,
     String? description,
     Position? position,
+    bool? hidden,
   }) {
     return CustomizableField(
       type: type ?? this.type,
       title: title ?? this.title,
       description: description ?? this.description,
       position: position ?? this.position,
+      hidden: hidden ?? this.hidden,
     );
   }
 

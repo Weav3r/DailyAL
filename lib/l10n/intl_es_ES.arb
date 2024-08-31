@@ -976,5 +976,10 @@
     "Should_be_aplhanumeric": "debe ser alfanum\u00e9rico",
     "Enter_profile_name": "Introduce el nombre del perfil",
     "Custom_view_for_anime": "Vista personalizada para anime",
-    "Custom_view_for_anime_desc": "Personaliza la vista de la pesta\u00f1a anime cuando se selecciona la vista de lista."
+    "Custom_view_for_anime_desc": "Personaliza la vista de la pesta\u00f1a anime cuando se selecciona la vista de lista.",
+    "Hide": "Esconder",
+    "Default_tab_selected_for_manga": "Pesta\u00f1a predeterminada seleccionada para manga",
+    "Default_tab_selected_for_anime": "Pesta\u00f1a predeterminada seleccionada para anime",
+    "Default_tab_selected_for_anime_manga": "Pesta\u00f1a predeterminada seleccionada para anime/manga",
+    "If_nothing_is_selected": "Si no se selecciona nada, se utilizar\u00e1 de forma predeterminada el \u00faltimo abierto."
 }

@@ -1505,7 +1505,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
     switch (category) {
       case 'anime':
       case 'manga':
-        return SortFilterOptions.getDisplayOptions();
+        return SortFilterOptions.getDisplayOptions(category: category);
       default:
         return [];
     }

@@ -975,5 +975,10 @@
     "Should_be_aplhanumeric": "Doit \u00eatre alphanum\u00e9rique",
     "Enter_profile_name": "Entrez le nom du profil",
     "Custom_view_for_anime": "Vue personnalis\u00e9e pour l'anime",
-    "Custom_view_for_anime_desc": "Personnalisez la vue de l'onglet Anime lorsque la vue liste est s\u00e9lectionn\u00e9e."
+    "Custom_view_for_anime_desc": "Personnalisez la vue de l'onglet Anime lorsque la vue liste est s\u00e9lectionn\u00e9e.",
+    "Hide": "Cacher",
+    "Default_tab_selected_for_manga": "Onglet par d\u00e9faut s\u00e9lectionn\u00e9 pour le manga",
+    "Default_tab_selected_for_anime": "Onglet par d\u00e9faut s\u00e9lectionn\u00e9 pour l'anime",
+    "Default_tab_selected_for_anime_manga": "Onglet par d\u00e9faut s\u00e9lectionn\u00e9 pour l'anime/manga",
+    "If_nothing_is_selected": "Si rien n\u2019est s\u00e9lectionn\u00e9, il s\u2019agira par d\u00e9faut du dernier ouvert."
 }

@@ -105,7 +105,7 @@ class _WeeklySchedulePageState extends State<WeeklySchedulePage>
               filterOptions: _filterOptions,
               categories: [],
               displayOptions: [
-                ...SortFilterOptions.getDisplayOptions(),
+                ...SortFilterOptions.getDisplayOptions(category: 'anime'),
                 SelectDisplayOption(
                   name: S.current.Horizontal_List,
                   type: DisplayType.list_horiz,

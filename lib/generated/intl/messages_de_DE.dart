@@ -297,6 +297,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Listenansicht für Benutzerseite bevorzugen"),
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "Die Benutzerseite verwendet die Listenansicht anstelle der Rasteransicht"),
+        "Default_tab_selected_for_anime": MessageLookupByLibrary.simpleMessage(
+            "Standardregisterkarte für Anime ausgewählt"),
+        "Default_tab_selected_for_anime_manga":
+            MessageLookupByLibrary.simpleMessage(
+                "Standardregisterkarte für Anime/Manga ausgewählt"),
+        "Default_tab_selected_for_manga": MessageLookupByLibrary.simpleMessage(
+            "Standardregisterkarte für Manga ausgewählt"),
         "Delete": MessageLookupByLibrary.simpleMessage("Löschen"),
         "Delete_Profile":
             MessageLookupByLibrary.simpleMessage("Profil löschen"),
@@ -493,6 +500,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Helpful": MessageLookupByLibrary.simpleMessage("Hilfreich"),
         "Hentai": MessageLookupByLibrary.simpleMessage("Hentai"),
         "Hiatus": MessageLookupByLibrary.simpleMessage("Pause"),
+        "Hide": MessageLookupByLibrary.simpleMessage("Verstecken"),
         "High": MessageLookupByLibrary.simpleMessage("Hoch"),
         "High_Stakes_Game":
             MessageLookupByLibrary.simpleMessage("High_Stakes_Game"),
@@ -523,6 +531,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Idols_Male": MessageLookupByLibrary.simpleMessage("Idole_Männlich"),
         "If_You_Liked":
             MessageLookupByLibrary.simpleMessage("Falls es dir gefallen hat"),
+        "If_nothing_is_selected": MessageLookupByLibrary.simpleMessage(
+            "Wenn nichts ausgewählt ist, wird standardmäßig die zuletzt geöffnete Seite verwendet."),
         "Image_Not_Selected": MessageLookupByLibrary.simpleMessage(
             "Sie haben kein Bild ausgewählt."),
         "Image_Size_Too_Large": MessageLookupByLibrary.simpleMessage(

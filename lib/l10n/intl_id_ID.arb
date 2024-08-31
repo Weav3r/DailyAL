@@ -975,5 +975,10 @@
     "Should_be_aplhanumeric": "Harus alfanumerik",
     "Enter_profile_name": "Masukkan nama profil",
     "Custom_view_for_anime": "Tampilan khusus untuk anime",
-    "Custom_view_for_anime_desc": "Sesuaikan tampilan tab anime saat tampilan daftar dipilih."
+    "Custom_view_for_anime_desc": "Sesuaikan tampilan tab anime saat tampilan daftar dipilih.",
+    "Hide": "Bersembunyi",
+    "Default_tab_selected_for_manga": "Tab default dipilih untuk manga",
+    "Default_tab_selected_for_anime": "Tab default dipilih untuk anime",
+    "Default_tab_selected_for_anime_manga": "Tab default dipilih untuk anime/manga",
+    "If_nothing_is_selected": "Jika tidak ada yang dipilih, maka defaultnya adalah yang terakhir dibuka."
 }

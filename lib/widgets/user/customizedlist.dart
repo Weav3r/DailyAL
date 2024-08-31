@@ -76,8 +76,8 @@ class _ContentCustomizerState extends State<ContentCustomizer> {
               title: Text(editMode
                   ? S.current.Edit_Display_Profile
                   : S.current.Add_display_profile),
-              contentPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 20),
-              insetPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 25),
+              contentPadding: EdgeInsets.symmetric(horizontal: 5, vertical: 20),
+              insetPadding: EdgeInsets.symmetric(horizontal: 15, vertical: 25),
               content: CustomizableFieldWidget(
                 editMode: true,
                 onUpdated: (value) {
@@ -153,12 +153,14 @@ class CustomizableFieldWidget extends StatefulWidget {
   final ContentCardProps props;
   final bool editMode;
   final ValueChanged<ContentCardProps>? onUpdated;
+  final bool updateCacheOnEdit;
   const CustomizableFieldWidget({
     super.key,
     this.editMode = false,
     required this.props,
     this.node,
     this.onUpdated,
+    this.updateCacheOnEdit = false,
   });
 
   @override
@@ -182,8 +184,8 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
       _dynContent?.content?.myListStatus = myListStatus;
     }
 
-    showContentEditSheet(context, 'anime', _dynContent, updateCache: false,
-        onListStatusChange: (status) {
+    showContentEditSheet(context, 'anime', _dynContent,
+        updateCache: widget.updateCacheOnEdit, onListStatusChange: (status) {
       if (mounted && status != null)
         setState(() {
           myListStatus = status;
@@ -237,6 +239,7 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
           ..._displayProfileName(),
           Container(
             decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
               border: Border.all(
                 color: Theme.of(context).dividerColor,
                 width: 0.5,
@@ -304,6 +307,20 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
+                IconButton.filledTonal(
+                  tooltip: S.current.Hide,
+                  onPressed: () {
+                    setState(() {
+                      final field = _fieldValues[selectedField!]!;
+                      _fieldValues[selectedField!] = field.copyWith(
+                        hidden: !field.hidden,
+                      );
+                    });
+                  },
+                  icon: _fieldValues[selectedField!]!.hidden
+                      ? Icon(Icons.visibility_off)
+                      : Icon(Icons.visibility),
+                ),
                 ShadowButton(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   onPressed: () => _moveToFront(),
@@ -312,7 +329,7 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
                 ShadowButton(
                   padding: EdgeInsets.symmetric(horizontal: 10),
                   onPressed: () => _moveToBack(),
-                  child: Text(S.current.Move_to_front),
+                  child: Text(S.current.Move_to_back),
                 ),
               ],
             )
@@ -541,7 +558,7 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
     }
     return title(
       '(${userCountFormat.format(node!.numListUsers)})',
-      fontSize: 9,
+      fontSize: 11,
       opacity: .7,
     );
   }

@@ -971,6 +971,11 @@
     "Should_be_aplhanumeric": "Should be alphanumeric",
     "Enter_profile_name": "Enter profile name",
     "Custom_view_for_anime": "Custom view for anime",
+    "Hide": "Hide",
     "Custom_view_for_anime_desc": "Customize the view for anime tab when list view is selected.",
+    "Default_tab_selected_for_manga": "Default tab selected for manga",
+    "Default_tab_selected_for_anime": "Default tab selected for anime",
+    "Default_tab_selected_for_anime_manga": "Default tab selected for anime/manga",
+    "If_nothing_is_selected": "If nothing is selected, it will default to last opened one.",
     "AnimeCalendar": "Anime Calendar"
 }

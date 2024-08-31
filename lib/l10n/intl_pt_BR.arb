@@ -976,5 +976,10 @@
     "Should_be_aplhanumeric": "Deve ser alfanum\u00e9rico",
     "Enter_profile_name": "Digite o nome do perfil",
     "Custom_view_for_anime": "Visualiza\u00e7\u00e3o personalizada para anime",
-    "Custom_view_for_anime_desc": "Personalize a visualiza\u00e7\u00e3o da guia anime quando a visualiza\u00e7\u00e3o de lista for selecionada."
+    "Custom_view_for_anime_desc": "Personalize a visualiza\u00e7\u00e3o da guia anime quando a visualiza\u00e7\u00e3o de lista for selecionada.",
+    "Hide": "Esconder",
+    "Default_tab_selected_for_manga": "Guia padr\u00e3o selecionada para mang\u00e1",
+    "Default_tab_selected_for_anime": "Guia padr\u00e3o selecionada para anime",
+    "Default_tab_selected_for_anime_manga": "Guia padr\u00e3o selecionada para anime/mang\u00e1",
+    "If_nothing_is_selected": "Se nada for selecionado, o padr\u00e3o ser\u00e1 o \u00faltimo aberto."
 }

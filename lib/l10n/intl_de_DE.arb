@@ -976,5 +976,10 @@
     "Should_be_aplhanumeric": "Sollte alphanumerisch sein",
     "Enter_profile_name": "Geben Sie den Profilnamen ein",
     "Custom_view_for_anime": "Benutzerdefinierte Ansicht f\u00fcr Anime",
-    "Custom_view_for_anime_desc": "Passen Sie die Ansicht f\u00fcr die Registerkarte \u201eAnime\u201c an, wenn die Listenansicht ausgew\u00e4hlt ist."
+    "Custom_view_for_anime_desc": "Passen Sie die Ansicht f\u00fcr die Registerkarte \u201eAnime\u201c an, wenn die Listenansicht ausgew\u00e4hlt ist.",
+    "Hide": "Verstecken",
+    "Default_tab_selected_for_manga": "Standardregisterkarte f\u00fcr Manga ausgew\u00e4hlt",
+    "Default_tab_selected_for_anime": "Standardregisterkarte f\u00fcr Anime ausgew\u00e4hlt",
+    "Default_tab_selected_for_anime_manga": "Standardregisterkarte f\u00fcr Anime/Manga ausgew\u00e4hlt",
+    "If_nothing_is_selected": "Wenn nichts ausgew\u00e4hlt ist, wird standardm\u00e4\u00dfig die zuletzt ge\u00f6ffnete Seite verwendet."
 }

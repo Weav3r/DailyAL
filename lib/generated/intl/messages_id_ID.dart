@@ -292,6 +292,13 @@ class MessageLookup extends MessageLookupByLibrary {
             "Lebih suka tampilan daftar untuk halaman pengguna"),
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "Halaman pengguna menggunakan tampilan daftar alih-alih tampilan kisi"),
+        "Default_tab_selected_for_anime": MessageLookupByLibrary.simpleMessage(
+            "Tab default dipilih untuk anime"),
+        "Default_tab_selected_for_anime_manga":
+            MessageLookupByLibrary.simpleMessage(
+                "Tab default dipilih untuk anime/manga"),
+        "Default_tab_selected_for_manga": MessageLookupByLibrary.simpleMessage(
+            "Tab default dipilih untuk manga"),
         "Delete": MessageLookupByLibrary.simpleMessage("Menghapus"),
         "Delete_Profile": MessageLookupByLibrary.simpleMessage("Hapus Profil"),
         "Delete_from_List":
@@ -488,6 +495,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Helpful": MessageLookupByLibrary.simpleMessage("Bermanfaat"),
         "Hentai": MessageLookupByLibrary.simpleMessage("Hentai."),
         "Hiatus": MessageLookupByLibrary.simpleMessage("Hiatus"),
+        "Hide": MessageLookupByLibrary.simpleMessage("Bersembunyi"),
         "High": MessageLookupByLibrary.simpleMessage("Tinggi"),
         "High_Stakes_Game":
             MessageLookupByLibrary.simpleMessage("High_Stakes_Game"),
@@ -517,6 +525,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Idols_Female": MessageLookupByLibrary.simpleMessage("Idola_Perempuan"),
         "Idols_Male": MessageLookupByLibrary.simpleMessage("Idola_Pria"),
         "If_You_Liked": MessageLookupByLibrary.simpleMessage("Jika Anda suka"),
+        "If_nothing_is_selected": MessageLookupByLibrary.simpleMessage(
+            "Jika tidak ada yang dipilih, maka defaultnya adalah yang terakhir dibuka."),
         "Image_Not_Selected": MessageLookupByLibrary.simpleMessage(
             "Anda tidak memilih gambar apa pun."),
         "Image_Size_Too_Large": MessageLookupByLibrary.simpleMessage(

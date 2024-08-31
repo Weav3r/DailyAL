@@ -9760,11 +9760,61 @@ class S {
     );
   }
 
+  /// `Hide`
+  String get Hide {
+    return Intl.message(
+      'Hide',
+      name: 'Hide',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Customize the view for anime tab when list view is selected.`
   String get Custom_view_for_anime_desc {
     return Intl.message(
       'Customize the view for anime tab when list view is selected.',
       name: 'Custom_view_for_anime_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Default tab selected for manga`
+  String get Default_tab_selected_for_manga {
+    return Intl.message(
+      'Default tab selected for manga',
+      name: 'Default_tab_selected_for_manga',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Default tab selected for anime`
+  String get Default_tab_selected_for_anime {
+    return Intl.message(
+      'Default tab selected for anime',
+      name: 'Default_tab_selected_for_anime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Default tab selected for anime/manga`
+  String get Default_tab_selected_for_anime_manga {
+    return Intl.message(
+      'Default tab selected for anime/manga',
+      name: 'Default_tab_selected_for_anime_manga',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If nothing is selected, it will default to last opened one.`
+  String get If_nothing_is_selected {
+    return Intl.message(
+      'If nothing is selected, it will default to last opened one.',
+      name: 'If_nothing_is_selected',
       desc: '',
       args: [],
     );
