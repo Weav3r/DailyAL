@@ -549,6 +549,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Light Novel Sales"),
         "Light_Novels": MessageLookupByLibrary.simpleMessage("Light Novels"),
         "List": MessageLookupByLibrary.simpleMessage("List"),
+        "List_preferences":
+            MessageLookupByLibrary.simpleMessage("List Preferences"),
+        "List_preferences_desc": MessageLookupByLibrary.simpleMessage(
+            "Customize your anime/manga list view"),
         "Live": MessageLookupByLibrary.simpleMessage("Live"),
         "Live_Action": MessageLookupByLibrary.simpleMessage("Live Action"),
         "Load_More": MessageLookupByLibrary.simpleMessage("Load More"),

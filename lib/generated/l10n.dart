@@ -9560,6 +9560,26 @@ class S {
     );
   }
 
+  /// `List Preferences`
+  String get List_preferences {
+    return Intl.message(
+      'List Preferences',
+      name: 'List_preferences',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Customize your anime/manga list view`
+  String get List_preferences_desc {
+    return Intl.message(
+      'Customize your anime/manga list view',
+      name: 'List_preferences_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Anime Calendar`
   String get AnimeCalendar {
     return Intl.message(

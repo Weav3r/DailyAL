@@ -951,5 +951,7 @@
     "Generating_Review_Summary": "Generating Review Summary",
     "Generating": "Generating",
     "Review_summary": "View AI generated summary of the all reviews",
+    "List_preferences": "List Preferences",
+    "List_preferences_desc": "Customize your anime/manga list view",
     "AnimeCalendar": "Anime Calendar"
 }

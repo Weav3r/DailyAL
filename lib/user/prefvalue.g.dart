@@ -11,7 +11,7 @@ PrefValue _$PrefValueFromJson(Map<String, dynamic> json) => PrefValue(
           $enumDecodeNullable(_$RankingTypeEnumMap, json['rankingType']),
       seasonType: $enumDecodeNullable(_$SeasonTypeEnumMap, json['seasonType']),
       title: json['title'] as String? ?? "No Title",
-      year: json['year'] as int?,
+      year: (json['year'] as num?)?.toInt(),
       mangaRanking:
           $enumDecodeNullable(_$MangaRankingEnumMap, json['mangaRanking']),
       boardName: json['boardName'] as String?,

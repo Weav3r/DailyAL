@@ -10,12 +10,30 @@ class AnimeMangaPagePreferences {
   List<AnimeMangaTabPreference> animeTabs;
   List<AnimeMangaTabPreference> mangaTabs;
   TimezonePref timezonePref;
+  String? defaultTab;
+  String? defaultAnimeTab;
+  String? defaultMangaTab;
 
   AnimeMangaPagePreferences({
     required this.animeTabs,
     required this.mangaTabs,
     this.timezonePref = TimezonePref.local,
+    this.defaultTab,
+    this.defaultAnimeTab,
+    this.defaultMangaTab,
   });
+
+  String get defaultTabSelected {
+    return defaultTab ?? 'none';
+  }
+
+  String get defaultAnimeTabSelected {
+    return defaultAnimeTab ?? 'none';
+  }
+
+  String get defaultMangaTabSelected {
+    return defaultMangaTab ?? 'none';
+  }
 
   factory AnimeMangaPagePreferences.defaultObject() {
     return AnimeMangaPagePreferences(

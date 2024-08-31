@@ -20,6 +20,9 @@ AnimeMangaPagePreferences _$AnimeMangaPagePreferencesFromJson(
       timezonePref:
           $enumDecodeNullable(_$TimezonePrefEnumMap, json['timezonePref']) ??
               TimezonePref.local,
+      defaultTab: json['defaultTab'] as String?,
+      defaultAnimeTab: json['defaultAnimeTab'] as String?,
+      defaultMangaTab: json['defaultMangaTab'] as String?,
     );
 
 Map<String, dynamic> _$AnimeMangaPagePreferencesToJson(
@@ -28,6 +31,9 @@ Map<String, dynamic> _$AnimeMangaPagePreferencesToJson(
       'animeTabs': instance.animeTabs,
       'mangaTabs': instance.mangaTabs,
       'timezonePref': _$TimezonePrefEnumMap[instance.timezonePref]!,
+      'defaultTab': instance.defaultTab,
+      'defaultAnimeTab': instance.defaultAnimeTab,
+      'defaultMangaTab': instance.defaultMangaTab,
     };
 
 const _$TimezonePrefEnumMap = {

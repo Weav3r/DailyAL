@@ -290,9 +290,28 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
             .instance
             .getValueForService('userBuilder', 'preference-$username') ??
         '{}'));
-    if (_userPagePref.tabIndex == null || _userPagePref.category == null) {
-      _userPagePref = _UserPagePref(tabIndex: 0, category: "anime");
+
+    int _tabIndex = _userPagePref.tabIndex ?? 0;
+    String _category = _userPagePref.category ?? 'anime';
+
+    if (username.equals("@me")) {
+      var pref = user.pref.animeMangaPagePreferences;
+      if (pref.defaultTabSelected.notEquals('none')) {
+        _category = pref.defaultTabSelected;
+      }
+      if (pref.defaultAnimeTabSelected.notEquals('none') &&
+          _category.equals('anime')) {
+        _tabIndex = _allCategoryHeaders(_category)
+            .indexOf(pref.defaultAnimeTabSelected);
+      } else if (pref.defaultMangaTabSelected.notEquals('none') &&
+          _category.equals('manga')) {
+        _tabIndex = _allCategoryHeaders(_category)
+            .indexOf(pref.defaultMangaTabSelected);
+      }
     }
+
+    _userPagePref = _UserPagePref(
+        tabIndex: _tabIndex == -1 ? 0 : _tabIndex, category: _category);
   }
 
   void _setTabIndexInCache(int index) {
@@ -452,6 +471,13 @@ class _UserPageState extends State<UserPage> with TickerProviderStateMixin {
         "all",
         ...(category.equals("anime") ? myAnimeStatusMap : myMangaStatusMap).keys
       ];
+
+  List<String> _allCategoryHeaders(String c) {
+    return [
+      "all",
+      ...(c.equals("anime") ? myAnimeStatusMap : myMangaStatusMap).keys
+    ];
+  }
 
   List<String> displayHeaders(List<int?> data) => [
         ...(category.equals("anime") ? allAnimeStatusMap : allMangaStatusMap)
