@@ -4,6 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:collection/collection.dart';
 import 'package:dailyanimelist/api/auth/auth.dart';
 import 'package:dailyanimelist/api/dalapi.dart';
+import 'package:dailyanimelist/cache/cachemanager.dart';
 import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
 import 'package:dailyanimelist/screens/contentdetailedscreen.dart';
@@ -780,14 +781,29 @@ class _ReviewGeneratedSummaryState extends State<ReviewGeneratedSummary> {
   }
 
   Widget _buildIcon() {
-    return AvatarWidget(
-      url: 'assets/images/gemini.png',
-      width: 30,
-      height: 30,
-      onLongPress: _onIconTap,
-      isNetworkImage: false,
-      onTap: _onIconTap,
+    final toolTipButton = ToolTipButton(
+      message: S.current.Review_summary,
+      child: AvatarWidget(
+        url: 'assets/images/gemini.png',
+        width: 30,
+        height: 30,
+        onLongPress: _onIconTap,
+        isNetworkImage: false,
+        onTap: _onIconTap,
+      ),
     );
+    _showTooltip(toolTipButton);
+    return toolTipButton;
+  }
+
+  void _showTooltip(ToolTipButton toolTipButton) async {
+    if (await CacheManager.instance.isFirstTime('review_summary')) {
+      Future.delayed(const Duration(milliseconds: 1000), () {
+        toolTipButton.showToolTip();
+      });
+    } else {
+      CacheManager.instance.setFirstTime('review_summary');
+    }
   }
 
   void _onIconTap() {

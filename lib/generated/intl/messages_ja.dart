@@ -811,6 +811,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review_Summary": MessageLookupByLibrary.simpleMessage("レビューの概要"),
         "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
             "レビュー評決は以下のレビューを使用して AI によって生成されており、正確ではない可能性があります。詳細についてはレビューをお読みください。"),
+        "Review_summary":
+            MessageLookupByLibrary.simpleMessage("AI が生成したすべてのレビューの概要を表示"),
         "Reviews": MessageLookupByLibrary.simpleMessage("レビュー"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("再ウォッチ"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("再ウォッチング"),

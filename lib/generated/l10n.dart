@@ -9550,6 +9550,16 @@ class S {
     );
   }
 
+  /// `View AI generated summary of the all reviews`
+  String get Review_summary {
+    return Intl.message(
+      'View AI generated summary of the all reviews',
+      name: 'Review_summary',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Anime Calendar`
   String get AnimeCalendar {
     return Intl.message(

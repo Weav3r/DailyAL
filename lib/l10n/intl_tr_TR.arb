@@ -951,5 +951,6 @@
     "Verdict": "Karar",
     "Review_Summary_Desc": "\u0130nceleme Karar\u0131 yapay zeka taraf\u0131ndan a\u015fa\u011f\u0131daki incelemeler kullan\u0131larak olu\u015fturulur ve do\u011fru olmayabilir. Daha fazla bilgi i\u00e7in l\u00fctfen yorumlar\u0131 okuyun.",
     "Generating_Review_Summary": "\u0130nceleme \u00d6zeti Olu\u015fturuluyor",
-    "Generating": "\u00dcretiliyor"
+    "Generating": "\u00dcretiliyor",
+    "Review_summary": "T\u00fcm incelemelerin yapay zeka taraf\u0131ndan olu\u015fturulan \u00f6zetini g\u00f6r\u00fcnt\u00fcleyin"
 }

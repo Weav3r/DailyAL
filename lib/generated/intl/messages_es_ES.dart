@@ -945,6 +945,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Resumen de revisión"),
         "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
             "El veredicto de revisión lo genera AI utilizando las siguientes revisiones y puede no ser exacto. Lea las reseñas para obtener más información."),
+        "Review_summary": MessageLookupByLibrary.simpleMessage(
+            "Ver el resumen generado por IA de todas las reseñas"),
         "Reviews": MessageLookupByLibrary.simpleMessage("Comentarios"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("Revestidor"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("Revestimiento"),

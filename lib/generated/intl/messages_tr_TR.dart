@@ -911,6 +911,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("İnceleme Özeti"),
         "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
             "İnceleme Kararı yapay zeka tarafından aşağıdaki incelemeler kullanılarak oluşturulur ve doğru olmayabilir. Daha fazla bilgi için lütfen yorumları okuyun."),
+        "Review_summary": MessageLookupByLibrary.simpleMessage(
+            "Tüm incelemelerin yapay zeka tarafından oluşturulan özetini görüntüleyin"),
         "Reviews": MessageLookupByLibrary.simpleMessage("Yorumlar"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("Tekrar izle"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("Tekrar izliyorum"),

@@ -917,6 +917,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Ringkasan Tinjauan"),
         "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
             "Putusan Tinjauan dibuat oleh AI menggunakan ulasan berikut dan mungkin tidak akurat. Silakan baca ulasan untuk informasi lebih lanjut."),
+        "Review_summary": MessageLookupByLibrary.simpleMessage(
+            "Lihat ringkasan semua ulasan yang dihasilkan AI"),
         "Reviews": MessageLookupByLibrary.simpleMessage("Ulasan"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("Rewatch."),
         "Rewatching": MessageLookupByLibrary.simpleMessage("Rewatching."),

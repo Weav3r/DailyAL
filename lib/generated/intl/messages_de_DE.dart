@@ -929,6 +929,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Zusammenfassung der Rezension"),
         "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
             "Das Bewertungsurteil wird von KI anhand der folgenden Bewertungen erstellt und ist möglicherweise nicht korrekt. Für weitere Informationen lesen Sie bitte die Bewertungen."),
+        "Review_summary": MessageLookupByLibrary.simpleMessage(
+            "Sehen Sie sich die von der KI generierte Zusammenfassung aller Bewertungen an"),
         "Reviews": MessageLookupByLibrary.simpleMessage("Rezensionen"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("Wiederverwatschen"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("Wiederverwinternd"),

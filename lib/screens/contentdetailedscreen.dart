@@ -532,6 +532,8 @@ class _ContentDetailedScreenState extends State<ContentDetailedScreen>
                   horizPadding: horizPadding,
                   category: 'manga',
                 ),
+                additionalWidget: ReviewGeneratedSummary(
+                    reviews: animeDetailedHtml!.animeReviewList!),
                 onViewAll: _reviewsShowAll,
               )),
       TabType.Recommendations => _nullIf(

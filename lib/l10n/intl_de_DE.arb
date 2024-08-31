@@ -954,5 +954,6 @@
     "Verdict": "Urteil",
     "Review_Summary_Desc": "Das Bewertungsurteil wird von KI anhand der folgenden Bewertungen erstellt und ist m\u00f6glicherweise nicht korrekt. F\u00fcr weitere Informationen lesen Sie bitte die Bewertungen.",
     "Generating_Review_Summary": "Zusammenfassung der Rezension erstellen",
-    "Generating": "Generieren"
+    "Generating": "Generieren",
+    "Review_summary": "Sehen Sie sich die von der KI generierte Zusammenfassung aller Bewertungen an"
 }

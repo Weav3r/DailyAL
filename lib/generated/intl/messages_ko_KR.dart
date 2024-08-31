@@ -815,6 +815,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review_Summary": MessageLookupByLibrary.simpleMessage("검토 요약"),
         "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
             "리뷰 평결은 다음 리뷰를 사용하여 AI에 의해 생성되므로 정확하지 않을 수 있습니다. 자세한 내용은 리뷰를 읽어보시기 바랍니다."),
+        "Review_summary":
+            MessageLookupByLibrary.simpleMessage("AI가 생성한 모든 리뷰 요약 보기"),
         "Reviews": MessageLookupByLibrary.simpleMessage("리뷰"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("다시 늘어납니다"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("재구성"),

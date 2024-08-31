@@ -903,6 +903,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review_Summary": MessageLookupByLibrary.simpleMessage("ملخص المراجعة"),
         "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
             "يتم إنشاء حكم المراجعة بواسطة الذكاء الاصطناعي باستخدام المراجعات التالية وقد لا يكون دقيقًا. يرجى قراءة التقييمات لمزيد من المعلومات."),
+        "Review_summary": MessageLookupByLibrary.simpleMessage(
+            "عرض ملخص تم إنشاؤه بواسطة الذكاء الاصطناعي لجميع المراجعات"),
         "Reviews": MessageLookupByLibrary.simpleMessage("تقييم"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("إعادف"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("إخراج"),

@@ -954,5 +954,6 @@
     "Verdict": "Veredicto",
     "Review_Summary_Desc": "El veredicto de revisi\u00f3n lo genera AI utilizando las siguientes revisiones y puede no ser exacto. Lea las rese\u00f1as para obtener m\u00e1s informaci\u00f3n.",
     "Generating_Review_Summary": "Generando resumen de revisi\u00f3n",
-    "Generating": "generando"
+    "Generating": "generando",
+    "Review_summary": "Ver el resumen generado por IA de todas las rese\u00f1as"
 }

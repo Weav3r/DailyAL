@@ -926,6 +926,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review_Summary": MessageLookupByLibrary.simpleMessage("Обзор обзора"),
         "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
             "Вердикт обзора генерируется искусственным интеллектом на основе следующих обзоров и может быть неточным. Пожалуйста, прочитайте отзывы для получения дополнительной информации."),
+        "Review_summary": MessageLookupByLibrary.simpleMessage(
+            "Просмотреть сводку всех отзывов, сгенерированную искусственным интеллектом."),
         "Reviews": MessageLookupByLibrary.simpleMessage("Отзывы"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("Пересмотреть"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("Пересматриваю"),

@@ -953,5 +953,6 @@
     "Verdict": "Dakwaan",
     "Review_Summary_Desc": "Putusan Tinjauan dibuat oleh AI menggunakan ulasan berikut dan mungkin tidak akurat. Silakan baca ulasan untuk informasi lebih lanjut.",
     "Generating_Review_Summary": "Menghasilkan Ringkasan Tinjauan",
-    "Generating": "Menghasilkan"
+    "Generating": "Menghasilkan",
+    "Review_summary": "Lihat ringkasan semua ulasan yang dihasilkan AI"
 }
