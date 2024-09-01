@@ -26,6 +26,21 @@
 
 Explore the extensive MyAnimeList database to discover your favorite anime and manga. Engage in forums with millions of discussions at your fingertips. Access detailed reviews and receive numerous recommendations for all anime and manga on MyAnimeList.
 
+
+### Screenshots
+
+<div style="overflow-x: scroll; white-space: nowrap;">
+    <img src="/metadata/en-US/images/phoneScreenshots/Screenshot_1.png" alt="Screenshot1" width="200"/>
+    <img src="/metadata/en-US/images/phoneScreenshots/Screenshot_2.png" alt="Screenshot2" width="200"/>
+    <img src="/metadata/en-US/images/phoneScreenshots/Screenshot_3.png" alt="Screenshot3" width="200"/>
+    <img src="/metadata/en-US/images/phoneScreenshots/Screenshot_4.png" alt="Screenshot4" width="200"/>
+    <img src="/metadata/en-US/images/phoneScreenshots/Screenshot_5.png" alt="Screenshot5" width="200"/>
+    <img src="/metadata/en-US/images/phoneScreenshots/Screenshot_6.png" alt="Screenshot6" width="200"/>
+    <img src="/metadata/en-US/images/phoneScreenshots/Screenshot_7.png" alt="Screenshot7" width="200"/>
+    <img src="/metadata/en-US/images/phoneScreenshots/Screenshot_8.png" alt="Screenshot8" width="200"/>
+</div>
+
+
 ### ⚡️ Anime & Manga ⚡️
 
 - Discover Seasonal Anime, Top Upcoming Anime, Most Popular Anime, Anime Ranking Lists, All-time Favorites, and more.
