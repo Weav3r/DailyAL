@@ -6,6 +6,7 @@ import 'package:dailyanimelist/enums.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
 import 'package:dailyanimelist/screens/homescreen.dart';
 import 'package:dailyanimelist/user/user.dart';
+import 'package:dailyanimelist/util/error/error_reporting.dart';
 import 'package:dailyanimelist/widgets/custombutton.dart';
 import 'package:dailyanimelist/widgets/loading/expandedwidget.dart';
 import 'package:dailyanimelist/widgets/search/filtermodal.dart';
@@ -436,7 +437,12 @@ class _ContentEditWidgetState extends State<ContentEditWidget> {
                 : contentDetailed?.myListStatus?.numVolumesRead?.toString()) ??
             '';
       }
-    } catch (e) {}
+    } catch (e) {
+      logDal(e);
+      if (e is Error) {
+        ErrorReporting.reportError(e);
+      }
+    }
   }
 
   updateAdvancedStatus(

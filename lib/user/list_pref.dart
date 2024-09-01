@@ -198,6 +198,7 @@ class CustomizableField {
       title: json['title'] as String,
       description: json['description'] as String,
       position: Position.fromJson(json['position']),
+      hidden: json['hidden'] as bool? ?? false,
     );
   }
 
@@ -207,6 +208,7 @@ class CustomizableField {
       'title': title,
       'description': description,
       'position': position.toJson(),
+      'hidden': hidden,
     };
   }
 }
