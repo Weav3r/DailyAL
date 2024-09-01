@@ -99,11 +99,6 @@ class _SettingsPageState extends State<SettingsPage> {
             gotoPage(context: context, newPage: BackUpAndRestorePage());
           }),
       OptionTile(
-          text: S.current.User_Preferences,
-          iconData: Icons.room_preferences,
-          desc: S.current.User_Preferences_desc,
-          onPressed: () => _openUserPreferences(context)),
-      OptionTile(
           text: S.current.Language_settings,
           iconData: Icons.language,
           desc: S.current.Language_settings_desc_v2,
