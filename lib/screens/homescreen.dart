@@ -49,6 +49,7 @@ class HomeScreen extends StatefulWidget {
   const HomeScreen(
       {Key? key, this.pageIndex, this.notifNode, this.uri, this.loadWidget})
       : super(key: key);
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -129,7 +130,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
 
   Future<void> _checkForUpdates() async {
     try {
-      if ('fdroid'.equals(CredMal.buildVariant)) {
+      if (BuildVariant.fdroid == CredMal.buildVariant) {
         return;
       }
       final tag = await getCurrentTag();

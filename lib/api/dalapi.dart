@@ -59,7 +59,7 @@ class DalApi {
 
   Future<Servers> _getDalConfigFuture() async {
     final refUrl =
-        '${CredMal.appConfigUrl}/${CredMal.buildVariant}/serverConfigV3${_debugMode ? 'Dev' : ''}.json';
+        '${CredMal.appConfigUrl}/${CredMal.buildVariant.name}/serverConfigV3${_debugMode ? 'Dev' : ''}.json';
     return Servers.fromJson(
       jsonDecode(await _getConfig(refUrl)),
     );

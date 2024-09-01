@@ -1,3 +1,4 @@
+import 'package:dal_commons/commons.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 class CredMal {
@@ -70,8 +71,8 @@ class CredMal {
     return '${environment['APP_CONFIG_URL']}';
   }
 
-  static String get buildVariant {
-    return (environment['BUILD_VARIANT'] as String?) ?? 'github';
+  static BuildVariant get buildVariant {
+    return BuildVariant.fromString(environment['BUILD_VARIANT']);
   }
 
   static String get errorReportingUrl {
