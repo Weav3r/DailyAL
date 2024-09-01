@@ -290,8 +290,8 @@ CustomizableField _totalEpsField() {
     title: 'Total Episodes',
     description: 'Total number of episodes',
     position: Position(
-      top: 70,
-      right: 15,
+      top: 5,
+      left: 35,
     ),
   );
 }

@@ -698,18 +698,23 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
     return _episodePill(epsDifference, Colors.red[700]);
   }
 
-  Container _episodePill(int epsDifference, Color? color) {
+  Widget _episodePill(int epsDifference, Color? color) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+      height: 17.0,
+      width: 30.0,
+      padding: const EdgeInsets.symmetric(horizontal: 3, vertical: 1),
       decoration: BoxDecoration(
         color: color,
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(2),
       ),
-      child: Text(
-        '${NumberFormat.compact().format(epsDifference)}',
-        style: TextStyle(
-          fontSize: 10,
-          color: Colors.white,
+      child: Center(
+        child: AutoSizeText(
+          '${NumberFormat.compact().format(epsDifference)}',
+          minFontSize: 7,
+          maxFontSize: 10,
+          style: TextStyle(
+            color: Colors.white,
+          ),
         ),
       ),
     );
@@ -841,11 +846,9 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
         episodes = episode - 1;
       }
     }
-    return title(
-      '${episodes} Eps',
-      fontSize: 12,
-      opacity: 1,
-    );
+    if (episodes == null) return SB.z;
+
+    return _episodePill(episodes, Colors.grey[500]);
   }
 
   Widget _genreWidget() {
@@ -891,7 +894,8 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
     if (data?.timestamp == null) {
       return SB.z;
     }
-    return CountDownWidget.expandedCountdownWidget(data!, context: context, padding: EdgeInsets.zero);
+    return CountDownWidget.expandedCountdownWidget(data!,
+        context: context, padding: EdgeInsets.zero);
   }
 
   Widget _airingDateWidget() {
