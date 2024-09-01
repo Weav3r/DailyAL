@@ -1,3 +1,9 @@
+enum BuildVariant {
+  fdroid,
+  github,
+  playstore,
+}
+
 class Servers {
   bool? bmacLink;
   String? discordLink;

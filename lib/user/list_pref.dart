@@ -5,6 +5,7 @@ class ContentCardProps {
   final String profileName;
   final double height;
   final List<CustomizableField> fields;
+
   ContentCardProps(
       {required this.height,
       required this.fields,
@@ -132,11 +133,16 @@ enum CustomizableFieldType {
   mean_score,
   num_list_users,
   list_status,
-  watched_episodes,
   list_score,
-  edit_button,
+  edit_and_watched_button,
   next_episode_counter,
   un_seen_episodes,
+  watched_eps,
+  total_eps,
+  genre,
+  edit_btn,
+  airing_date,
+  next_episode_full_counter
 }
 
 class CustomizableField {
@@ -213,10 +219,94 @@ List<CustomizableField> getDefaultCustomizableFields() {
     _scoreField(),
     _numListUsersField(),
     _listScoreField(),
-    _editButtonField(),
+    _editWatchedBtn(),
     _countDownField(),
     _unSeenEpisodesField(),
+    _watchedEpsField(),
+    _totalEpsField(),
+    _genreField(),
+    _editBtn(),
+    _nextEpisodeFullCounter(),
+    _airingDate(),
   ];
+}
+
+CustomizableField _airingDate() {
+  return CustomizableField(
+    hidden: true,
+    type: CustomizableFieldType.airing_date,
+    title: 'Airing Date',
+    description: 'Airing date of the next episode',
+    position: Position(
+      top: 65,
+      left: 100,
+    ),
+  );
+}
+
+CustomizableField _nextEpisodeFullCounter() {
+  return CustomizableField(
+    hidden: true,
+    type: CustomizableFieldType.next_episode_full_counter,
+    title: 'Next Episode Full Counter',
+    description: 'Countdown to next episode',
+    position: Position(
+      top: 80,
+      left: 100,
+    ),
+  );
+}
+
+CustomizableField _editBtn() {
+  return CustomizableField(
+    hidden: true,
+    type: CustomizableFieldType.edit_btn,
+    title: 'Edit Button',
+    description: 'Button to edit the item',
+    position: Position(
+      bottom: 5,
+      right: 10,
+    ),
+  );
+}
+
+CustomizableField _genreField() {
+  return CustomizableField(
+    hidden: true,
+    type: CustomizableFieldType.genre,
+    title: 'Genre',
+    description: 'Genre of the item',
+    position: Position(
+      top: 70,
+      left: 100,
+    ),
+  );
+}
+
+CustomizableField _totalEpsField() {
+  return CustomizableField(
+    hidden: true,
+    type: CustomizableFieldType.total_eps,
+    title: 'Total Episodes',
+    description: 'Total number of episodes',
+    position: Position(
+      top: 70,
+      right: 15,
+    ),
+  );
+}
+
+CustomizableField _watchedEpsField() {
+  return CustomizableField(
+    hidden: true,
+    type: CustomizableFieldType.watched_eps,
+    title: 'Watched Episodes',
+    description: 'Number of watched episodes',
+    position: Position(
+      top: 40,
+      right: 15,
+    ),
+  );
 }
 
 CustomizableField _unSeenEpisodesField() {
@@ -303,10 +393,10 @@ CustomizableField _listScoreField() {
   );
 }
 
-CustomizableField _editButtonField() {
+CustomizableField _editWatchedBtn() {
   return CustomizableField(
-    type: CustomizableFieldType.edit_button,
-    title: 'Edit Button',
+    type: CustomizableFieldType.edit_and_watched_button,
+    title: 'Edit & Watched/Total Eps',
     description: 'Button to edit the item',
     position: Position(
       bottom: 5,

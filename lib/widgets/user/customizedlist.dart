@@ -1,9 +1,12 @@
 import 'dart:collection';
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dailyanimelist/api/dalapi.dart';
+import 'package:dailyanimelist/api/malapi.dart';
 import 'package:dailyanimelist/constant.dart';
+import 'package:dailyanimelist/enums.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
 import 'package:dailyanimelist/main.dart';
 import 'package:dailyanimelist/pages/animedetailed/synopsiswidget.dart';
@@ -42,6 +45,7 @@ class _ContentCustomizerState extends State<ContentCustomizer> {
   List<Node> _nodes = List.from(jsonDecode(sampleNodesList))
       .map((e) => AnimeDetailed.fromJson(e['node']))
       .toList();
+
   @override
   Widget build(BuildContext context) {
     var customizedLists =
@@ -154,6 +158,7 @@ class CustomizableFieldWidget extends StatefulWidget {
   final bool editMode;
   final ValueChanged<ContentCardProps>? onUpdated;
   final bool updateCacheOnEdit;
+
   const CustomizableFieldWidget({
     super.key,
     this.editMode = false,
@@ -171,6 +176,7 @@ class CustomizableFieldWidget extends StatefulWidget {
 class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
   CustomizableFieldType? selectedField;
   Map<CustomizableFieldType, CustomizableField> _fieldValues = {};
+
   List<String> get _fieldNames =>
       _fieldValues.values.map((e) => e.title).toList();
   final _formKey = GlobalKey<FormState>();
@@ -215,9 +221,19 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
   }
 
   AnimeDetailed? get node => widget.node?.content as AnimeDetailed?;
-  MyAnimeListStatus? get myListStatus =>
-      (widget.node?.myListStatus ?? widget.node?.content?.myListStatus)
-          as MyAnimeListStatus?;
+
+  MyAnimeListStatus? get myListStatus {
+    var myListStatusFromContent =
+        widget.node?.content?.myListStatus as MyAnimeListStatus?;
+    var myListStatusFromNode = widget.node?.myListStatus as MyAnimeListStatus?;
+    if (myListStatusFromContent?.status != null ||
+        myListStatusFromContent?.score != null ||
+        myListStatusFromContent?.numEpisodesWatched != null) {
+      return myListStatusFromContent;
+    } else {
+      return myListStatusFromNode;
+    }
+  }
 
   void set myListStatus(MyAnimeListStatus? value) {
     widget.node?.myListStatus = value;
@@ -396,19 +412,28 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
       child: Card(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
-        ),  
-        child: Stack(
-          children: [
-            for (final field in _fieldValues.values)
-              if (!field.hidden)
-                Positioned(
-                  top: field.position.top,
-                  left: field.position.left,
-                  right: field.position.right,
-                  bottom: field.position.bottom,
-                  child: _customizeField(field, buildField(field)),
-                ),
-          ],
+        ),
+        child: conditional(
+          on: !widget.editMode,
+          parent: (child) => InkWell(
+            onTap: () {
+              onNodeTap(widget.node?.content, 'anime', context);
+            },
+            child: child,
+          ),
+          child: Stack(
+            children: [
+              for (final field in _fieldValues.values)
+                if (!field.hidden)
+                  Positioned(
+                    top: field.position.top,
+                    left: field.position.left,
+                    right: field.position.right,
+                    bottom: field.position.bottom,
+                    child: _customizeField(field, buildField(field)),
+                  ),
+            ],
+          ),
         ),
       ),
     );
@@ -489,11 +514,19 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
       CustomizableFieldType.mean_score =>
         starWwidget(node?.mean?.toString() ?? '-', EdgeInsets.zero),
       CustomizableFieldType.num_list_users => _listUserWidget(),
-      CustomizableFieldType.list_score =>
-       myListStatus?.score == null ? SB.z : starWwidget(myListStatus?.score?.toString() ?? '-'),
-      CustomizableFieldType.edit_button => _editButtonWidget(),
+      CustomizableFieldType.list_score => myListStatus?.score == null
+          ? SB.z
+          : starWwidget(myListStatus?.score?.toString() ?? '-'),
+      CustomizableFieldType.edit_and_watched_button => _editWatchedBtnWidget(),
       CustomizableFieldType.next_episode_counter => _episodeCounterWidget(),
       CustomizableFieldType.un_seen_episodes => _unSeenEpisodesWidget(),
+      CustomizableFieldType.watched_eps => _watchedEpsWidget(),
+      CustomizableFieldType.total_eps => _totalEpsWidget(),
+      CustomizableFieldType.genre => _genreWidget(),
+      CustomizableFieldType.edit_btn => _editBtnWidget(),
+      CustomizableFieldType.airing_date => _airingDateWidget(),
+      CustomizableFieldType.next_episode_full_counter =>
+        _nextEpisodeFullCounterWidget(),
       _ => SB.z
     };
   }
@@ -524,7 +557,7 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
     );
   }
 
-  SizedBox _editButtonWidget() {
+  SizedBox _editWatchedBtnWidget() {
     NodeStatusValue nsv = NodeStatusValue.fromListStatus(myListStatus);
     final data = DalApi.i.scheduleForMalIdsSync[node!.id!];
     int? episodes;
@@ -543,7 +576,7 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
         backgroundColor: nsv.color,
         padding: EdgeInsets.symmetric(horizontal: 5),
         onPressed: widget.editMode
-            ? () => _setSelected(CustomizableFieldType.edit_button)
+            ? () => _setSelected(CustomizableFieldType.edit_and_watched_button)
             : () => showEditSheet(),
         child: myListStatus == null
             ? Icon(Icons.edit)
@@ -611,14 +644,19 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
 
   void _setSelected(CustomizableFieldType type) {
     setState(() {
-      selectedField = type;
+      if (selectedField == type) {
+        selectedField = null;
+      } else {
+        selectedField = type;
+      }
     });
   }
 
   SizedBox _titleWidget() {
     final nodeTitle = getNodeTitle(node);
     return SizedBox(
-      width: 230.0,
+      height: 40.0,
+      width: 180.0,
       child: title(
         nodeTitle,
         textOverflow: TextOverflow.fade,
@@ -780,4 +818,107 @@ class _CustomizableFieldWidgetState extends State<CustomizableFieldWidget> {
       ],
     );
   }
+
+  Widget _watchedEpsWidget() {
+    if (myListStatus?.numEpisodesWatched == null) {
+      return SB.z;
+    }
+    return title(
+      '${myListStatus?.numEpisodesWatched} Eps',
+      fontSize: 12,
+      opacity: .7,
+    );
+  }
+
+  Widget _totalEpsWidget() {
+    if (node?.numEpisodes == null) {
+      return SB.z;
+    }
+    var episodes = node!.numEpisodes;
+    if (episodes == 0) {
+      var episode = DalApi.i.scheduleForMalIdsSync[node!.id!]?.episode;
+      if (episode != null) {
+        episodes = episode - 1;
+      }
+    }
+    return title(
+      '${episodes} Eps',
+      fontSize: 12,
+      opacity: 1,
+    );
+  }
+
+  Widget _genreWidget() {
+    if (node?.genres == null) {
+      return SB.z;
+    }
+    final [genreText, content] = getGenreText(node, category: 'anime', maxL: 2);
+    return ToolTipButton(
+      onTap: widget.editMode
+          ? () => _setSelected(CustomizableFieldType.genre)
+          : null,
+      child: title(
+        genreText,
+        fontSize: 11,
+        opacity: .6,
+      ),
+      message: content,
+    );
+  }
+
+  Widget _editBtnWidget() {
+    final value = NodeStatusValue.fromListStatus(myListStatus);
+    return SizedBox(
+      height: 37.0,
+      width: 37.0,
+      child: IconButton.filledTonal(
+        style: ButtonStyle(
+          backgroundColor: WidgetStatePropertyAll(value.color),
+        ),
+        onPressed: widget.editMode
+            ? () => _setSelected(CustomizableFieldType.edit_btn)
+            : () => showEditSheet(),
+        icon: Icon(
+          Icons.edit,
+          size: 20.0,
+        ),
+      ),
+    );
+  }
+
+  Widget _nextEpisodeFullCounterWidget() {
+    final data = DalApi.i.scheduleForMalIdsSync[node!.id!];
+    if (data?.timestamp == null) {
+      return SB.z;
+    }
+    return CountDownWidget.expandedCountdownWidget(data!, context: context, padding: EdgeInsets.zero);
+  }
+
+  Widget _airingDateWidget() {
+    final data = DalApi.i.scheduleForMalIdsSync[node!.id!];
+    final date = MalApi.getScheduleDate(data?.timestamp);
+    if (date == null) {
+      return SB.z;
+    }
+    String airingText = 'Ep ${data?.episode} · $date';
+    return Text(
+      airingText,
+      style: TextStyle(fontSize: 11),
+      textScaler: TextScaler.linear(1.0),
+    );
+  }
+}
+
+List<String> getGenreText(node, {String category = 'anime', int maxL = 3}) {
+  final genres = node.genres ?? <MalGenre>[];
+  final genreMap = category.equals("anime") ? Mal.animeGenres : Mal.mangaGenres;
+  final content = genres
+      .map((e) => genreMap[e.id]?.replaceAll("_", " ") ?? e.name)
+      .join(", ");
+  final int length = genres.length;
+  var genreText = genres
+      .getRange(0, min(maxL, length))
+      .map((e) => genreMap[e.id]?.replaceAll("_", " ") ?? e.name)
+      .join(", ");
+  return [genreText, content];
 }

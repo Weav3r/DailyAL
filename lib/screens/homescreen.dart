@@ -1,4 +1,5 @@
 import 'package:dailyanimelist/api/credmal.dart';
+import 'package:dailyanimelist/api/dalapi.dart';
 import 'package:dailyanimelist/cache/cachemanager.dart';
 import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/notifservice.dart';
@@ -89,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> with TickerProviderStateMixin {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await setupScheduledNotifications();
       _checkForUpdates();
+      DalApi.i.scheduleForMalIds.then((value) => logDal('loaded'));
       if (widget.uri != null) {
         Navigator.pushNamed(context, widget.uri!.path);
       } else if (widget.notifNode != null) {

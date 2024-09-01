@@ -294,7 +294,7 @@ Widget buildBaseNodePageItem(
     );
   }
 
-  if (displaySubType == DisplaySubType.custom) {
+  if (displaySubType == DisplaySubType.custom && 'anime'.equals(category)) {
     final allprops = user.pref.animeMangaPagePreferences.contentCardProps ?? [];
     final props = allprops.firstWhereOrNull((element) => element.id == id);
     if (props != null) {
@@ -1011,18 +1011,8 @@ class _ContentAllWidgetState extends State<ContentAllWidget>
   Widget get genreWidget {
     final detailed = widget.dynContent?.content;
     if ((detailed is AnimeDetailed || detailed is MangaDetailed)) {
-      final genres = detailed.genres ?? <MalGenre>[];
-      final genreMap =
-          widget.category.equals("anime") ? Mal.animeGenres : Mal.mangaGenres;
-      final content = genres
-          .map((e) => genreMap[e.id]?.replaceAll("_", " ") ?? e.name)
-          .join(", ");
-      final int length = genres.length;
       final mediaText = mediaTypeText;
-      final String genreText = genres
-          .getRange(0, min(3, length))
-          .map((e) => genreMap[e.id]?.replaceAll("_", " ") ?? e.name)
-          .join(", ");
+      final [genreText, content] = getGenreText(detailed, category: widget.category);
       return Container(
         // width: width,
         child: Padding(
@@ -1447,7 +1437,7 @@ Widget countdownWidget({
 }) {
   if (category.equals('anime')) {
     return usingScheduler(id, (data) {
-      var child = _countdownWidget(data, padding: padding, context: context);
+      var child = CountDownWidget.expandedCountdownWidget(data, padding: padding, context: context);
       return wrapper != null ? wrapper(child) : child;
     });
   }
@@ -1502,70 +1492,6 @@ Widget starWwidget(String score,
           title(score, opacity: 1, fontSize: fontSize ?? 14),
         ],
       ));
-}
-
-CountDownWidget _countdownWidget(
-  ScheduleData scheduleData, {
-  EdgeInsetsGeometry? padding,
-  required BuildContext context,
-}) {
-  return CountDownWidget(
-    timestamp: scheduleData.timestamp!,
-    customTimer: (t) {
-      var hasDays = t.days > 0;
-      var hasHours = t.hours > 0;
-      var hasMins = t.minutes > 0;
-      return t.timerOver
-          ? SB.z
-          : Padding(
-              padding: padding ?? const EdgeInsets.only(top: 2, bottom: 6.0),
-              child: RichText(
-                text: TextSpan(
-                  text: 'Ep ',
-                  style: Theme.of(context).textTheme.labelSmall,
-                  children: [
-                    TextSpan(
-                      text: scheduleData.episode?.toString() ?? '?',
-                    ),
-                    TextSpan(
-                      text: ' in ',
-                    ),
-                    if (hasDays) ...[
-                      TextSpan(
-                        text: t.days.toString(),
-                      ),
-                      TextSpan(
-                        text: 'd ',
-                      ),
-                    ],
-                    if (hasHours) ...[
-                      TextSpan(
-                        text: t.hours.toString(),
-                      ),
-                      TextSpan(
-                        text: 'h ',
-                      ),
-                    ],
-                    if (hasMins) ...[
-                      TextSpan(
-                        text: t.minutes.toString(),
-                      ),
-                      TextSpan(
-                        text: 'm ',
-                      ),
-                    ],
-                    TextSpan(
-                      text: t.seconds.toString(),
-                    ),
-                    TextSpan(
-                      text: 's',
-                    ),
-                  ],
-                ),
-              ),
-            );
-    },
-  );
 }
 
 Widget buildGridResults(var _results, var _category,

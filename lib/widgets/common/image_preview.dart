@@ -32,7 +32,12 @@ void zoomInImage(BuildContext context, String url, [bool showButtons = true]) {
                   ),
                   loadingBuilder: (context, event) => _imageLoader(event),
                 ),
-                imageButtons(url, context, showButtons),
+                Positioned(
+                  bottom: 30.0,
+                  left: 0.0,
+                  right: 0.0,
+                  child: imageButtons(url, context, showButtons),
+                ),
               ],
             ),
           ),
@@ -180,8 +185,11 @@ void zoomInImageList(BuildContext context, List<String> urlList,
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            imageButtons(urlList[imageIndex], context),
                             _pageIndicator(imageIndex, urlList),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 40.0),
+                              child: imageButtons(urlList[imageIndex], context),
+                            ),
                           ],
                         );
                       }),

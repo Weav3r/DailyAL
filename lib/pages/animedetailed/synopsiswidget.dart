@@ -361,6 +361,7 @@ class CountDownWidget extends StatefulWidget {
   final Widget? extraWidget;
   final double? elevation;
   final Widget Function(CWTime)? customTimer;
+
   const CountDownWidget({
     Key? key,
     required this.timestamp,
@@ -373,6 +374,70 @@ class CountDownWidget extends StatefulWidget {
 
   @override
   State<CountDownWidget> createState() => _CountDownWidgetState();
+
+  static CountDownWidget expandedCountdownWidget(
+    ScheduleData scheduleData, {
+    EdgeInsetsGeometry? padding,
+    required BuildContext context,
+  }) {
+    return CountDownWidget(
+      timestamp: scheduleData.timestamp!,
+      customTimer: (t) {
+        var hasDays = t.days > 0;
+        var hasHours = t.hours > 0;
+        var hasMins = t.minutes > 0;
+        return t.timerOver
+            ? SB.z
+            : Padding(
+                padding: padding ?? const EdgeInsets.only(top: 2, bottom: 6.0),
+                child: RichText(
+                  text: TextSpan(
+                    text: 'Ep ',
+                    style: Theme.of(context).textTheme.labelSmall,
+                    children: [
+                      TextSpan(
+                        text: scheduleData.episode?.toString() ?? '?',
+                      ),
+                      TextSpan(
+                        text: ' · ',
+                      ),
+                      if (hasDays) ...[
+                        TextSpan(
+                          text: t.days.toString(),
+                        ),
+                        TextSpan(
+                          text: 'd ',
+                        ),
+                      ],
+                      if (hasHours) ...[
+                        TextSpan(
+                          text: t.hours.toString(),
+                        ),
+                        TextSpan(
+                          text: 'h ',
+                        ),
+                      ],
+                      if (hasMins) ...[
+                        TextSpan(
+                          text: t.minutes.toString(),
+                        ),
+                        TextSpan(
+                          text: 'm ',
+                        ),
+                      ],
+                      TextSpan(
+                        text: t.seconds.toString(),
+                      ),
+                      TextSpan(
+                        text: 's',
+                      ),
+                    ],
+                  ),
+                ),
+              );
+      },
+    );
+  }
 }
 
 class _CountDownWidgetState extends State<CountDownWidget> {
