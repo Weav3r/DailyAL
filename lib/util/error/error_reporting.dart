@@ -16,17 +16,21 @@ class ErrorReporting {
     _initPackageInfo();
     FlutterError.onError = (details) async {
       FlutterError.presentError(details);
-      final config = await DalApi.i.dalConfigFuture;
-      final loggingEnabled = (config)?.errorLogging;
-      final includeSilent = !details.silent || (config?.includeSilent ?? false);
-      if (loggingEnabled != null && loggingEnabled && includeSilent) {
-        UserProf? prof;
-        try {
-          prof = await MalUser.getUserInfo(fromCache: true);
-        } catch (e) {}
-        await _pushError(_toError(details, prof?.name).toJson());
-      }
+      await _processError(details);
     };
+  }
+
+  static Future<void> _processError(FlutterErrorDetails details) async {
+     final config = await DalApi.i.dalConfigFuture;
+    final loggingEnabled = (config)?.errorLogging;
+    final includeSilent = !details.silent || (config?.includeSilent ?? false);
+    if (loggingEnabled != null && loggingEnabled && includeSilent) {
+      UserProf? prof;
+      try {
+        prof = await MalUser.getUserInfo(fromCache: true);
+      } catch (e) {}
+      await _pushError(_toError(details, prof?.name).toJson());
+    }
   }
 
   static void _initPackageInfo() {
@@ -35,6 +39,11 @@ class ErrorReporting {
         _versionNo = value.version;
       });
     } catch (e) {}
+  }
+
+  static Future<void> reportError(Error e) async {
+    final details = FlutterErrorDetails(exception: e);
+    await _processError(details);
   }
 
   static ErrorDetails _toError(FlutterErrorDetails details, String? name) {

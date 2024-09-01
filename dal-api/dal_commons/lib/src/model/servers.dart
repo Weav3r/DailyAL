@@ -1,3 +1,18 @@
+import 'package:dal_commons/src/constants/constant.dart';
+
+enum BuildVariant {
+  fdroid,
+  github,
+  playstore;
+
+  static BuildVariant fromString(dynamic value) {
+    return BuildVariant.values.firstWhere(
+      (e) => e.name.equals(value),
+      orElse: () => BuildVariant.github,
+    );
+  }
+}
+
 class Servers {
   bool? bmacLink;
   String? discordLink;

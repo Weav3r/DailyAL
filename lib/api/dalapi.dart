@@ -25,6 +25,7 @@ class DalApi {
   late Future<Servers?> _dalConfigFuture;
   late Future<String> _preferredServer;
   late Future<Map<int, ScheduleData>> _scheduleForMalIds;
+  Map<int, ScheduleData> _scheduleForMalIdsSync = {};
   bool _debugMode = kDebugMode;
 
   Future<Servers?> get dalConfigFuture async {
@@ -32,7 +33,18 @@ class DalApi {
   }
 
   Future<Map<int, ScheduleData>> get scheduleForMalIds async {
-    return await _scheduleForMalIds;
+    return await _scheduleForMalIds.then((value) {
+      _scheduleForMalIdsSync = value;
+      return value;
+    });
+  }
+
+  Map<int, ScheduleData> get scheduleForMalIdsSync => _scheduleForMalIdsSync;
+
+  void onScheduleLoaded(void Function() callback) {
+    _scheduleForMalIds.then((value) {
+      callback();
+    });
   }
 
   DalApi._() {
@@ -47,7 +59,7 @@ class DalApi {
 
   Future<Servers> _getDalConfigFuture() async {
     final refUrl =
-        '${CredMal.appConfigUrl}/${CredMal.buildVariant}/serverConfigV3${_debugMode ? 'Dev' : ''}.json';
+        '${CredMal.appConfigUrl}/${CredMal.buildVariant.name}/serverConfigV3${_debugMode ? 'Dev' : ''}.json';
     return Servers.fromJson(
       jsonDecode(await _getConfig(refUrl)),
     );

@@ -6,6 +6,7 @@ import 'package:dailyanimelist/pages/settings/cachesettings.dart';
 import 'package:dailyanimelist/pages/settings/customsettings.dart';
 import 'package:dailyanimelist/pages/settings/homepagesettings.dart';
 import 'package:dailyanimelist/pages/settings/langsettings.dart';
+import 'package:dailyanimelist/pages/settings/list_pref_settings.dart';
 import 'package:dailyanimelist/pages/settings/notifsettings.dart';
 import 'package:dailyanimelist/pages/settings/optiontile.dart';
 import 'package:dailyanimelist/pages/settings/themesettings.dart';
@@ -61,6 +62,16 @@ class _SettingsPageState extends State<SettingsPage> {
             gotoPage(context: context, newPage: NotificationSettingsPage());
           }),
       OptionTile(
+          text: S.current.User_Preferences,
+          iconData: Icons.room_preferences,
+          desc: S.current.User_Preferences_desc,
+          onPressed: () => _openUserPreferences(context)),
+      OptionTile(
+          text: S.current.List_preferences,
+          iconData: Icons.list_alt,
+          desc: S.current.List_preferences_desc,
+          onPressed: () => gotoPage(context: context, newPage: ListPreferenceSettings())),
+      OptionTile(
           text: S.current.Home_Page_Setting,
           iconData: Icons.home_work,
           desc: S.current.HomePageSettings_desc,
@@ -91,33 +102,37 @@ class _SettingsPageState extends State<SettingsPage> {
           text: S.current.User_Preferences,
           iconData: Icons.room_preferences,
           desc: S.current.User_Preferences_desc,
-          onPressed: () {
-            gotoPage(
-                context: context,
-                newPage: SettingSliverScreen(
-                  titleString: S.current.User_Preferences,
-                  child: UserPrefSettings(
-                    onUiChange: () {
-                      if (widget.onUiChange != null) widget.onUiChange!();
-                    },
-                  ),
-                ));
-          }),
+          onPressed: () => _openUserPreferences(context)),
       OptionTile(
           text: S.current.Language_settings,
           iconData: Icons.language,
           desc: S.current.Language_settings_desc_v2,
-          onPressed: () {
-            gotoPage(
-              context: context,
-              newPage: LanguageSettings(
-                update: () {
-                  if (mounted) setState(() {});
-                },
-              ),
-            );
-          }),
+          onPressed: () => _openLanguageSettings(context)),
       SB.h120,
     ];
+  }
+
+  void _openLanguageSettings(BuildContext context) {
+    gotoPage(
+      context: context,
+      newPage: LanguageSettings(
+        update: () {
+          if (mounted) setState(() {});
+        },
+      ),
+    );
+  }
+
+  void _openUserPreferences(BuildContext context) {
+    gotoPage(
+        context: context,
+        newPage: SettingSliverScreen(
+          titleString: S.current.User_Preferences,
+          child: UserPrefSettings(
+            onUiChange: () {
+              if (widget.onUiChange != null) widget.onUiChange!();
+            },
+          ),
+        ));
   }
 }

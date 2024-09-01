@@ -159,4 +159,17 @@ class CacheManager {
       return false;
     }
   }
+
+  Future<bool> isFirstTime(String key) async {
+    final value = await getValue(key);
+    if (value == null) {
+      setValue(key, "true");
+      return true;
+    }
+    return false;
+  }
+
+  void setFirstTime(String s) {
+    setValue(s, "true");
+  }
 }

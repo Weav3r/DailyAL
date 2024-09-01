@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("정보 섹션을 추가하거나 수정합니다."),
         "Add_Friend": MessageLookupByLibrary.simpleMessage("친구 추가"),
         "Add_an_Item": MessageLookupByLibrary.simpleMessage("항목을 추가하십시오"),
+        "Add_display_profile":
+            MessageLookupByLibrary.simpleMessage("디스플레이 프로필 추가"),
         "Add_to_List": MessageLookupByLibrary.simpleMessage("목록에 추가하십시오"),
         "AdditionalTitles": MessageLookupByLibrary.simpleMessage("추가 타이틀"),
         "Adult_Cast": MessageLookupByLibrary.simpleMessage("성인_캐스트"),
@@ -97,6 +99,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Apply_Filters": MessageLookupByLibrary.simpleMessage("필터 적용"),
         "Arabic": MessageLookupByLibrary.simpleMessage("아라비아 말"),
         "Arch_Enemies": MessageLookupByLibrary.simpleMessage("아치 적들"),
+        "Are_you_sure_you_want_to_delete_profile":
+            MessageLookupByLibrary.simpleMessage("이 프로필을 삭제하시겠습니까?"),
+        "Are_you_sure_you_want_to_discard":
+            MessageLookupByLibrary.simpleMessage("변경사항을 삭제하시겠습니까?"),
         "Art": MessageLookupByLibrary.simpleMessage("미술"),
         "Attack_on_Titan": MessageLookupByLibrary.simpleMessage("진격의 거인"),
         "Author_Distribution": MessageLookupByLibrary.simpleMessage("저자 배포"),
@@ -229,6 +235,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom_tag": MessageLookupByLibrary.simpleMessage("사용자 정의 태그"),
         "Custom_tag_desc":
             MessageLookupByLibrary.simpleMessage("사용자 정의 태그를 삽입하십시오"),
+        "Custom_view_for_anime":
+            MessageLookupByLibrary.simpleMessage("애니메이션에 대한 사용자 정의 보기"),
+        "Custom_view_for_anime_desc": MessageLookupByLibrary.simpleMessage(
+            "목록 보기를 선택한 경우 애니메이션 탭 보기를 사용자 정의합니다."),
         "Customize_Bottom_Navbar_desc": MessageLookupByLibrary.simpleMessage(
             "홈/포럼/사용자/탐색에서 시작 페이지를 선택하세요."),
         "Customize_Home_Page":
@@ -247,7 +257,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("사용자 페이지에 대한 목록 보기 선호"),
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "사용자 페이지는 그리드 보기 대신 목록 보기를 사용합니다."),
+        "Default_tab_selected_for_anime":
+            MessageLookupByLibrary.simpleMessage("애니메이션용으로 선택된 기본 탭"),
+        "Default_tab_selected_for_anime_manga":
+            MessageLookupByLibrary.simpleMessage("애니메이션/만화용으로 선택된 기본 탭"),
+        "Default_tab_selected_for_manga":
+            MessageLookupByLibrary.simpleMessage("만화용으로 선택된 기본 탭"),
         "Delete": MessageLookupByLibrary.simpleMessage("삭제"),
+        "Delete_Profile": MessageLookupByLibrary.simpleMessage("프로필 삭제"),
         "Delete_from_List": MessageLookupByLibrary.simpleMessage("목록에서 삭제하십시오"),
         "Delinquents": MessageLookupByLibrary.simpleMessage("체납자"),
         "Dementia": MessageLookupByLibrary.simpleMessage("백치"),
@@ -257,6 +274,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Details": MessageLookupByLibrary.simpleMessage("세부"),
         "Detective": MessageLookupByLibrary.simpleMessage("형사"),
         "Director": MessageLookupByLibrary.simpleMessage("감독"),
+        "Discard": MessageLookupByLibrary.simpleMessage("버리다"),
+        "Discard_changes": MessageLookupByLibrary.simpleMessage("변경사항 취소"),
         "DiscordInvite": MessageLookupByLibrary.simpleMessage("디스코드 초대"),
         "DiscordInviteDesc": MessageLookupByLibrary.simpleMessage(
             "공식 Discord 서버에 참여하려면 여기를 클릭하세요"),
@@ -268,6 +287,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Do_you_wish_to_logout":
             MessageLookupByLibrary.simpleMessage("로그 아웃하고 싶습니까?"),
         "Doujunshi": MessageLookupByLibrary.simpleMessage("방향의 방법"),
+        "Drag_the_field": MessageLookupByLibrary.simpleMessage(
+            "필드를 드래그하거나 화살표 키를 사용하여 필드를 이동하세요."),
         "Dragon_Ball": MessageLookupByLibrary.simpleMessage("드래곤 볼"),
         "Drama": MessageLookupByLibrary.simpleMessage("드라마"),
         "Dropped": MessageLookupByLibrary.simpleMessage("삭제했다"),
@@ -275,6 +296,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Ecchi": MessageLookupByLibrary.simpleMessage("ecchi."),
         "Edit": MessageLookupByLibrary.simpleMessage("편집하다"),
         "Edit_About": MessageLookupByLibrary.simpleMessage("에 대해 편집"),
+        "Edit_Display_Profile":
+            MessageLookupByLibrary.simpleMessage("디스플레이 프로필 편집"),
         "Edit_Refresh_Message": MessageLookupByLibrary.simpleMessage(
             "편집 후 이 섹션을 새로 고치는 데 시간이 걸립니다."),
         "Editorial": MessageLookupByLibrary.simpleMessage("사설"),
@@ -286,6 +309,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "앱이 시스템 로캘 또는 국가 코드를 지원하지 않는 경우 영어로 기본 설정됩니다."),
         "English_Dub": MessageLookupByLibrary.simpleMessage("영어 Dub."),
         "Enjoyment": MessageLookupByLibrary.simpleMessage("향유"),
+        "Enter_profile_name":
+            MessageLookupByLibrary.simpleMessage("프로필 이름을 입력하세요."),
+        "Enter_valid_profile":
+            MessageLookupByLibrary.simpleMessage("프로필 이름을 입력하세요."),
         "Entries": MessageLookupByLibrary.simpleMessage("항목"),
         "Entry": MessageLookupByLibrary.simpleMessage("기입"),
         "Episode_Reminder": MessageLookupByLibrary.simpleMessage("에피소드 알림"),
@@ -415,6 +442,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Helpful": MessageLookupByLibrary.simpleMessage("도움이 되는"),
         "Hentai": MessageLookupByLibrary.simpleMessage("헨타이"),
         "Hiatus": MessageLookupByLibrary.simpleMessage("틈새"),
+        "Hide": MessageLookupByLibrary.simpleMessage("숨다"),
         "High": MessageLookupByLibrary.simpleMessage("높은"),
         "High_Stakes_Game":
             MessageLookupByLibrary.simpleMessage("High_Stakes_Game"),
@@ -439,6 +467,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Idols_Female": MessageLookupByLibrary.simpleMessage("아이돌_여자"),
         "Idols_Male": MessageLookupByLibrary.simpleMessage("아이돌_남자"),
         "If_You_Liked": MessageLookupByLibrary.simpleMessage("당신이 좋아했다면"),
+        "If_nothing_is_selected": MessageLookupByLibrary.simpleMessage(
+            "아무 것도 선택하지 않으면 마지막으로 열었던 항목이 기본값으로 설정됩니다."),
         "Image_Not_Selected":
             MessageLookupByLibrary.simpleMessage("이미지를 선택하지 않았습니다."),
         "Image_Size_Too_Large": MessageLookupByLibrary.simpleMessage(
@@ -500,6 +530,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light_Novel_Sales": MessageLookupByLibrary.simpleMessage("라이트 소설 판매"),
         "Light_Novels": MessageLookupByLibrary.simpleMessage("가벼운 소설"),
         "List": MessageLookupByLibrary.simpleMessage("목록"),
+        "List_preferences": MessageLookupByLibrary.simpleMessage("목록 환경설정"),
+        "List_preferences_desc":
+            MessageLookupByLibrary.simpleMessage("애니메이션/만화 목록 보기를 사용자 정의하세요"),
         "Live": MessageLookupByLibrary.simpleMessage("살다"),
         "Live_Action": MessageLookupByLibrary.simpleMessage("라이브 조치"),
         "Load_More": MessageLookupByLibrary.simpleMessage("더 많은 것을로드하십시오"),
@@ -582,6 +615,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "More_Information": MessageLookupByLibrary.simpleMessage("추가 정보"),
         "Most_Popular_Anime":
             MessageLookupByLibrary.simpleMessage("가장 인기있는 애니메이션"),
+        "Move_to_back": MessageLookupByLibrary.simpleMessage("뒤로 이동"),
+        "Move_to_front": MessageLookupByLibrary.simpleMessage("앞으로 이동"),
         "Music": MessageLookupByLibrary.simpleMessage("음악"),
         "Music_Entertainment":
             MessageLookupByLibrary.simpleMessage("음악 및 엔터테인먼트"),
@@ -620,6 +655,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "예 : 권장 사항 태그는 멋진 권장 사항을 제공합니다."),
         "Next": MessageLookupByLibrary.simpleMessage("다음"),
         "NextShow": MessageLookupByLibrary.simpleMessage("다음 쇼"),
+        "Next_episode": MessageLookupByLibrary.simpleMessage("다음 에피소드"),
         "Nice": MessageLookupByLibrary.simpleMessage("멋진"),
         "No": MessageLookupByLibrary.simpleMessage("아니요"),
         "NoMoreItemsFound":
@@ -741,6 +777,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("프로필 배경이 성공적으로 제거되었습니다."),
         "Profile_bg_set":
             MessageLookupByLibrary.simpleMessage("프로필 배경이 설정되었습니다."),
+        "Profile_name": MessageLookupByLibrary.simpleMessage("프로필 이름"),
         "Promo_Videos": MessageLookupByLibrary.simpleMessage("프로모션 비디오"),
         "Promotional": MessageLookupByLibrary.simpleMessage("판촉"),
         "Pros": MessageLookupByLibrary.simpleMessage("장점"),
@@ -815,6 +852,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review_Summary": MessageLookupByLibrary.simpleMessage("검토 요약"),
         "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
             "리뷰 평결은 다음 리뷰를 사용하여 AI에 의해 생성되므로 정확하지 않을 수 있습니다. 자세한 내용은 리뷰를 읽어보시기 바랍니다."),
+        "Review_summary":
+            MessageLookupByLibrary.simpleMessage("AI가 생성한 모든 리뷰 요약 보기"),
         "Reviews": MessageLookupByLibrary.simpleMessage("리뷰"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("다시 늘어납니다"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("재구성"),
@@ -842,6 +881,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search_Page_Intro":
             MessageLookupByLibrary.simpleMessage("좋아하는 애니메이션, 만화 등을 검색하십시오."),
         "Search_Results": MessageLookupByLibrary.simpleMessage("검색 결과"),
+        "Search_by_genre": MessageLookupByLibrary.simpleMessage("같은 장르로 검색"),
         "Search_for": MessageLookupByLibrary.simpleMessage("찾기"),
         "Season": MessageLookupByLibrary.simpleMessage("계절"),
         "Seasonal": MessageLookupByLibrary.simpleMessage("계절"),
@@ -891,6 +931,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("설정 시간이 초과되었습니다.다시 시도하십시오."),
         "Share": MessageLookupByLibrary.simpleMessage("공유하다"),
         "Shoujo": MessageLookupByLibrary.simpleMessage("쇼 조"),
+        "Should_be_aplhanumeric":
+            MessageLookupByLibrary.simpleMessage("영숫자여야 합니다."),
         "Shounen": MessageLookupByLibrary.simpleMessage("쇼겐스"),
         "Show": MessageLookupByLibrary.simpleMessage("보여주다"),
         "ShowOnlyLastQuote":
@@ -1004,6 +1046,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Tags_unApplied":
             MessageLookupByLibrary.simpleMessage("태그는 검색 쿼리와 함께 적용되지 않습니다."),
         "Tap_to_Sign_In": MessageLookupByLibrary.simpleMessage("로그인하려면 누르십시오"),
+        "Tap_to_edit": MessageLookupByLibrary.simpleMessage("수정하려면 탭하세요."),
+        "Tap_to_select":
+            MessageLookupByLibrary.simpleMessage("탭하여 편집할 필드를 선택하세요."),
         "Team_Sports": MessageLookupByLibrary.simpleMessage("팀 스포츠"),
         "Technology": MessageLookupByLibrary.simpleMessage("기술"),
         "TestNotification": MessageLookupByLibrary.simpleMessage("기기에서 알림 테스트"),

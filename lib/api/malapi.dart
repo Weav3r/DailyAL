@@ -337,6 +337,17 @@ class MalApi {
     return result.values.toList();
   }
 
+  static String? getScheduleDate(int? timestamp) {
+    if (timestamp == null) {
+      return null;
+    }
+    DateFormat.yMEd();
+    final date = DateTime.fromMillisecondsSinceEpoch(timestamp * 1000);
+    // AM/PM
+
+    return DateFormat('E, MMM d · h:mm a').format(date);
+  }
+
   static DateTime? getAiringDate(Broadcast broadcast) {
     final nowDate = DateTime.now();
     try {

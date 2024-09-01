@@ -16,7 +16,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 # Read more about iOS versioning at
 # https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
 
-version: 2024.8.1+93
+version: 2024.8.2+94
 
 environment:
   sdk: '>=3.2.6 <4.0.0'
@@ -80,6 +80,7 @@ dependencies:
   package_info_plus: ^8.0.2
   webviewtube: ^2.1.1
   graphview: ^1.2.0
+  flutter_displaymode: ^0.6.0
 
 dev_dependencies:
   flutter_test:

@@ -9550,6 +9550,286 @@ class S {
     );
   }
 
+  /// `View AI generated summary of the all reviews`
+  String get Review_summary {
+    return Intl.message(
+      'View AI generated summary of the all reviews',
+      name: 'Review_summary',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `List Preferences`
+  String get List_preferences {
+    return Intl.message(
+      'List Preferences',
+      name: 'List_preferences',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Customize your anime/manga list view`
+  String get List_preferences_desc {
+    return Intl.message(
+      'Customize your anime/manga list view',
+      name: 'List_preferences_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discard changes`
+  String get Discard_changes {
+    return Intl.message(
+      'Discard changes',
+      name: 'Discard_changes',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to discard the changes?`
+  String get Are_you_sure_you_want_to_discard {
+    return Intl.message(
+      'Are you sure you want to discard the changes?',
+      name: 'Are_you_sure_you_want_to_discard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Discard`
+  String get Discard {
+    return Intl.message(
+      'Discard',
+      name: 'Discard',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Edit Display Profile`
+  String get Edit_Display_Profile {
+    return Intl.message(
+      'Edit Display Profile',
+      name: 'Edit_Display_Profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Display Profile`
+  String get Add_display_profile {
+    return Intl.message(
+      'Add Display Profile',
+      name: 'Add_display_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delete Profile`
+  String get Delete_Profile {
+    return Intl.message(
+      'Delete Profile',
+      name: 'Delete_Profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Are you sure you want to delete this profile?`
+  String get Are_you_sure_you_want_to_delete_profile {
+    return Intl.message(
+      'Are you sure you want to delete this profile?',
+      name: 'Are_you_sure_you_want_to_delete_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tap to edit`
+  String get Tap_to_edit {
+    return Intl.message(
+      'Tap to edit',
+      name: 'Tap_to_edit',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tap to select a field to edit`
+  String get Tap_to_select {
+    return Intl.message(
+      'Tap to select a field to edit',
+      name: 'Tap_to_select',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Drag the field or use arrow keys to move the field`
+  String get Drag_the_field {
+    return Intl.message(
+      'Drag the field or use arrow keys to move the field',
+      name: 'Drag_the_field',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Move to front`
+  String get Move_to_front {
+    return Intl.message(
+      'Move to front',
+      name: 'Move_to_front',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Move to back`
+  String get Move_to_back {
+    return Intl.message(
+      'Move to back',
+      name: 'Move_to_back',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Next episode`
+  String get Next_episode {
+    return Intl.message(
+      'Next episode',
+      name: 'Next_episode',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Profile Name`
+  String get Profile_name {
+    return Intl.message(
+      'Profile Name',
+      name: 'Profile_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please enter a profile name`
+  String get Enter_valid_profile {
+    return Intl.message(
+      'Please enter a profile name',
+      name: 'Enter_valid_profile',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Should be alphanumeric`
+  String get Should_be_aplhanumeric {
+    return Intl.message(
+      'Should be alphanumeric',
+      name: 'Should_be_aplhanumeric',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter profile name`
+  String get Enter_profile_name {
+    return Intl.message(
+      'Enter profile name',
+      name: 'Enter_profile_name',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Custom view for anime`
+  String get Custom_view_for_anime {
+    return Intl.message(
+      'Custom view for anime',
+      name: 'Custom_view_for_anime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Hide`
+  String get Hide {
+    return Intl.message(
+      'Hide',
+      name: 'Hide',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Customize the view for anime tab when list view is selected.`
+  String get Custom_view_for_anime_desc {
+    return Intl.message(
+      'Customize the view for anime tab when list view is selected.',
+      name: 'Custom_view_for_anime_desc',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Default tab selected for manga`
+  String get Default_tab_selected_for_manga {
+    return Intl.message(
+      'Default tab selected for manga',
+      name: 'Default_tab_selected_for_manga',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Default tab selected for anime`
+  String get Default_tab_selected_for_anime {
+    return Intl.message(
+      'Default tab selected for anime',
+      name: 'Default_tab_selected_for_anime',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Default tab selected for anime/manga`
+  String get Default_tab_selected_for_anime_manga {
+    return Intl.message(
+      'Default tab selected for anime/manga',
+      name: 'Default_tab_selected_for_anime_manga',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `If nothing is selected, it will default to last opened one.`
+  String get If_nothing_is_selected {
+    return Intl.message(
+      'If nothing is selected, it will default to last opened one.',
+      name: 'If_nothing_is_selected',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search by same genre`
+  String get Search_by_genre {
+    return Intl.message(
+      'Search by same genre',
+      name: 'Search_by_genre',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Anime Calendar`
   String get AnimeCalendar {
     return Intl.message(

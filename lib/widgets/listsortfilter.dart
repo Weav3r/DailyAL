@@ -352,12 +352,14 @@ class SelectDisplayOption {
   final String name;
   final DisplaySubType? subType;
   final List<SelectDisplayOption>? subOptions;
+  final String? id;
 
   SelectDisplayOption({
     this.type,
     required this.name,
     this.subType,
     this.subOptions,
+    this.id,
   });
 }
 
@@ -388,7 +390,9 @@ class SortFilterOptions {
     );
   }
 
-  static List<SelectDisplayOption> getDisplayOptions() {
+  static List<SelectDisplayOption> getDisplayOptions({String? category}) {
+    final cardProps =
+        user.pref.animeMangaPagePreferences.contentCardProps ?? [];
     return [
       SelectDisplayOption(
         name: S.current.Grid,
@@ -424,6 +428,14 @@ class SortFilterOptions {
             name: S.current.Spacious,
             subType: DisplaySubType.spacious,
           ),
+          if (cardProps.isNotEmpty && 'anime'.equals(category)) ...[
+            for (var prop in cardProps)
+              SelectDisplayOption(
+                name: prop.profileName,
+                subType: DisplaySubType.custom,
+                id: prop.id,
+              ),
+          ],
         ],
       ),
     ];
@@ -613,7 +625,8 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
       sortOptions:
           SortFilterOptions.getSortOptions(_isAnime, _sortFilterDisplay.sort),
       filterOptions: getFilterOptions(_sortFilterDisplay.category),
-      displayOptions: SortFilterOptions.getDisplayOptions(),
+      displayOptions: SortFilterOptions.getDisplayOptions(
+          category: _sortFilterDisplay.category),
       categories: [],
     );
   }
@@ -749,15 +762,28 @@ class _SortFilterPopupState extends State<SortFilterPopup> {
           ),
           SliverList.list(
               children: displayOption.subOptions!.map((e) {
-            return RadioListTile<DisplaySubType>(
-              value: e.subType!,
-              groupValue: _sortFilterDisplay.displayOption.displaySubType,
+            final currentValue =
+                e.subType == DisplaySubType.custom ? e.id! : e.subType!.name;
+            final groupValue =
+                (_sortFilterDisplay.displayOption.displaySubType ==
+                        DisplaySubType.custom)
+                    ? _sortFilterDisplay.displayOption.id
+                    : _sortFilterDisplay.displayOption.displaySubType.name;
+            logDal('currentValue: $currentValue, groupValue: $groupValue');
+            return RadioListTile<String>(
+              value: currentValue,
+              groupValue: groupValue,
               title: Text(e.name),
               onChanged: (value) {
                 if (value == null) return;
                 _sortFilterDisplay = _sortFilterDisplay.copyWith(
                   display: _sortFilterDisplay.displayOption.copyWith(
-                    displaySubType: value,
+                    displaySubType: DisplaySubType.custom == e.subType
+                        ? DisplaySubType.custom
+                        : DisplaySubType.values.firstWhere(
+                            (element) => element.name.equals(value),
+                          ),
+                    id: DisplaySubType.custom == e.subType ? value : null,
                   ),
                 );
                 setState(() {});
@@ -1244,23 +1270,27 @@ class DisplayOption {
     required this.displaySubType,
     this.gridCrossAxisCount = 2,
     this.gridHeight = 280.0,
+    this.id,
   });
 
   final DisplayType displayType;
   final DisplaySubType displaySubType;
   final int gridCrossAxisCount;
   final double gridHeight;
+  final String? id;
 
   DisplayOption copyWith(
       {DisplayType? displayType,
       DisplaySubType? displaySubType,
       int? gridCrossAxisCount,
-      double? gridHeight}) {
+      double? gridHeight,
+      String? id}) {
     return DisplayOption(
       displayType: displayType ?? this.displayType,
       displaySubType: displaySubType ?? this.displaySubType,
       gridCrossAxisCount: gridCrossAxisCount ?? this.gridCrossAxisCount,
       gridHeight: gridHeight ?? this.gridHeight,
+      id: id ?? this.id,
     );
   }
 
@@ -1270,6 +1300,7 @@ class DisplayOption {
       displaySubType: displaySubType,
       gridCrossAxisCount: gridCrossAxisCount,
       gridHeight: gridHeight,
+      id: id,
     );
   }
 
@@ -1282,9 +1313,12 @@ class DisplayOption {
               ? 'compact'
               : displaySubType == DisplaySubType.spacious
                   ? 'spacious'
-                  : 'cover_only_grid',
+                  : displaySubType == DisplaySubType.custom
+                      ? 'custom'
+                      : 'cover_only_grid',
       'gridCrossAxisCount': gridCrossAxisCount,
       'gridHeight': gridHeight,
+      'id': id,
     };
   }
 
@@ -1302,9 +1336,12 @@ class DisplayOption {
               ? DisplaySubType.compact
               : json['displaySubType'] == 'spacious'
                   ? DisplaySubType.spacious
-                  : DisplaySubType.cover_only_grid,
+                  : json['displaySubType'] == 'custom'
+                      ? DisplaySubType.custom
+                      : DisplaySubType.cover_only_grid,
       gridCrossAxisCount: json['gridCrossAxisCount'] ?? 2,
       gridHeight: json['gridHeight'] ?? 280.0,
+      id: json['id'],
     );
   }
 

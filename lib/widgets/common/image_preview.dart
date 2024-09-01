@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:dailyanimelist/constant.dart';
@@ -32,7 +33,12 @@ void zoomInImage(BuildContext context, String url, [bool showButtons = true]) {
                   ),
                   loadingBuilder: (context, event) => _imageLoader(event),
                 ),
-                imageButtons(url, context, showButtons),
+                Positioned(
+                  bottom: 30.0,
+                  left: 0.0,
+                  right: 0.0,
+                  child: imageButtons(url, context, showButtons),
+                ),
               ],
             ),
           ),
@@ -79,6 +85,19 @@ Widget imageButtons(String url, BuildContext context,
       ),
     ],
   );
+}
+
+Future<void> saveImageBytes(Uint8List bytes) async {
+  try {
+    var path = await FileStorage.getExternalDocumentPath();
+    var fileName = new Random().nextInt(10000000).toString() + '.jpg';
+    var newPath = '$path/$fileName';
+    File file = File(newPath);
+    await file.writeAsBytes(bytes);
+    showToast('Image saved to $newPath');
+  } catch (e) {
+    showToast('Error saving image');
+  }
 }
 
 void saveImage(String url) async {
@@ -180,8 +199,11 @@ void zoomInImageList(BuildContext context, List<String> urlList,
                         return Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            imageButtons(urlList[imageIndex], context),
                             _pageIndicator(imageIndex, urlList),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 40.0),
+                              child: imageButtons(urlList[imageIndex], context),
+                            ),
                           ],
                         );
                       }),
@@ -219,3 +241,5 @@ Center _imageLoader(ImageChunkEvent? event) {
     ),
   );
 }
+
+

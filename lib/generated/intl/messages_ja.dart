@@ -34,6 +34,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("概要セクションを追加または編集します。"),
         "Add_Friend": MessageLookupByLibrary.simpleMessage("友人を追加する"),
         "Add_an_Item": MessageLookupByLibrary.simpleMessage("アイテムを追加してください"),
+        "Add_display_profile":
+            MessageLookupByLibrary.simpleMessage("ディスプレイプロファイルの追加"),
         "Add_to_List": MessageLookupByLibrary.simpleMessage("リストに追加する"),
         "AdditionalTitles": MessageLookupByLibrary.simpleMessage("追加タイトル"),
         "Adult_Cast": MessageLookupByLibrary.simpleMessage("Adult_Cast"),
@@ -98,6 +100,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Apply_Filters": MessageLookupByLibrary.simpleMessage("フィルタを適用します"),
         "Arabic": MessageLookupByLibrary.simpleMessage("アラビア語"),
         "Arch_Enemies": MessageLookupByLibrary.simpleMessage("アーチ敵"),
+        "Are_you_sure_you_want_to_delete_profile":
+            MessageLookupByLibrary.simpleMessage("このプロファイルを削除してもよろしいですか?"),
+        "Are_you_sure_you_want_to_discard":
+            MessageLookupByLibrary.simpleMessage("変更を破棄してもよろしいですか?"),
         "Art": MessageLookupByLibrary.simpleMessage("美術"),
         "Attack_on_Titan": MessageLookupByLibrary.simpleMessage("進撃の巨人"),
         "Author_Distribution": MessageLookupByLibrary.simpleMessage("著者の分布"),
@@ -229,6 +235,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("マンガタブのカスタマイズ"),
         "Custom_tag": MessageLookupByLibrary.simpleMessage("カスタムタグ"),
         "Custom_tag_desc": MessageLookupByLibrary.simpleMessage("カスタムタグを挿入します"),
+        "Custom_view_for_anime":
+            MessageLookupByLibrary.simpleMessage("アニメのカスタムビュー"),
+        "Custom_view_for_anime_desc": MessageLookupByLibrary.simpleMessage(
+            "リストビューが選択されている場合のアニメタブのビューをカスタマイズします。"),
         "Customize_Bottom_Navbar_desc": MessageLookupByLibrary.simpleMessage(
             "home/forum/user/explore から起動ページを選択します"),
         "Customize_Home_Page":
@@ -247,7 +257,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ユーザーページのリストビューを優先"),
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "ユーザーページはグリッドビューではなくリストビューを使用"),
+        "Default_tab_selected_for_anime":
+            MessageLookupByLibrary.simpleMessage("アニメ用に選択されたデフォルトのタブ"),
+        "Default_tab_selected_for_anime_manga":
+            MessageLookupByLibrary.simpleMessage("アニメ/マンガ用に選択されたデフォルトのタブ"),
+        "Default_tab_selected_for_manga":
+            MessageLookupByLibrary.simpleMessage("マンガ用に選択されたデフォルトのタブ"),
         "Delete": MessageLookupByLibrary.simpleMessage("消去"),
+        "Delete_Profile": MessageLookupByLibrary.simpleMessage("プロフィールの削除"),
         "Delete_from_List": MessageLookupByLibrary.simpleMessage("リストから削除します"),
         "Delinquents": MessageLookupByLibrary.simpleMessage("滞納者"),
         "Dementia": MessageLookupByLibrary.simpleMessage("認知症"),
@@ -257,6 +274,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Details": MessageLookupByLibrary.simpleMessage("詳細"),
         "Detective": MessageLookupByLibrary.simpleMessage("探偵"),
         "Director": MessageLookupByLibrary.simpleMessage("監督"),
+        "Discard": MessageLookupByLibrary.simpleMessage("破棄"),
+        "Discard_changes": MessageLookupByLibrary.simpleMessage("変更を破棄する"),
         "DiscordInvite": MessageLookupByLibrary.simpleMessage("Discordへの招待"),
         "DiscordInviteDesc": MessageLookupByLibrary.simpleMessage(
             "公式Discordサーバーに参加するにはここをクリックしてください"),
@@ -268,6 +287,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Do_you_wish_to_logout":
             MessageLookupByLibrary.simpleMessage("あなたはログアウトしたいですか？"),
         "Doujunshi": MessageLookupByLibrary.simpleMessage("道順し"),
+        "Drag_the_field": MessageLookupByLibrary.simpleMessage(
+            "フィールドをドラッグするか、矢印キーを使用してフィールドを移動します"),
         "Dragon_Ball": MessageLookupByLibrary.simpleMessage("ドラゴンボール"),
         "Drama": MessageLookupByLibrary.simpleMessage("ドラマ"),
         "Dropped": MessageLookupByLibrary.simpleMessage("drop"),
@@ -275,6 +296,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Ecchi": MessageLookupByLibrary.simpleMessage("柏"),
         "Edit": MessageLookupByLibrary.simpleMessage("編集"),
         "Edit_About": MessageLookupByLibrary.simpleMessage("について編集"),
+        "Edit_Display_Profile":
+            MessageLookupByLibrary.simpleMessage("ディスプレイプロファイルの編集"),
         "Edit_Refresh_Message": MessageLookupByLibrary.simpleMessage(
             "編集後、このセクションが更新されるまでしばらく時間がかかります"),
         "Editorial": MessageLookupByLibrary.simpleMessage("編集"),
@@ -286,6 +309,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "アプリがシステムロケールまたは国コードをサポートしていない場合、デフォルトは英語です。"),
         "English_Dub": MessageLookupByLibrary.simpleMessage("英語ダブ"),
         "Enjoyment": MessageLookupByLibrary.simpleMessage("楽しみ"),
+        "Enter_profile_name":
+            MessageLookupByLibrary.simpleMessage("プロファイル名を入力してください"),
+        "Enter_valid_profile":
+            MessageLookupByLibrary.simpleMessage("プロフィール名を入力してください"),
         "Entries": MessageLookupByLibrary.simpleMessage("エントリ"),
         "Entry": MessageLookupByLibrary.simpleMessage("エントリ"),
         "Episode_Reminder": MessageLookupByLibrary.simpleMessage("エピソードリマインダー"),
@@ -414,6 +441,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Helpful": MessageLookupByLibrary.simpleMessage("役立つ"),
         "Hentai": MessageLookupByLibrary.simpleMessage("h h"),
         "Hiatus": MessageLookupByLibrary.simpleMessage("hi hi"),
+        "Hide": MessageLookupByLibrary.simpleMessage("隠れる"),
         "High": MessageLookupByLibrary.simpleMessage("高い"),
         "High_Stakes_Game":
             MessageLookupByLibrary.simpleMessage("High_Stakes_Game"),
@@ -438,6 +466,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Idols_Female": MessageLookupByLibrary.simpleMessage("Idols_Female"),
         "Idols_Male": MessageLookupByLibrary.simpleMessage("Idols_Male"),
         "If_You_Liked": MessageLookupByLibrary.simpleMessage("気に入ったら"),
+        "If_nothing_is_selected": MessageLookupByLibrary.simpleMessage(
+            "何も選択されていない場合は、最後に開いたものがデフォルトで使用されます。"),
         "Image_Not_Selected":
             MessageLookupByLibrary.simpleMessage("あなたは任意の画像を選択しませんでした。"),
         "Image_Size_Too_Large":
@@ -499,6 +529,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Light_Novel_Sales": MessageLookupByLibrary.simpleMessage("光の小説売上高"),
         "Light_Novels": MessageLookupByLibrary.simpleMessage("光小説"),
         "List": MessageLookupByLibrary.simpleMessage("リスト"),
+        "List_preferences": MessageLookupByLibrary.simpleMessage("リスト設定"),
+        "List_preferences_desc":
+            MessageLookupByLibrary.simpleMessage("アニメ/マンガのリストビューをカスタマイズする"),
         "Live": MessageLookupByLibrary.simpleMessage("住む"),
         "Live_Action": MessageLookupByLibrary.simpleMessage("ライブアクション"),
         "Load_More": MessageLookupByLibrary.simpleMessage("もっと読み込む"),
@@ -581,6 +614,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "More_Information": MessageLookupByLibrary.simpleMessage("詳しくは"),
         "Most_Popular_Anime":
             MessageLookupByLibrary.simpleMessage("最も人気のあるアニメ"),
+        "Move_to_back": MessageLookupByLibrary.simpleMessage("後ろに移動"),
+        "Move_to_front": MessageLookupByLibrary.simpleMessage("前に移動"),
         "Music": MessageLookupByLibrary.simpleMessage("音楽"),
         "Music_Entertainment":
             MessageLookupByLibrary.simpleMessage("音楽＆エンターテイメント"),
@@ -619,6 +654,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "EXの場合：推奨タグはあなたにいくつかの素晴らしい推奨事項を与えるでしょう。"),
         "Next": MessageLookupByLibrary.simpleMessage("次"),
         "NextShow": MessageLookupByLibrary.simpleMessage("次のショー"),
+        "Next_episode": MessageLookupByLibrary.simpleMessage("次のエピソード"),
         "Nice": MessageLookupByLibrary.simpleMessage("良い"),
         "No": MessageLookupByLibrary.simpleMessage("番号"),
         "NoMoreItemsFound":
@@ -737,6 +773,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("プロフィールの背景が正常に削除されました"),
         "Profile_bg_set":
             MessageLookupByLibrary.simpleMessage("プロフィールの背景が正常に設定されました"),
+        "Profile_name": MessageLookupByLibrary.simpleMessage("プロファイル名"),
         "Promo_Videos": MessageLookupByLibrary.simpleMessage("プロモビデオ"),
         "Promotional": MessageLookupByLibrary.simpleMessage("プロモーション"),
         "Pros": MessageLookupByLibrary.simpleMessage("長所"),
@@ -811,6 +848,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review_Summary": MessageLookupByLibrary.simpleMessage("レビューの概要"),
         "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
             "レビュー評決は以下のレビューを使用して AI によって生成されており、正確ではない可能性があります。詳細についてはレビューをお読みください。"),
+        "Review_summary":
+            MessageLookupByLibrary.simpleMessage("AI が生成したすべてのレビューの概要を表示"),
         "Reviews": MessageLookupByLibrary.simpleMessage("レビュー"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("再ウォッチ"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("再ウォッチング"),
@@ -839,6 +878,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search_Page_Intro":
             MessageLookupByLibrary.simpleMessage("お気に入りのアニメ、マンガなどを検索してください.."),
         "Search_Results": MessageLookupByLibrary.simpleMessage("の検索結果"),
+        "Search_by_genre": MessageLookupByLibrary.simpleMessage("同じジャンルで探す"),
         "Search_for": MessageLookupByLibrary.simpleMessage("検索する"),
         "Season": MessageLookupByLibrary.simpleMessage("季節"),
         "Seasonal": MessageLookupByLibrary.simpleMessage("季節の"),
@@ -888,6 +928,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "セットアップがタイムアウトしました。もう一度やり直してください。"),
         "Share": MessageLookupByLibrary.simpleMessage("シェア"),
         "Shoujo": MessageLookupByLibrary.simpleMessage("千条"),
+        "Should_be_aplhanumeric":
+            MessageLookupByLibrary.simpleMessage("英数字である必要があります"),
         "Shounen": MessageLookupByLibrary.simpleMessage("恥ずく"),
         "Show": MessageLookupByLibrary.simpleMessage("見せる"),
         "ShowOnlyLastQuote":
@@ -1000,6 +1042,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Tags_unApplied":
             MessageLookupByLibrary.simpleMessage("タグは検索クエリに適用されません。"),
         "Tap_to_Sign_In": MessageLookupByLibrary.simpleMessage("サインインをタップします"),
+        "Tap_to_edit": MessageLookupByLibrary.simpleMessage("タップして編集"),
+        "Tap_to_select":
+            MessageLookupByLibrary.simpleMessage("編集するフィールドをタップして選択します"),
         "Team_Sports": MessageLookupByLibrary.simpleMessage("チームスポーツ"),
         "Technology": MessageLookupByLibrary.simpleMessage("テクノロジー"),
         "TestNotification":

@@ -254,7 +254,7 @@ class MalUser {
   }) async {
     final limit = 1000;
     String url =
-        '${CredMal.userEndPoint}$username/${category}list?fields=genres,media_type,start_date,broadcast,source,studios,list_status,mean${fields == null ? '' : ',${fields}'}&limit=$limit';
+        '${CredMal.userEndPoint}$username/${category}list?fields=alternative_titles,genres,media_type,start_date,broadcast,source,studios,list_status,mean${fields == null ? '' : ',${fields}'}&limit=$limit';
     if (status != null) {
       url += "&status=$status";
     }

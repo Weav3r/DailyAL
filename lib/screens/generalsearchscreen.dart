@@ -1505,7 +1505,7 @@ class _GeneralSearchScreenState extends State<GeneralSearchScreen>
     switch (category) {
       case 'anime':
       case 'manga':
-        return SortFilterOptions.getDisplayOptions();
+        return SortFilterOptions.getDisplayOptions(category: category);
       default:
         return [];
     }
@@ -1852,4 +1852,4 @@ class CustomFilters {
 
 enum DisplayType { list_vert, grid, list_horiz }
 
-enum DisplaySubType { compact, comfortable, cover_only_grid, spacious }
+enum DisplaySubType { compact, comfortable, cover_only_grid, spacious, custom }

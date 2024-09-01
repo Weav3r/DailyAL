@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Hakkında bölümünüzü ekleyin veya düzenleyin."),
         "Add_Friend": MessageLookupByLibrary.simpleMessage("Arkadaş Ekle"),
         "Add_an_Item": MessageLookupByLibrary.simpleMessage("Bir Öğe Ekle"),
+        "Add_display_profile":
+            MessageLookupByLibrary.simpleMessage("Görüntü Profili Ekle"),
         "Add_to_List": MessageLookupByLibrary.simpleMessage("Listeye ekle"),
         "AdditionalTitles":
             MessageLookupByLibrary.simpleMessage("Ek Başlıklar"),
@@ -108,6 +110,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Filtreleri Uygula"),
         "Arabic": MessageLookupByLibrary.simpleMessage("Arapça"),
         "Arch_Enemies": MessageLookupByLibrary.simpleMessage("Baş Düşmanlar"),
+        "Are_you_sure_you_want_to_delete_profile":
+            MessageLookupByLibrary.simpleMessage(
+                "Bu profili silmek istediğinizden emin misiniz?"),
+        "Are_you_sure_you_want_to_discard":
+            MessageLookupByLibrary.simpleMessage(
+                "Değişiklikleri silmek istediğinizden emin misiniz?"),
         "Art": MessageLookupByLibrary.simpleMessage("Sanat"),
         "Attack_on_Titan":
             MessageLookupByLibrary.simpleMessage("Titan\'a Saldırı"),
@@ -259,6 +267,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "Custom_tag": MessageLookupByLibrary.simpleMessage("Özel Etiket"),
         "Custom_tag_desc":
             MessageLookupByLibrary.simpleMessage("özel bir etiket ekle"),
+        "Custom_view_for_anime":
+            MessageLookupByLibrary.simpleMessage("Anime için özel görünüm"),
+        "Custom_view_for_anime_desc": MessageLookupByLibrary.simpleMessage(
+            "Liste görünümü seçildiğinde anime sekmesinin görünümünü özelleştirin."),
         "Customize_Bottom_Navbar_desc": MessageLookupByLibrary.simpleMessage(
             "Ana sayfa/forum/kullanıcı/keşfet\'ten bir başlangıç ​​sayfası seçin"),
         "Customize_Home_Page":
@@ -279,7 +291,15 @@ class MessageLookup extends MessageLookupByLibrary {
             "Kullanıcı sayfası için liste görünümünü tercih et"),
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "Kullanıcı sayfası tablo görünümü yerine liste görünümünü kullanıyor"),
+        "Default_tab_selected_for_anime": MessageLookupByLibrary.simpleMessage(
+            "Anime için seçilen varsayılan sekme"),
+        "Default_tab_selected_for_anime_manga":
+            MessageLookupByLibrary.simpleMessage(
+                "Anime/manga için seçilen varsayılan sekme"),
+        "Default_tab_selected_for_manga": MessageLookupByLibrary.simpleMessage(
+            "Manga için seçilen varsayılan sekme"),
         "Delete": MessageLookupByLibrary.simpleMessage("Silmek"),
+        "Delete_Profile": MessageLookupByLibrary.simpleMessage("Profili Sil"),
         "Delete_from_List":
             MessageLookupByLibrary.simpleMessage("Listeden Sil"),
         "Delinquents": MessageLookupByLibrary.simpleMessage("Suçlular"),
@@ -290,6 +310,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Details": MessageLookupByLibrary.simpleMessage("Detaylar"),
         "Detective": MessageLookupByLibrary.simpleMessage("Dedektif"),
         "Director": MessageLookupByLibrary.simpleMessage("Müdür"),
+        "Discard": MessageLookupByLibrary.simpleMessage("At"),
+        "Discard_changes":
+            MessageLookupByLibrary.simpleMessage("Değişiklikleri sil"),
         "DiscordInvite":
             MessageLookupByLibrary.simpleMessage("Anlaşmazlık Daveti"),
         "DiscordInviteDesc": MessageLookupByLibrary.simpleMessage(
@@ -304,6 +327,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Oturumu kapatmak istiyor musunuz?"),
         "Doujunshi":
             MessageLookupByLibrary.simpleMessage("Devriye nasıl yapılır"),
+        "Drag_the_field": MessageLookupByLibrary.simpleMessage(
+            "Alanı sürükleyin veya alanı taşımak için ok tuşlarını kullanın"),
         "Dragon_Ball": MessageLookupByLibrary.simpleMessage("Ejder topu"),
         "Drama": MessageLookupByLibrary.simpleMessage("Dram"),
         "Dropped": MessageLookupByLibrary.simpleMessage("Düştü"),
@@ -311,6 +336,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Ecchi": MessageLookupByLibrary.simpleMessage("Ecchi"),
         "Edit": MessageLookupByLibrary.simpleMessage("Düzenlemek"),
         "Edit_About": MessageLookupByLibrary.simpleMessage("Hakkında düzenle"),
+        "Edit_Display_Profile": MessageLookupByLibrary.simpleMessage(
+            "Görüntüleme Profilini Düzenle"),
         "Edit_Refresh_Message": MessageLookupByLibrary.simpleMessage(
             "Düzenledikten sonra bu bölümün yenilenmesi biraz zaman alacaktır"),
         "Editorial": MessageLookupByLibrary.simpleMessage("Editoryal"),
@@ -322,6 +349,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Uygulama sistem yerel ayarını veya ülke kodunu desteklemiyorsa varsayılan olarak İngilizce olur."),
         "English_Dub": MessageLookupByLibrary.simpleMessage("İngilizce Dublaj"),
         "Enjoyment": MessageLookupByLibrary.simpleMessage("Zevk"),
+        "Enter_profile_name":
+            MessageLookupByLibrary.simpleMessage("Profil adını girin"),
+        "Enter_valid_profile":
+            MessageLookupByLibrary.simpleMessage("Lütfen bir profil adı girin"),
         "Entries": MessageLookupByLibrary.simpleMessage("girdileri"),
         "Entry": MessageLookupByLibrary.simpleMessage("giriş"),
         "Episode_Reminder":
@@ -460,6 +491,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Helpful": MessageLookupByLibrary.simpleMessage("Yardımsever"),
         "Hentai": MessageLookupByLibrary.simpleMessage("hentai"),
         "Hiatus": MessageLookupByLibrary.simpleMessage("Boşluk"),
+        "Hide": MessageLookupByLibrary.simpleMessage("Saklamak"),
         "High": MessageLookupByLibrary.simpleMessage("Yüksek"),
         "High_Stakes_Game":
             MessageLookupByLibrary.simpleMessage("High_Stakes_Game"),
@@ -487,6 +519,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Idols_Female": MessageLookupByLibrary.simpleMessage("Idols_Kadın"),
         "Idols_Male": MessageLookupByLibrary.simpleMessage("Putlar_Erkek"),
         "If_You_Liked": MessageLookupByLibrary.simpleMessage("Beğendiysen"),
+        "If_nothing_is_selected": MessageLookupByLibrary.simpleMessage(
+            "Hiçbir şey seçilmezse, varsayılan olarak en son açılana göre ayarlanacaktır."),
         "Image_Not_Selected": MessageLookupByLibrary.simpleMessage(
             "Herhangi bir resim seçmediniz."),
         "Image_Size_Too_Large": MessageLookupByLibrary.simpleMessage(
@@ -553,6 +587,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Hafif Roman Satışları"),
         "Light_Novels": MessageLookupByLibrary.simpleMessage("Hafif Romanlar"),
         "List": MessageLookupByLibrary.simpleMessage("Liste"),
+        "List_preferences":
+            MessageLookupByLibrary.simpleMessage("Tercihleri ​​Listele"),
+        "List_preferences_desc": MessageLookupByLibrary.simpleMessage(
+            "Anime/manga liste görünümünüzü özelleştirin"),
         "Live": MessageLookupByLibrary.simpleMessage("Canlı"),
         "Live_Action": MessageLookupByLibrary.simpleMessage("Canlı Aksiyon"),
         "Load_More": MessageLookupByLibrary.simpleMessage("Daha fazla yükle"),
@@ -648,6 +686,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Daha fazla bilgi"),
         "Most_Popular_Anime":
             MessageLookupByLibrary.simpleMessage("En Popüler Anime"),
+        "Move_to_back": MessageLookupByLibrary.simpleMessage("Geriye git"),
+        "Move_to_front": MessageLookupByLibrary.simpleMessage("Öne git"),
         "Music": MessageLookupByLibrary.simpleMessage("Müzik"),
         "Music_Entertainment":
             MessageLookupByLibrary.simpleMessage("Müzik ve Eğlence"),
@@ -687,6 +727,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Örneğin: Öneri etiketi size harika öneriler verecektir."),
         "Next": MessageLookupByLibrary.simpleMessage("Sonraki"),
         "NextShow": MessageLookupByLibrary.simpleMessage("Sonraki Gösteri"),
+        "Next_episode": MessageLookupByLibrary.simpleMessage("Sonraki bölüm"),
         "Nice": MessageLookupByLibrary.simpleMessage("Güzel"),
         "No": MessageLookupByLibrary.simpleMessage("HAYIR"),
         "NoMoreItemsFound":
@@ -824,6 +865,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Profil arka planı başarıyla kaldırıldı"),
         "Profile_bg_set": MessageLookupByLibrary.simpleMessage(
             "Profil arka planı başarıyla ayarlandı"),
+        "Profile_name": MessageLookupByLibrary.simpleMessage("Profil Adı"),
         "Promo_Videos":
             MessageLookupByLibrary.simpleMessage("Tanıtım Videoları"),
         "Promotional": MessageLookupByLibrary.simpleMessage("Promosyon"),
@@ -911,6 +953,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("İnceleme Özeti"),
         "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
             "İnceleme Kararı yapay zeka tarafından aşağıdaki incelemeler kullanılarak oluşturulur ve doğru olmayabilir. Daha fazla bilgi için lütfen yorumları okuyun."),
+        "Review_summary": MessageLookupByLibrary.simpleMessage(
+            "Tüm incelemelerin yapay zeka tarafından oluşturulan özetini görüntüleyin"),
         "Reviews": MessageLookupByLibrary.simpleMessage("Yorumlar"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("Tekrar izle"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("Tekrar izliyorum"),
@@ -943,6 +987,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "En sevdiğiniz animeyi, mangayı ve daha fazlasını arayın.."),
         "Search_Results":
             MessageLookupByLibrary.simpleMessage("Arama Sonuçları"),
+        "Search_by_genre":
+            MessageLookupByLibrary.simpleMessage("Aynı türe göre ara"),
         "Search_for": MessageLookupByLibrary.simpleMessage("Aramak"),
         "Season": MessageLookupByLibrary.simpleMessage("Mevsim"),
         "Seasonal": MessageLookupByLibrary.simpleMessage("Mevsimsel"),
@@ -997,6 +1043,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Kurulum Zaman aşımına uğradı. Lütfen tekrar deneyin."),
         "Share": MessageLookupByLibrary.simpleMessage("Paylaşmak"),
         "Shoujo": MessageLookupByLibrary.simpleMessage("Shoujo"),
+        "Should_be_aplhanumeric":
+            MessageLookupByLibrary.simpleMessage("Alfasayısal olmalı"),
         "Shounen": MessageLookupByLibrary.simpleMessage("Shounen"),
         "Show": MessageLookupByLibrary.simpleMessage("Göstermek"),
         "ShowOnlyLastQuote":
@@ -1123,6 +1171,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Etiketler arama sorgusuyla birlikte uygulanmayacaktır."),
         "Tap_to_Sign_In":
             MessageLookupByLibrary.simpleMessage("Oturum Açmak için Dokunun"),
+        "Tap_to_edit":
+            MessageLookupByLibrary.simpleMessage("Düzenlemek için dokunun"),
+        "Tap_to_select": MessageLookupByLibrary.simpleMessage(
+            "Düzenlenecek alanı seçmek için dokunun"),
         "Team_Sports": MessageLookupByLibrary.simpleMessage("Takım sporları"),
         "Technology": MessageLookupByLibrary.simpleMessage("Teknoloji"),
         "TestNotification": MessageLookupByLibrary.simpleMessage(

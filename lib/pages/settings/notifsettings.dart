@@ -25,7 +25,7 @@ class NotificationSettingsPage extends StatefulWidget {
 }
 
 class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
-  List<Node> nodes = List.from(jsonDecode(_nodeList))
+  List<Node> nodes = List.from(jsonDecode(sampleNodesList))
       .map((e) => AnimeDetailed.fromJson(e['node']))
       .toList();
 
@@ -98,8 +98,7 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
                 title: title,
                 serviceId: 21,
                 node: node,
-                exactDate:
-                    DateTime.now().add(const Duration(seconds: 2)),
+                exactDate: DateTime.now().add(const Duration(seconds: 2)),
                 body: S.current.Notif_Update_watchList,
                 channel: NotificationChannel.watching(),
               );
@@ -116,8 +115,58 @@ class _NotificationSettingsPageState extends State<NotificationSettingsPage> {
   }
 }
 
-const _nodeList = '''
+const sampleNodesList = '''
 [{
+			"node": {
+				"id": 21,
+				"title": "One Piece",
+				"main_picture": {
+					"medium": "https:\/\/cdn.myanimelist.net\/images\/anime\/6\/73245.jpg",
+					"large": "https:\/\/cdn.myanimelist.net\/images\/anime\/6\/73245l.jpg"
+				},
+        "my_list_status": {
+          "status": "watching",
+          "score": 10,
+          "num_episodes_watched": 4
+        },
+				"num_episodes": 0,
+				"broadcast": {
+					"day_of_the_week": "sunday",
+					"start_time": "09:30"
+				},
+				"start_date": "1999-10-20",
+				"alternative_titles": {
+					"synonyms": [
+						"OP"
+					],
+					"en": "One Piece",
+					"ja": "ONE PIECE"
+				},
+				"status": "currently_airing",
+				"mean": 8.7,
+				"num_list_users": 2226902,
+				"genres": [
+					{
+						"id": 1,
+						"name": "Action"
+					},
+					{
+						"id": 2,
+						"name": "Adventure"
+					},
+					{
+						"id": 10,
+						"name": "Fantasy"
+					},
+					{
+						"id": 27,
+						"name": "Shounen"
+					}
+				],
+				"media_type": "tv"
+			}
+		},
+    {
 			"node": {
 				"id": 53998,
 				"title": "Bleach: Sennen Kessen-hen - Ketsubetsu-tan",
@@ -254,51 +303,6 @@ const _nodeList = '''
 					{
 						"id": 23,
 						"name": "School"
-					},
-					{
-						"id": 27,
-						"name": "Shounen"
-					}
-				],
-				"media_type": "tv"
-			}
-		},
-		{
-			"node": {
-				"id": 21,
-				"title": "One Piece",
-				"main_picture": {
-					"medium": "https:\/\/cdn.myanimelist.net\/images\/anime\/6\/73245.jpg",
-					"large": "https:\/\/cdn.myanimelist.net\/images\/anime\/6\/73245l.jpg"
-				},
-				"num_episodes": 0,
-				"broadcast": {
-					"day_of_the_week": "sunday",
-					"start_time": "09:30"
-				},
-				"start_date": "1999-10-20",
-				"alternative_titles": {
-					"synonyms": [
-						"OP"
-					],
-					"en": "One Piece",
-					"ja": "ONE PIECE"
-				},
-				"status": "currently_airing",
-				"mean": 8.7,
-				"num_list_users": 2226902,
-				"genres": [
-					{
-						"id": 1,
-						"name": "Action"
-					},
-					{
-						"id": 2,
-						"name": "Adventure"
-					},
-					{
-						"id": 10,
-						"name": "Fantasy"
 					},
 					{
 						"id": 27,

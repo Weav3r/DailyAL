@@ -7,8 +7,18 @@ part of 'anime_manga_pref.dart';
 // **************************************************************************
 
 AnimeMangaPagePreferences _$AnimeMangaPagePreferencesFromJson(
-        Map<String, dynamic> json) =>
-    AnimeMangaPagePreferences(
+        Map<String, dynamic> json) {
+  List<ContentCardProps>? list;
+  try {
+    list = (json['contentCardProps'] as List<dynamic>?)
+        ?.map((e) => ContentCardProps.fromJson(e as Map<String, dynamic>?))
+        .toList();
+  } catch (e) {
+    if (e is Error) {
+     ErrorReporting.reportError(e);
+    }
+  }
+  return AnimeMangaPagePreferences(
       animeTabs: (json['animeTabs'] as List<dynamic>)
           .map((e) =>
               AnimeMangaTabPreference.fromJson(e as Map<String, dynamic>))
@@ -20,7 +30,12 @@ AnimeMangaPagePreferences _$AnimeMangaPagePreferencesFromJson(
       timezonePref:
           $enumDecodeNullable(_$TimezonePrefEnumMap, json['timezonePref']) ??
               TimezonePref.local,
+      defaultTab: json['defaultTab'] as String?,
+      defaultAnimeTab: json['defaultAnimeTab'] as String?,
+      defaultMangaTab: json['defaultMangaTab'] as String?,
+      contentCardProps: list,
     );
+}
 
 Map<String, dynamic> _$AnimeMangaPagePreferencesToJson(
         AnimeMangaPagePreferences instance) =>
@@ -28,6 +43,10 @@ Map<String, dynamic> _$AnimeMangaPagePreferencesToJson(
       'animeTabs': instance.animeTabs,
       'mangaTabs': instance.mangaTabs,
       'timezonePref': _$TimezonePrefEnumMap[instance.timezonePref]!,
+      'defaultTab': instance.defaultTab,
+      'defaultAnimeTab': instance.defaultAnimeTab,
+      'defaultMangaTab': instance.defaultMangaTab,
+      'contentCardProps': instance.contentCardProps,
     };
 
 const _$TimezonePrefEnumMap = {

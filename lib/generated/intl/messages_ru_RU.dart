@@ -35,6 +35,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Добавьте или отредактируйте раздел «О себе»."),
         "Add_Friend": MessageLookupByLibrary.simpleMessage("Добавить в друзья"),
         "Add_an_Item": MessageLookupByLibrary.simpleMessage("Добавить элемент"),
+        "Add_display_profile":
+            MessageLookupByLibrary.simpleMessage("Добавить профиль дисплея"),
         "Add_to_List":
             MessageLookupByLibrary.simpleMessage("Добавить в список"),
         "AdditionalTitles":
@@ -110,6 +112,12 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Применить фильтры"),
         "Arabic": MessageLookupByLibrary.simpleMessage("арабский"),
         "Arch_Enemies": MessageLookupByLibrary.simpleMessage("Заклятые враги"),
+        "Are_you_sure_you_want_to_delete_profile":
+            MessageLookupByLibrary.simpleMessage(
+                "Вы уверены, что хотите удалить этот профиль?"),
+        "Are_you_sure_you_want_to_discard":
+            MessageLookupByLibrary.simpleMessage(
+                "Вы уверены, что хотите отменить изменения?"),
         "Art": MessageLookupByLibrary.simpleMessage("Искусство"),
         "Attack_on_Titan": MessageLookupByLibrary.simpleMessage("Атака Титана"),
         "Author_Distribution":
@@ -261,6 +269,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Пользовательский тег"),
         "Custom_tag_desc": MessageLookupByLibrary.simpleMessage(
             "вставить пользовательский тег"),
+        "Custom_view_for_anime":
+            MessageLookupByLibrary.simpleMessage("Пользовательский вид аниме"),
+        "Custom_view_for_anime_desc": MessageLookupByLibrary.simpleMessage(
+            "Настройте вид вкладки аниме, если выбран просмотр списка."),
         "Customize_Bottom_Navbar_desc": MessageLookupByLibrary.simpleMessage(
             "Выберите стартовую страницу из дома/форума/пользователя/исследования."),
         "Customize_Home_Page":
@@ -281,7 +293,16 @@ class MessageLookup extends MessageLookupByLibrary {
             "Предпочитать просмотр списка для страницы пользователя"),
         "Default_Display_Type_Desc": MessageLookupByLibrary.simpleMessage(
             "На странице пользователя используется представление списка вместо представления сетки."),
+        "Default_tab_selected_for_anime": MessageLookupByLibrary.simpleMessage(
+            "Для аниме выбрана вкладка по умолчанию"),
+        "Default_tab_selected_for_anime_manga":
+            MessageLookupByLibrary.simpleMessage(
+                "Вкладка по умолчанию выбрана для аниме/манги"),
+        "Default_tab_selected_for_manga": MessageLookupByLibrary.simpleMessage(
+            "Для манги выбрана вкладка по умолчанию"),
         "Delete": MessageLookupByLibrary.simpleMessage("Удалить"),
+        "Delete_Profile":
+            MessageLookupByLibrary.simpleMessage("Удалить профиль"),
         "Delete_from_List":
             MessageLookupByLibrary.simpleMessage("Удалить из списка"),
         "Delinquents": MessageLookupByLibrary.simpleMessage("Правонарушители"),
@@ -292,6 +313,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "Details": MessageLookupByLibrary.simpleMessage("Подробности"),
         "Detective": MessageLookupByLibrary.simpleMessage("Детектив"),
         "Director": MessageLookupByLibrary.simpleMessage("Директор"),
+        "Discard": MessageLookupByLibrary.simpleMessage("Отказаться"),
+        "Discard_changes":
+            MessageLookupByLibrary.simpleMessage("Отменить изменения"),
         "DiscordInvite":
             MessageLookupByLibrary.simpleMessage("Приглашение в Дискорд"),
         "DiscordInviteDesc": MessageLookupByLibrary.simpleMessage(
@@ -305,6 +329,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Do_you_wish_to_logout":
             MessageLookupByLibrary.simpleMessage("Вы хотите выйти из системы?"),
         "Doujunshi": MessageLookupByLibrary.simpleMessage("Как патрулировать"),
+        "Drag_the_field": MessageLookupByLibrary.simpleMessage(
+            "Перетащите поле или используйте клавиши со стрелками для перемещения поля."),
         "Dragon_Ball": MessageLookupByLibrary.simpleMessage("Жемчуг Дракона"),
         "Drama": MessageLookupByLibrary.simpleMessage("Драма"),
         "Dropped": MessageLookupByLibrary.simpleMessage("Упавший"),
@@ -313,6 +339,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Edit": MessageLookupByLibrary.simpleMessage("Редактировать"),
         "Edit_About":
             MessageLookupByLibrary.simpleMessage("Изменить информацию"),
+        "Edit_Display_Profile": MessageLookupByLibrary.simpleMessage(
+            "Редактировать профиль дисплея"),
         "Edit_Refresh_Message": MessageLookupByLibrary.simpleMessage(
             "После редактирования пройдет некоторое время, прежде чем этот раздел будет обновлен."),
         "Editorial": MessageLookupByLibrary.simpleMessage("Редакционный"),
@@ -325,6 +353,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "English_Dub":
             MessageLookupByLibrary.simpleMessage("Английский дубляж"),
         "Enjoyment": MessageLookupByLibrary.simpleMessage("Наслаждение"),
+        "Enter_profile_name":
+            MessageLookupByLibrary.simpleMessage("Введите имя профиля"),
+        "Enter_valid_profile": MessageLookupByLibrary.simpleMessage(
+            "Пожалуйста, введите имя профиля"),
         "Entries": MessageLookupByLibrary.simpleMessage("записи"),
         "Entry": MessageLookupByLibrary.simpleMessage("вход"),
         "Episode_Reminder":
@@ -465,6 +497,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Helpful": MessageLookupByLibrary.simpleMessage("Полезный"),
         "Hentai": MessageLookupByLibrary.simpleMessage("хентай"),
         "Hiatus": MessageLookupByLibrary.simpleMessage("Разрыв"),
+        "Hide": MessageLookupByLibrary.simpleMessage("Скрывать"),
         "High": MessageLookupByLibrary.simpleMessage("Высокий"),
         "High_Stakes_Game":
             MessageLookupByLibrary.simpleMessage("High_Stakes_Game"),
@@ -495,6 +528,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Idols_Male": MessageLookupByLibrary.simpleMessage("Идолы_Мужчина"),
         "If_You_Liked":
             MessageLookupByLibrary.simpleMessage("Если вам понравилось"),
+        "If_nothing_is_selected": MessageLookupByLibrary.simpleMessage(
+            "Если ничего не выбрано, по умолчанию будет использоваться последнее открытое окно."),
         "Image_Not_Selected": MessageLookupByLibrary.simpleMessage(
             "Вы не выбрали ни одного изображения."),
         "Image_Size_Too_Large": MessageLookupByLibrary.simpleMessage(
@@ -564,6 +599,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Продажи ранобэ"),
         "Light_Novels": MessageLookupByLibrary.simpleMessage("Легкие романы"),
         "List": MessageLookupByLibrary.simpleMessage("Список"),
+        "List_preferences":
+            MessageLookupByLibrary.simpleMessage("Список предпочтений"),
+        "List_preferences_desc": MessageLookupByLibrary.simpleMessage(
+            "Настройте просмотр списка аниме/манги"),
         "Live": MessageLookupByLibrary.simpleMessage("Жить"),
         "Live_Action": MessageLookupByLibrary.simpleMessage("Живое действие"),
         "Load_More": MessageLookupByLibrary.simpleMessage("Загрузи больше"),
@@ -659,6 +698,9 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Больше информации"),
         "Most_Popular_Anime":
             MessageLookupByLibrary.simpleMessage("Самое популярное аниме"),
+        "Move_to_back": MessageLookupByLibrary.simpleMessage("Перейти назад"),
+        "Move_to_front": MessageLookupByLibrary.simpleMessage(
+            "Переместить на передний план"),
         "Music": MessageLookupByLibrary.simpleMessage("Музыка"),
         "Music_Entertainment":
             MessageLookupByLibrary.simpleMessage("Музыка и развлечения"),
@@ -701,6 +743,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Например, тег «Рекомендации» даст вам несколько замечательных рекомендаций."),
         "Next": MessageLookupByLibrary.simpleMessage("Следующий"),
         "NextShow": MessageLookupByLibrary.simpleMessage("Следующее шоу"),
+        "Next_episode":
+            MessageLookupByLibrary.simpleMessage("Следующий выпуск"),
         "Nice": MessageLookupByLibrary.simpleMessage("Хороший"),
         "No": MessageLookupByLibrary.simpleMessage("Нет"),
         "NoMoreItemsFound":
@@ -841,6 +885,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Фон профиля успешно удален"),
         "Profile_bg_set": MessageLookupByLibrary.simpleMessage(
             "Фон профиля успешно установлен"),
+        "Profile_name": MessageLookupByLibrary.simpleMessage("Имя профиля"),
         "Promo_Videos": MessageLookupByLibrary.simpleMessage("Промо-видео"),
         "Promotional": MessageLookupByLibrary.simpleMessage("Рекламный"),
         "Pros": MessageLookupByLibrary.simpleMessage("Плюсы"),
@@ -926,6 +971,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Review_Summary": MessageLookupByLibrary.simpleMessage("Обзор обзора"),
         "Review_Summary_Desc": MessageLookupByLibrary.simpleMessage(
             "Вердикт обзора генерируется искусственным интеллектом на основе следующих обзоров и может быть неточным. Пожалуйста, прочитайте отзывы для получения дополнительной информации."),
+        "Review_summary": MessageLookupByLibrary.simpleMessage(
+            "Просмотреть сводку всех отзывов, сгенерированную искусственным интеллектом."),
         "Reviews": MessageLookupByLibrary.simpleMessage("Отзывы"),
         "Rewatch": MessageLookupByLibrary.simpleMessage("Пересмотреть"),
         "Rewatching": MessageLookupByLibrary.simpleMessage("Пересматриваю"),
@@ -958,6 +1005,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Найдите свое любимое аниме, мангу и многое другое.."),
         "Search_Results":
             MessageLookupByLibrary.simpleMessage("результаты поиска"),
+        "Search_by_genre":
+            MessageLookupByLibrary.simpleMessage("Поиск по тому же жанру"),
         "Search_for": MessageLookupByLibrary.simpleMessage("Искать"),
         "Season": MessageLookupByLibrary.simpleMessage("Время года"),
         "Seasonal": MessageLookupByLibrary.simpleMessage("Сезонный"),
@@ -1012,6 +1061,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Время установки истекло. Пожалуйста, попробуйте еще раз."),
         "Share": MessageLookupByLibrary.simpleMessage("Делиться"),
         "Shoujo": MessageLookupByLibrary.simpleMessage("Сёдзё"),
+        "Should_be_aplhanumeric": MessageLookupByLibrary.simpleMessage(
+            "Должно быть буквенно-цифровым"),
         "Shounen": MessageLookupByLibrary.simpleMessage("Сёнен"),
         "Show": MessageLookupByLibrary.simpleMessage("Показывать"),
         "ShowOnlyLastQuote": MessageLookupByLibrary.simpleMessage(
@@ -1135,6 +1186,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Теги не будут применяться к поисковому запросу."),
         "Tap_to_Sign_In":
             MessageLookupByLibrary.simpleMessage("Нажмите, чтобы войти"),
+        "Tap_to_edit":
+            MessageLookupByLibrary.simpleMessage("Нажмите, чтобы изменить"),
+        "Tap_to_select": MessageLookupByLibrary.simpleMessage(
+            "Нажмите, чтобы выбрать поле для редактирования"),
         "Team_Sports":
             MessageLookupByLibrary.simpleMessage("Командные виды спорта"),
         "Technology": MessageLookupByLibrary.simpleMessage("Технологии"),
