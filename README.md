@@ -12,47 +12,49 @@
 [![Github downloads](https://img.shields.io/github/downloads/jica98/dailyal/total?label=downloads&labelColor=27303D&color=0D1117&logo=github&logoColor=FFFFFF&style=flat)](https://github.com/JICA98/DailyAL/releases)
 [![GitHub stars](https://img.shields.io/github/stars/jica98/dailyal?label=stars&labelColor=27303D&color=0D1117&logo=github&logoColor=FFFFFF&style=flat)](#)
 [![License: Apache-2.0](https://img.shields.io/github/license/jica98/dailyal?labelColor=27303D&color=818cf8)](/LICENSE)
+[![Languages](https://img.shields.io/github/languages/count/jica98/dailyal?label=Languages&logo=googleearth)](/lib/l10n)
 
 ## Download
 
-[![GitHub Releases](https://img.shields.io/badge/GitHub%20Releases-Download-27303D?logo=github&logoColor=FFFFFF)](https://github.com/JICA98/DailyAL/releases)
+[![GitHub Releases](https://img.shields.io/github/v/tag/jica98/dailyal?label=Github&logo=github&logoColor=FFFFFF)](https://github.com/JICA98/DailyAL/releases)
 [![Play Store](https://img.shields.io/badge/Play%20Store-Download-3DDC84?logo=google-play&logoColor=FFFFFF)](https://play.google.com/store/apps/details?id=io.github.jica98)
-[![f-droid](https://img.shields.io/badge/F-Droid-Download-1976D2?logo=f-droid&logoColor=FFFFFF)](https://f-droid.org/packages/io.github.jica98/)
+[![f-droid](https://img.shields.io/f-droid/v/io.github.jica98?logo=f-droid&logoColor=FFFFFF)](https://f-droid.org/packages/io.github.jica98/)
  
 </div>
+
 ## Features
 
-Search through the huge MyAnimeList database and find your favorite anime and manga. Surf through the forums and find millions of discussions at your finger tips. Get detailed reviews and find tons of recommendations for all the anime and manga in MyAnimeList.
+Explore the extensive MyAnimeList database to discover your favorite anime and manga. Engage in forums with millions of discussions at your fingertips. Access detailed reviews and receive numerous recommendations for all anime and manga on MyAnimeList.
 
 ### ⚡️ Anime & Manga ⚡️
 
-⭐ Seasonal Anime, Top Upcoming Anime, Most Popular Anime, Anime Ranking List, All time Favorites and more.
+- Discover Seasonal Anime, Top Upcoming Anime, Most Popular Anime, Anime Ranking Lists, All-time Favorites, and more.
 
-⭐ Anime/Manga Synopsis. Related and Recommended content.
+- Access Anime/Manga Synopses, Related and Recommended content.
 
-⭐ Detailed Anime reviews and Anime/Manga Statistics.
+- Read Detailed Anime reviews and view Anime/Manga Statistics.
 
-### ⚡️ Theming and Customization⚡️
+### ⚡️ Theming and Customization ⚡️
 
-⭐ Select from 4 different Dark Themes, namely Spring, Summer, Fall and Winter.
+- Choose from 4 distinct Dark Themes: Spring, Summer, Fall, and Winter.
 
-⭐ Customize even the Bottom Navigation bar and cache update frequency.
+- Customize the Bottom Navigation bar and adjust cache update frequency.
 
 ### ⚡️ MyAnimeList Forums ⚡️
 
-⭐ Forums - MyAnimeList, Anime & Manga and even General Discussions.
+- Participate in forums dedicated to MyAnimeList, Anime & Manga, and General Discussions.
 
-### ⚡️ Advanced Search Bar⚡️
+### ⚡️ Advanced Search Bar ⚡️
 
-⭐ Make advanced searches directly from the search bar using "@" "#" with ease.
+- Perform advanced searches directly from the search bar using "@" and "#" with ease.
 
-⭐ Faster search loading times using caching mechanisms.
+- Experience faster search loading times with caching mechanisms.
 
-### ⚡️ User Specific Features⚡️
+### ⚡️ User-Specific Features ⚡️
 
-⭐ Edit/Update your Anime/Manga List within seconds.
+- Quickly Edit/Update your Anime/Manga List.
 
-⭐ Sort your list by Title, List Score, Start Date and Updated Date.
+- Sort your list by Title, List Score, Start Date, and Updated Date.
 
 
 ### Getting Started
