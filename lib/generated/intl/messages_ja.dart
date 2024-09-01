@@ -878,6 +878,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search_Page_Intro":
             MessageLookupByLibrary.simpleMessage("お気に入りのアニメ、マンガなどを検索してください.."),
         "Search_Results": MessageLookupByLibrary.simpleMessage("の検索結果"),
+        "Search_by_genre": MessageLookupByLibrary.simpleMessage("同じジャンルで探す"),
         "Search_for": MessageLookupByLibrary.simpleMessage("検索する"),
         "Season": MessageLookupByLibrary.simpleMessage("季節"),
         "Seasonal": MessageLookupByLibrary.simpleMessage("季節の"),

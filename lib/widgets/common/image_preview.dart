@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'dart:math';
+import 'dart:typed_data';
 import 'dart:ui';
 
 import 'package:dailyanimelist/constant.dart';
@@ -84,6 +85,19 @@ Widget imageButtons(String url, BuildContext context,
       ),
     ],
   );
+}
+
+Future<void> saveImageBytes(Uint8List bytes) async {
+  try {
+    var path = await FileStorage.getExternalDocumentPath();
+    var fileName = new Random().nextInt(10000000).toString() + '.jpg';
+    var newPath = '$path/$fileName';
+    File file = File(newPath);
+    await file.writeAsBytes(bytes);
+    showToast('Image saved to $newPath');
+  } catch (e) {
+    showToast('Error saving image');
+  }
 }
 
 void saveImage(String url) async {
@@ -227,3 +241,5 @@ Center _imageLoader(ImageChunkEvent? event) {
     ),
   );
 }
+
+

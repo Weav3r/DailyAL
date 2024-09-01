@@ -1,5 +1,6 @@
 import 'package:dailyanimelist/user/anime_manga_tab_pref.dart';
 import 'package:dailyanimelist/user/list_pref.dart';
+import 'package:dailyanimelist/util/error/error_reporting.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'anime_manga_pref.g.dart';

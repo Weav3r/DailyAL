@@ -980,6 +980,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "Search_Page_Intro": MessageLookupByLibrary.simpleMessage(
             "البحث عن أنيمي المفضلة لديك، مانغا وأكثر .."),
         "Search_Results": MessageLookupByLibrary.simpleMessage("نتائج البحث"),
+        "Search_by_genre":
+            MessageLookupByLibrary.simpleMessage("البحث عن طريق نفس النوع"),
         "Search_for": MessageLookupByLibrary.simpleMessage("بحث عن"),
         "Season": MessageLookupByLibrary.simpleMessage("موسم"),
         "Seasonal": MessageLookupByLibrary.simpleMessage("موسمي"),

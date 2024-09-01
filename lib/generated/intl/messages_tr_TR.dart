@@ -987,6 +987,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "En sevdiğiniz animeyi, mangayı ve daha fazlasını arayın.."),
         "Search_Results":
             MessageLookupByLibrary.simpleMessage("Arama Sonuçları"),
+        "Search_by_genre":
+            MessageLookupByLibrary.simpleMessage("Aynı türe göre ara"),
         "Search_for": MessageLookupByLibrary.simpleMessage("Aramak"),
         "Season": MessageLookupByLibrary.simpleMessage("Mevsim"),
         "Seasonal": MessageLookupByLibrary.simpleMessage("Mevsimsel"),

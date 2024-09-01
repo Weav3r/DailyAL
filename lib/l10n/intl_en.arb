@@ -977,5 +977,6 @@
     "Default_tab_selected_for_anime": "Default tab selected for anime",
     "Default_tab_selected_for_anime_manga": "Default tab selected for anime/manga",
     "If_nothing_is_selected": "If nothing is selected, it will default to last opened one.",
+    "Search_by_genre": "Search by same genre",
     "AnimeCalendar": "Anime Calendar"
 }

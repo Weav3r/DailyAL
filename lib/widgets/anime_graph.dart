@@ -2,7 +2,6 @@ import 'dart:collection';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:dailyanimelist/api/malapi.dart';
-import 'package:dailyanimelist/cache/cachemanager.dart';
 import 'package:dailyanimelist/constant.dart';
 import 'package:dailyanimelist/enums.dart';
 import 'package:dailyanimelist/generated/l10n.dart';
@@ -165,6 +164,12 @@ class _AnimeGraphWidgetState extends State<AnimeGraphWidget> {
 
   Color _getColorByRelationType(dal.GRelationType? relationType) {
     return _edgeColorMap[relationType] ?? Colors.blue;
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
   }
 
   @override

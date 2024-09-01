@@ -980,5 +980,6 @@
     "Default_tab_selected_for_manga": "Tab default dipilih untuk manga",
     "Default_tab_selected_for_anime": "Tab default dipilih untuk anime",
     "Default_tab_selected_for_anime_manga": "Tab default dipilih untuk anime/manga",
-    "If_nothing_is_selected": "Jika tidak ada yang dipilih, maka defaultnya adalah yang terakhir dibuka."
+    "If_nothing_is_selected": "Jika tidak ada yang dipilih, maka defaultnya adalah yang terakhir dibuka.",
+    "Search_by_genre": "Cari berdasarkan genre yang sama"
 }

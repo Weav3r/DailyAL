@@ -1012,6 +1012,8 @@ class MessageLookup extends MessageLookupByLibrary {
             "Procure o seu anime favorito, mangá e mais .."),
         "Search_Results":
             MessageLookupByLibrary.simpleMessage("Procurar Resultados"),
+        "Search_by_genre":
+            MessageLookupByLibrary.simpleMessage("Pesquise pelo mesmo gênero"),
         "Search_for": MessageLookupByLibrary.simpleMessage("Procurar"),
         "Season": MessageLookupByLibrary.simpleMessage("Temporada"),
         "Seasonal": MessageLookupByLibrary.simpleMessage("Sazonal"),

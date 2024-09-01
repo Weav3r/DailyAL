@@ -87,6 +87,7 @@ class ContentDetailedScreen extends StatefulWidget {
     this.onUpdateList,
     this.heroTag,
   });
+
   @override
   _ContentDetailedScreenState createState() => _ContentDetailedScreenState();
 }
@@ -127,6 +128,7 @@ class _ContentDetailedScreenState extends State<ContentDetailedScreen>
   ScheduleData? _scheduleData;
 
   int get _id => (widget.node != null ? widget.node!.id : widget.id)!;
+
   String get _title =>
       widget.node?.title != null ? widget.node?.title : contentDetailed?.title;
 
@@ -995,6 +997,8 @@ class _ContentDetailedScreenState extends State<ContentDetailedScreen>
       bookMarkMenuItem(context),
       AppbarMenuItem(S.current.More_Info, Icon(Icons.info_outline),
           onTap: _openMoreInfo),
+      AppbarMenuItem(S.current.Search_by_genre, Icon(Icons.manage_search),
+          onTap: _onMultiGenreSearch),
       if (isAnime)
         AppbarMenuItem(S.current.Customize_tabs, Icon(Icons.edit_square),
             onTap: _editAnimeMangaTabs),
@@ -1692,11 +1696,31 @@ class _ContentDetailedScreenState extends State<ContentDetailedScreen>
       ),
     );
   }
+
+  void _onMultiGenreSearch() {
+    if (nullOrEmpty(contentDetailed?.genres)) return;
+    final genresL = contentDetailed.genres as List<MalGenre>;
+    final genres = genresL.take(5).map((g) => convertGenre(g, widget.category)).toList();
+    final filter = (widget.category.equals("anime")
+        ? CustomFilters.genresAnimeFilter
+        : CustomFilters.genresMangaFilter)
+      ..includedOptions = [...genres];
+    gotoPage(
+      context: context,
+
+      newPage: GeneralSearchScreen(
+        autoFocus: false,
+        category: widget.category,
+        filterOutputs: { 'genres': filter },
+      ),
+    );
+  }
 }
 
 class NoScalingAnimation extends FloatingActionButtonAnimator {
   late double _x;
   late double _y;
+
   @override
   Offset getOffset(
       {required Offset begin, required Offset end, required double progress}) {

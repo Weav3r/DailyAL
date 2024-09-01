@@ -7,8 +7,18 @@ part of 'anime_manga_pref.dart';
 // **************************************************************************
 
 AnimeMangaPagePreferences _$AnimeMangaPagePreferencesFromJson(
-        Map<String, dynamic> json) =>
-    AnimeMangaPagePreferences(
+        Map<String, dynamic> json) {
+  List<ContentCardProps>? list;
+  try {
+    list = (json['contentCardProps'] as List<dynamic>?)
+        ?.map((e) => ContentCardProps.fromJson(e as Map<String, dynamic>?))
+        .toList();
+  } catch (e) {
+    if (e is Error) {
+     ErrorReporting.reportError(e);
+    }
+  }
+  return AnimeMangaPagePreferences(
       animeTabs: (json['animeTabs'] as List<dynamic>)
           .map((e) =>
               AnimeMangaTabPreference.fromJson(e as Map<String, dynamic>))
@@ -23,10 +33,9 @@ AnimeMangaPagePreferences _$AnimeMangaPagePreferencesFromJson(
       defaultTab: json['defaultTab'] as String?,
       defaultAnimeTab: json['defaultAnimeTab'] as String?,
       defaultMangaTab: json['defaultMangaTab'] as String?,
-      contentCardProps: (json['contentCardProps'] as List<dynamic>?)
-          ?.map((e) => ContentCardProps.fromJson(e as Map<String, dynamic>?))
-          .toList(),
+      contentCardProps: list,
     );
+}
 
 Map<String, dynamic> _$AnimeMangaPagePreferencesToJson(
         AnimeMangaPagePreferences instance) =>

@@ -9820,6 +9820,16 @@ class S {
     );
   }
 
+  /// `Search by same genre`
+  String get Search_by_genre {
+    return Intl.message(
+      'Search by same genre',
+      name: 'Search_by_genre',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Anime Calendar`
   String get AnimeCalendar {
     return Intl.message(
