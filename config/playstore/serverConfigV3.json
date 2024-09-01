@@ -2,7 +2,7 @@
   "bmacLink": false,
   "dalAPIUrl": "https://daily-al-rust-f72806ebd296.herokuapp.com",
   "discordLink": "https://discord.gg/ap4Wghv5e8",
-  "errorLogging": false,
+  "errorLogging": true,
   "maxLoad": 100,
   "featureFlags": {
     "aireviews": true
